@@ -1,7 +1,11 @@
 <template>
   <div id="app">
-    <h1>{{ msg }}</h1>
-    <drill v-for="item in items" :key="item.id" :title="item.title"></drill>
+    <div class="container">
+      <h1>{{ msg }}</h1>
+      <div class="drills">
+        <drill v-for="item in items" :key="item.id" :title="item.title" :color="item.color"></drill>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,16 +18,19 @@ export default {
     return {
       msg: 'Iso Athletic',
       items: [
-        { title: '2 PT Make'},
-        { title: '3 PT Make'},
-        { title: '3 PT Make'},
-        { title: '3 PT Make'},
-        { title: '3 PT Make'},
-        { title: '3 PT Make'},
-        { title: '3 PT Make'},
-        { title: '3 PT Make'},
-        { title: '3 PT Make'},
-        { title: '3 PT Make'},
+        { title: '2 PT Make', color: 'green'},
+        { title: '3 PT Make', color: 'green'},
+        { title: 'FT', color: 'green'},
+        { title: '2 PT Miss', color: 'red'},
+        { title: '3 PT Miss', color: 'red'},
+        { title: 'FT', color: 'red'},
+        { title: 'Assist'},
+        { title: 'Turnover'},
+        { title: 'Off Rebound'},
+        { title: 'Def Rebound'},
+        { title: 'Steal'},
+        { title: 'Block'},
+        { title: 'Foul'},
       ]
     }
   },
@@ -47,17 +54,10 @@ h1, h2 {
   font-weight: normal;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+.drills {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 </style>
