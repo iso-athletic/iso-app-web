@@ -29,10 +29,10 @@ pool.connect(function (err, client, done) {
     console.log('listening on 3000')
   })
   myClient = client
-  var testQuery = format('INSERT INTO test (data) VALUES (%L)', testMessage)
+  var testQuery = format('INSERT INTO users (name, role_id, organization_id) VALUES (%L,%L,%L)', 'Joe Cummings', 1,1);
   myClient.query(testQuery, function (err, result) {
     if (err) {
         console.log(err);
     }});
-    
+
 });

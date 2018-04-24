@@ -1,63 +1,70 @@
 <template>
-  <div id="app">
-    <div class="container">
-      <h1>{{ msg }}</h1>
-      <div class="drills">
-        <drill v-for="item in items" :key="item.id" :title="item.title" :color="item.color"></drill>
+  <div>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Auth0 - Vue</a>
+
+          <router-link :to="'/'"
+            class="btn btn-primary btn-margin">
+              Home
+          </router-link>
+
+          <button
+            class="btn btn-primary btn-margin"
+            v-if="!authenticated"
+            @click="login()">
+              Log In
+          </button>
+
+          <button
+            class="btn btn-primary btn-margin"
+            v-if="authenticated"
+            @click="logout()">
+              Log Out
+          </button>
+
+        </div>
       </div>
+    </nav>
+
+    <div class="container">
+      <router-view
+        :auth="auth"
+        :authenticated="authenticated">
+      </router-view>
     </div>
   </div>
 </template>
 
 <script>
-import drill from './components/drills-int/drills.vue';
+import AuthService from './auth/AuthService'
+
+const auth = new AuthService()
+
+const { login, logout, authenticated, authNotifier } = auth
 
 export default {
   name: 'app',
   data () {
+    authNotifier.on('authChange', authState => {
+      this.authenticated = authState.authenticated
+    })
     return {
-      msg: 'Iso Athletic',
-      items: [
-        { title: '2 PT Make', color: 'green'},
-        { title: '3 PT Make', color: 'green'},
-        { title: 'FT', color: 'green'},
-        { title: '2 PT Miss', color: 'red'},
-        { title: '3 PT Miss', color: 'red'},
-        { title: 'FT', color: 'red'},
-        { title: 'Assist'},
-        { title: 'Turnover'},
-        { title: 'Off Rebound'},
-        { title: 'Def Rebound'},
-        { title: 'Steal'},
-        { title: 'Block'},
-        { title: 'Foul'},
-      ]
+      auth,
+      authenticated
     }
   },
-  components: {
-    drill,
+  methods: {
+    login,
+    logout
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 
-h1, h2 {
-  font-weight: normal;
-}
-
-.drills {
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.btn-margin {
+  margin-top: 7px
 }
 </style>
