@@ -24,6 +24,12 @@
               Log Out
           </button>
 
+          <button
+            v-if="authenticated"
+            @click="getData()">
+            Get Data
+          </button>
+
         </div>
       </div>
     </nav>
@@ -44,6 +50,12 @@ const auth = new AuthService()
 
 const { login, logout, authenticated, authNotifier } = auth
 
+import testAPI from './apis/get'
+
+const test = new testAPI()
+
+const { getData } = test
+
 export default {
   name: 'app',
   data () {
@@ -57,7 +69,8 @@ export default {
   },
   methods: {
     login,
-    logout
+    logout,
+    getData
   }
 }
 </script>

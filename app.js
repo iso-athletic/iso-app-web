@@ -34,5 +34,4 @@ pool.connect(function (err, client, done) {
     if (err) {
         console.log(err);
     }});
-
 });
