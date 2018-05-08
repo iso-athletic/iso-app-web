@@ -64,6 +64,14 @@ export default {
 
 <style>
 
+body {
+  background-image: url("assets/stadium_background.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .btn-margin {
   margin-top: 7px
 }
