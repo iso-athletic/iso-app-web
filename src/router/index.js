@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
 import Callback from '../components/Callback'
+import ActionsSelect from '../components/settings/ActionsSelect'
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ const router = new Router({
     {
       path: '*',
       redirect: '/home'
+    },
+    {
+      path: '/settings/actionsselect',
+      name: 'ActionsSelect',
+      component: ActionsSelect
     }
   ]
 })

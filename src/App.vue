@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Auth0 - Vue</a>
+          <a class="navbar-brand" href="#">Iso Athletic</a>
 
           <router-link :to="'/'"
             class="btn btn-primary btn-margin">
@@ -24,11 +24,11 @@
               Log Out
           </button>
 
-          <button
+          <router-link :to="{ path: 'settings/actionsselect', params: {} }"
             v-if="authenticated"
-            @click="getData()">
-            Get Data
-          </button>
+            class="btn btn-primary btn-margin">
+            Actions
+          </router-link>
 
         </div>
       </div>
