@@ -17,6 +17,20 @@
 </script>
 
 <style>
+  html {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    background-image: url("../assets/stadium_background.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
   a {
     cursor: pointer;
   }
