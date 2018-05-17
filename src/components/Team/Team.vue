@@ -22,6 +22,7 @@ export default {
       Grid,
   },
   data() {
+    // all hardcoded data
       return {
           university: "University of Miami",
           gender: "Men",
@@ -64,6 +65,12 @@ export default {
 </script>
 
 <style>
+/************* TODO: fix styling *****************
+ * which font to use
+ * font size
+ * margins
+**************************************************/
+
   html {
       height: 100%;
       margin: 0;

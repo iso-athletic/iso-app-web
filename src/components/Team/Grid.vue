@@ -31,12 +31,14 @@
   export default {
     name: 'grid',
     props: {
+      // add requirements to these?
       data: Array,
       columns: Array,
       filterKey: String,
       title: String,
       date: String,
     },
+
     data: function () {
       var sortOrders = {}
       this.columns.forEach(function (key) {
@@ -47,6 +49,7 @@
         sortOrders: sortOrders
       }
     },
+
     computed: {
       filteredData: function () {
         var sortKey = this.sortKey
@@ -70,11 +73,13 @@
         return data
       }
     },
+
     filters: {
       capitalize: function (str) {
         return str.charAt(0).toUpperCase() + str.slice(1)
       }
     },
+
     methods: {
       sortBy: function (key) {
         this.sortKey = key
@@ -85,6 +90,8 @@
 </script>
 
 <style scoped>
+/************* TODO: fix styling *****************
+**************************************************/
   .grid {
     color: white;
     margin: inherit;
