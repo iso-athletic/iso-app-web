@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
 import Callback from '../components/Callback'
-import Team from '../components/Team'
+import Team from '../components/Team/Team'
 
 Vue.use(Router)
 

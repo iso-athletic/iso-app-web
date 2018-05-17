@@ -64,6 +64,9 @@ export default {
 
 <style>
 
+.container {
+  margin: 50px;
+}
 
 .btn-margin {
   margin-top: 7px
