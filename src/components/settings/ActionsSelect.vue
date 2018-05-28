@@ -1,13 +1,11 @@
 <template>
-  <div id="app">
-    <div class="container">
+    <div class="actions">
       <h3>{{ msg }}</h3>
       <div class="action">
         <action v-for="item in items" :key="item.id" :title="item.title" :isActive="item.isActive"></action>
       </div>
-      <button class="btn btn-secondary save">Save</button>
+      <button class="btn btn-secondary">Save</button>
     </div>
-  </div>
 </template>
 
 <script>
@@ -42,7 +40,7 @@ export default {
 </script>
 
 <style>
-#app {
+.actions {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
