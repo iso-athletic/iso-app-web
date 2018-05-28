@@ -1,35 +1,32 @@
 <template>
   <div>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Iso Athletic</a>
-
+        </div>
+        <div class="navbar-nav">
           <router-link :to="'/'"
-            class="btn btn-primary btn-margin">
+            class="nav-item nav-link">
               Home
           </router-link>
-
-          <button
-            class="btn btn-primary btn-margin"
+          <a
+            class="nav-item nav-link"
             v-if="!authenticated"
             @click="login()">
               Log In
-          </button>
-
-          <button
-            class="btn btn-primary btn-margin"
+          </a>
+          <router-link :to="{ path: '/settings', params: {} }"
+            v-if="authenticated"
+            class="nav-item nav-link">
+            Settings
+          </router-link>
+          <a
+            class="nav-item nav-link"
             v-if="authenticated"
             @click="logout()">
               Log Out
-          </button>
-
-          <router-link :to="{ path: 'settings/actionsselect', params: {} }"
-            v-if="authenticated"
-            class="btn btn-primary btn-margin">
-            Actions
-          </router-link>
-
+          </a>
         </div>
       </div>
     </nav>
