@@ -26,14 +26,20 @@ export default class AuthService {
   })
 
   login () {
-    this.auth0.authorize();
+    this.auth0.popup.authorize({
+      // nothing
+    }, function(err, result){
+      console.log(err, result);
+    });
   }
 
   handleAuthentication () {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult)
-        router.replace('home')
+        this.setSession(authResult);
+        window.opener.location.reload(true);
+        window.close();
+        e.preventDefault();
       } else if (err) {
         router.replace('home')
         console.log(err)

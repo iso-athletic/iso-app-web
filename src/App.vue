@@ -7,6 +7,7 @@
         </div>
         <div class="navbar-nav">
           <router-link :to="'/'"
+            v-if="authenticated"
             class="nav-item nav-link">
               Home
           </router-link>
@@ -15,6 +16,12 @@
             v-if="!authenticated"
             @click="login()">
               Log In
+          </a>
+          <a
+            class="nav-item nav-link"
+            v-if="!authenticated"
+            @click="login()">
+              Sign Up
           </a>
           <router-link :to="{ path: '/settings', params: {} }"
             v-if="authenticated"
@@ -51,7 +58,7 @@ import testAPI from './apis/get'
 
 const test = new testAPI()
 
-const { getData } = test
+// const { getData } = test
 
 export default {
   name: 'app',
@@ -67,7 +74,7 @@ export default {
   methods: {
     login,
     logout,
-    getData
+    // getData
   }
 }
 </script>
