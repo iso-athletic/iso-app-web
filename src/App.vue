@@ -1,4 +1,5 @@
 <template>
+  <v-app dark>
   <div>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -35,6 +36,7 @@
       </router-view>
     </div>
   </div>
+  </v-app>
 </template>
 
 <script>

@@ -1,4 +1,5 @@
 <template>
+  <v-container fluid>
     <div>
     <h1> {{university}} </h1>
     <h3> {{teamDescription}}</h3>
@@ -9,12 +10,18 @@
       :filter-key="searchQuery"
       :data="gridData"
       />
+      <div>
+        <v-date-picker v-model="picker" :landscape="landscape" :reactive="reactive"></v-date-picker>
+      </div>
     </div>
+  </v-container>
 </template>
 
 <script>
 import Grid from "./Grid.vue"
 import moment from 'moment'
+import Vue from 'vue'
+
 
 export default {
   name: 'team',
@@ -43,6 +50,9 @@ export default {
           ],
           searchQuery: "",
           date: "",
+          picker: null,
+          landscape: false,
+          reactive: false
       }
   },
 
