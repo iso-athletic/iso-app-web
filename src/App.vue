@@ -1,4 +1,5 @@
 <template>
+  <v-app dark>
   <div>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
       <div class="container-fluid">
@@ -45,6 +46,7 @@
       </router-view>
     </div>
   </div>
+  </v-app>
 </template>
 
 <script>
@@ -81,12 +83,8 @@ export default {
 
 <style>
 
-body {
-  background-image: url("assets/stadium_background.jpg");
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+.container {
+  margin: 50px;
 }
 
 .btn-margin {

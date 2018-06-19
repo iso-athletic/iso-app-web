@@ -5,6 +5,7 @@ import Callback from '../components/Callback'
 import ActionsSelect from '../components/settings/ActionsSelect'
 import Settings from '../components/settings/Settings'
 import Clock from '../components/settings/Clock'
+import Team from '../components/Team/Team'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ const router = new Router({
       path: '/settings/clock',
       name: 'Clock',
       component: Clock
+    },
+    {
+      path: '/team',
+      name: 'Team',
+      component: Team
     }
   ]
 })
