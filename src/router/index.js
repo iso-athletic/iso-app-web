@@ -6,6 +6,7 @@ import ActionsSelect from '../components/settings/ActionsSelect'
 import Settings from '../components/settings/Settings'
 import Clock from '../components/settings/Clock'
 import Team from '../components/Team/Team'
+import ScrimmageApp from '../components/Scrimmage/ScrimmageApp'
 
 Vue.use(Router)
 
@@ -45,6 +46,11 @@ const router = new Router({
       path: '/team',
       name: 'Team',
       component: Team
+    },
+    {
+      path: '/scrimmage',
+      name: 'Scrimmage',
+      component: ScrimmageApp
     }
   ]
 })
