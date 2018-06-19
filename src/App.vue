@@ -1,29 +1,39 @@
 <template>
   <div>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Auth0 - Vue</a>
-
+          <a class="navbar-brand" href="#">Iso Athletic</a>
+        </div>
+        <div class="navbar-nav">
           <router-link :to="'/'"
-            class="btn btn-primary btn-margin">
+            v-if="authenticated"
+            class="nav-item nav-link">
               Home
           </router-link>
-
-          <button
-            class="btn btn-primary btn-margin"
+          <a
+            class="nav-item nav-link"
             v-if="!authenticated"
             @click="login()">
               Log In
-          </button>
-
-          <button
-            class="btn btn-primary btn-margin"
+          </a>
+          <a
+            class="nav-item nav-link"
+            v-if="!authenticated"
+            @click="login()">
+              Sign Up
+          </a>
+          <router-link :to="{ path: '/settings', params: {} }"
+            v-if="authenticated"
+            class="nav-item nav-link">
+            Settings
+          </router-link>
+          <a
+            class="nav-item nav-link"
             v-if="authenticated"
             @click="logout()">
               Log Out
-          </button>
-
+          </a>
         </div>
       </div>
     </nav>
@@ -44,6 +54,12 @@ const auth = new AuthService()
 
 const { login, logout, authenticated, authNotifier } = auth
 
+import testAPI from './apis/get'
+
+const test = new testAPI()
+
+// const { getData } = test
+
 export default {
   name: 'app',
   data () {
@@ -57,7 +73,8 @@ export default {
   },
   methods: {
     login,
-    logout
+    logout,
+    // getData
   }
 }
 </script>

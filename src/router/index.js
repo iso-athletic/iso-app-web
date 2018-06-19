@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
 import Callback from '../components/Callback'
+import ActionsSelect from '../components/settings/ActionsSelect'
+import Settings from '../components/settings/Settings'
+import Clock from '../components/settings/Clock'
 
 Vue.use(Router)
 
@@ -21,6 +24,21 @@ const router = new Router({
     {
       path: '*',
       redirect: '/home'
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
+    },
+    {
+      path: '/settings/actions',
+      name: 'ActionsSelect',
+      component: ActionsSelect
+    },
+    {
+      path: '/settings/clock',
+      name: 'Clock',
+      component: Clock
     }
   ]
 })
