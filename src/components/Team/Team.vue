@@ -1,52 +1,129 @@
 <template>
   <v-container fluid>
-    <div>
-    <h1> {{university}} </h1>
-    <h3> {{teamDescription}}</h3>
-    <grid
-      title="Scoreboard"
-      :date="date"
-      :columns="gridColumns"
-      :filter-key="searchQuery"
-      :data="gridData"
-      />
-      <div>
+    <v-layout row wrap>
+      <v-flex xs6>
+        <v-card>
+          <v-card-title>
+            SCOREBOARD
+          </v-card-title>
+          <v-spacer></v-spacer>
+          <h1>{{date}}</h1>
+          <v-data-table
+            :headers="scoreboardHeaders"
+            :items="players"
+            hide-actions>
+            <template slot="items" slot-scope="props">
+              <td>{{ props.item.player}}</td>
+              <td class="text-xs-center">{{ props.item.points}}</td>
+              <td class="text-xs-center">{{ props.item.assists}}</td>
+              <td class="text-xs-center">{{ props.item.rebounds}}</td>
+              <td class="text-xs-center">{{ props.item.steals}}</td>
+              <td class="text-xs-center">{{ props.item.blocks}}</td>
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-flex>
+      <v-flex xs6>
         <v-date-picker v-model="picker" :landscape="landscape" :reactive="reactive"></v-date-picker>
-      </div>
-    </div>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex xs6>
+        <v-card>
+          <v-card-title>
+            PLAYER DEVELOPMENT
+          </v-card-title>
+          <v-data-table
+            :headers="pdHeaders"
+            :items="pdPlayers"
+            hide-actions>
+            <template slot="items" slot-scope="props">
+              <td>{{ props.item.player}}</td>
+              <td class="text-xs-center">{{ props.item.threePT}}</td>
+              <td class="text-xs-center">{{ props.item.stls}}</td>
+              <td class="text-xs-center">{{ props.item.blk}}</td>
+              <td class="text-xs-center">{{ props.item.fgp}}</td>
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
 <script>
-import Grid from "./Grid.vue"
 import moment from 'moment'
 import Vue from 'vue'
 
 
 export default {
   name: 'team',
-  components: {
-      Grid,
-  },
   data() {
     // all hardcoded data
       return {
           university: "University of Miami",
           gender: "Men",
           sport: "Basketball",
-          gridData: [
+          players: [
             { player: 'Newton', points: 20, assists: 6, rebounds: 3, steals: 3, blocks: 4},
             { player: 'Lykes', points: 18, assists: 15, rebounds: 8, steals: 4, blocks: 2},
             { player: 'Walker IV', points: 13, assists: 4, rebounds: 6, steals: 2, blocks: 1},
             { player: 'Robinson', points: 3, assists: 7, rebounds: 9, steals: 1, blocks: 3},
           ],
-          gridColumns: [
-            'player',
-            'points',
-            'assists',
-            'rebounds',
-            'steals',
-            'blocks',
+          scoreboardHeaders: [
+            {
+              text: 'Player',
+              align: 'left',
+              value: 'player',
+            },
+            {
+              text: 'Points',
+              value: 'points'
+            },
+            {
+              text: 'Assists',
+              value: 'assists'
+            },
+            {
+              text: 'Rebounds',
+              value: 'rebounds',
+            },
+            {
+              text: 'Steals',
+              value: 'steals'
+            },
+            {
+              text: 'Blocks',
+              value: 'blocks'
+            }
+          ],
+          pdPlayers: [
+            {player: 'Newton', threePT: 5, stls: 2, blk: 3, fgp: 57},
+            {player: 'Robinson', threePT: 2, stls: 1, blk: 3, fgp: 63},
+            {player: 'Walker', threePT: 7, stls: 4, blk: 1, fgp: 72},
+          ],
+          pdHeaders: [
+            {
+              text: 'Player',
+              align: 'left',
+              value: 'player',
+            },
+            {
+              text: '3PT',
+              value: 'threePT',
+            },
+            {
+              text: 'STLS',
+              value: 'stls',
+            },
+            {
+              text: 'BLK',
+              value: 'blk'
+            },
+            {
+              text: 'FG%',
+              value: 'fgp',
+            },
           ],
           searchQuery: "",
           date: "",
