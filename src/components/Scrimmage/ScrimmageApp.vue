@@ -1,6 +1,7 @@
 <template>
   <div>
     <Timer />
+    <Court />
   </div>
 </template>
 
@@ -8,12 +9,14 @@
 import moment from 'moment'
 import Vue from 'vue'
 import Timer from './Timer.vue'
+import Court from './Court.vue'
 
 
 export default {
   name: 'scrimmage',
   components: {
     Timer,
+    Court,
   }
 }
 </script>

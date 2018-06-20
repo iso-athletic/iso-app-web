@@ -16,7 +16,6 @@
  * allow user to change the timer directly instead of input vals
  * alert sound when timer done?
  */
-import moment from 'moment'
 import Vue from 'vue'
 
 export default {
