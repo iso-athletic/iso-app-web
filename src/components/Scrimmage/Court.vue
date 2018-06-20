@@ -35,6 +35,7 @@ export default {
         /**** drawing 3pt line  *****/
         // TODO: fix arc position (make flat on top and bottom)
         p.noFill();
+        p.stroke(255);
         p.arc(4*unit, p.height/2, 41.5*unit, 41.5*unit, -p.HALF_PI - p.QUARTER_PI, p.HALF_PI+p.QUARTER_PI);
 
         /**** drawing lane lines ****/
