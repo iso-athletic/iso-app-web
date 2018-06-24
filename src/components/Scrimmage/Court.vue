@@ -11,16 +11,16 @@ export default {
     return {
       script: null,
       ps: null,
-      position: null,
     }
   },
   mounted() {
+    /**** p5.js script ****/
     this.script = p => {
 
+      p.dots = [];
       p.setup = _ => {
         let canvas = p.createCanvas(400, 600);
         canvas.parent(this.$refs.canvas);
-        p.drawCourt();
       },
 
       p.drawCourt = _ => {
@@ -50,12 +50,32 @@ export default {
       p.mouseClicked = _ => {
         if (p.mouseX < p.width && p.mouseX > 0 &&
             p.mouseY < p.height && p.mouseY > 0) {
-          this.position = [p.mouseX, p.mouseY];
-          p.ellipse(p.mouseX, p.mouseY, 10, 10);
+          // p.ellipse(p.mouseX, p.mouseY, 10, 10);
+          let point = {
+            x: p.mouseX,
+            y: p.mouseY, 
+            // 255 is max alpha value
+            life: 255,
+          }
+          p.dots.push(point);
         }
+      },
+
+      p.draw = _ => {
+        p.drawCourt();
+        let newDots = [];
+        p.dots.forEach(point => {
+          p.noStroke();
+          p.fill(0, 126, 255, point.life);
+          p.ellipse(point.x, point.y, 15, 15);
+          let newPoint = point;
+          newPoint.life -= 4;
+          if (newPoint.life > 0) newDots.push(newPoint);
+        });
+
+        p.dots = newDots;
       }
     }
-
     const P5 = require('p5');
     this.ps = new P5(this.script);
   }
