@@ -2,6 +2,7 @@
   <div>
     <Timer />
     <Court />
+    <Players />
   </div>
 </template>
 
@@ -10,6 +11,7 @@ import moment from 'moment'
 import Vue from 'vue'
 import Timer from './Timer.vue'
 import Court from './Court.vue'
+import Players from './Players.vue'
 
 
 export default {
@@ -17,6 +19,7 @@ export default {
   components: {
     Timer,
     Court,
+    Players,
   }
 }
 </script>

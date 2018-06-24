@@ -20,14 +20,16 @@ export default {
       p.setup = _ => {
         let canvas = p.createCanvas(400, 600);
         canvas.parent(this.$refs.canvas);
-        p.background(72);
+        p.drawCourt();
+      },
 
+      p.drawCourt = _ => {
+        p.background(72);
         /**** TODO ****
          * draw additional details (backboard/hoop, lane line ticks, etc)
          * coloring for the court
          * why isn't the math working out?
         */
-
 
         /**** drawing court lines ****/
         const unit = p.height/50; // each unit represents 1 foot
@@ -43,10 +45,6 @@ export default {
 
         /**** drawing top of the key  ****/
         p.arc(19*unit, p.height/2, 12*unit, 12*unit, -p.HALF_PI, p.HALF_PI, p.CHORD);
-
-      },
-
-      p.draw = _ => {
       },
 
       p.mouseClicked = _ => {
