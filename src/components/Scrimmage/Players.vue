@@ -2,11 +2,11 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs6 sm6 md6>
-        <TeamView TeamName="Purple"/>
+        <TeamView :TeamName="team1"/>
       </v-flex>
 
       <v-flex xs6 sm6 md6>
-        <TeamView TeamName="White"/>
+        <TeamView :TeamName="team2"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -23,6 +23,8 @@ export default {
   },
   data() {
     return{
+      team1:"Purple",
+      team2:"White",
     }
   },
 }
