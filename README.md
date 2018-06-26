@@ -25,7 +25,15 @@ First and foremost, before anything else, make sure that you are up to date with
 
 ``` git pull```
 
-This will collect the latest changes if there are any. You should run this frequently to ensure there will be minimal merge conflicts. Next, you need to create your own branch on which to work. The naming convention should be `feature/name-of-changes`. The command is as follows:
+> If nothing happens, try `git pull origin master`. This explicity sets the reference you want to get. 
+
+This will collect the latest changes if there are any. You should run this frequently to ensure there will be minimal merge conflicts.
+
+On the off chance that other packages were installed in the latest merge, run this.
+
+``` npm install ```
+
+This will install any new packages. Next, you need to create your own branch on which to work. The naming convention should be `feature/name-of-changes`. The command is as follows:
 
 ```git checkout -b "feature/name-of-changes"```
 
