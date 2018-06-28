@@ -1,18 +1,31 @@
 <template>
-  <div>
-    <Timer />
-    <Court />
-    <Players />
+  <div id="scrimmage-view">
+    <v-layout row wrap>
+      <v-flex xs5>
+        <Timer />
+      </v-flex>
+      <v-flex xs5>
+        <Scoreboard />
+      </v-flex>
+      <v-flex x2>
+      </v-flex>
+      <v-flex xs5>
+        <Court />
+      </v-flex>
+      <v-flex xs5>
+        <Players />
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
 import Vue from 'vue'
-import Timer from './Timer.vue'
-import Court from './Court.vue'
-import Players from './Players.vue'
-
+import Timer from './Timer'
+import Court from './Court'
+import Players from './Players'
+import Scoreboard from './score-view/Scoreboard'
 
 export default {
   name: 'scrimmage',
@@ -20,6 +33,7 @@ export default {
     Timer,
     Court,
     Players,
+    Scoreboard
   }
 }
 </script>
@@ -28,7 +42,7 @@ export default {
 
   html {
       height: 100%;
-      margin: 0;
+      margin-top: 0px;
   }
   
   body {

@@ -162,7 +162,7 @@ export default {
       height: 100%;
       margin: 0;
   }
-  
+
   body {
       color: white;
       background-color: black;
