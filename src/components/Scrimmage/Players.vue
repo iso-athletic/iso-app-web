@@ -2,11 +2,15 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs6 sm6 md6>
-        <TeamView :TeamName="team1"/>
+        <TeamView 
+          :TeamName="team1"
+          :playersLeft="playersAvailable"/>
       </v-flex>
 
       <v-flex xs6 sm6 md6>
-        <TeamView :TeamName="team2"/>
+        <TeamView 
+          :TeamName="team2"
+          :playersLeft="playersAvailable"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -25,6 +29,7 @@ export default {
     return{
       team1:"Purple",
       team2:"White",
+      playersAvailable: ['Michael Jordan', 'Kobe Bryant', 'Lebron James', 'Steph Curry']
     }
   },
 }
