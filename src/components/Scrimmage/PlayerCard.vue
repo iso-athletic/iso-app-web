@@ -1,7 +1,8 @@
 <template>
   <div>
-    <v-btn>{{playerName}}</v-btn>
+    <v-btn @click="selectPlayer">{{playerName}}</v-btn>
     <v-btn @click="$emit('remove-player', playerName)"><v-icon>delete</v-icon></v-btn>
+    {{playerlog}}
   </div>
 </template>
 
@@ -12,8 +13,17 @@
     props: {
       playerName: String,
     },
+    computed: {
+      playerlog() {
+        return this.$store.getters.getEntry;
+      }
+    },
     methods: {
-      removePlayer() {
+      selectPlayer() {
+        if (this.$store.getters.isComplete) {
+          // do fun stuff here
+        }
+        this.$store.dispatch('updatePlayer', this.playerName);
       }
     }
     
