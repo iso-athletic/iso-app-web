@@ -44,8 +44,16 @@ export default {
   methods: {
     addPlayer() {
       // checking for unexpected input
-      if (this.newPlayerName == null) alert("Please select a player");
-      if (this.players.length >= 5) alert("5 Players already on the team");
+      if (this.newPlayerName == null) {
+        alert("Please select a player");
+        this.addPlayerDialog = false;
+        return;
+      }
+      if (this.players.length >= 5) {
+        alert("5 Players already on the team");
+        this.addPlayerDialog = false;
+        return;
+      }
 
       this.players.push(this.newPlayerName);
       this.newPlayerName = null;
