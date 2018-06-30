@@ -25,6 +25,7 @@ import Timer from './Timer'
 import Court from './Court'
 import Players from './Players'
 import Scoreboard from './score-view/Scoreboard'
+import Actions from './actions/Actions'
 
 export default {
   name: 'scrimmage',
@@ -32,7 +33,8 @@ export default {
     Timer,
     Court,
     Players,
-    Scoreboard
+    Scoreboard,
+    Actions,
   }
 }
 </script>

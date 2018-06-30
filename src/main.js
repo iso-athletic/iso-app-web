@@ -7,7 +7,6 @@ import store from './stateStores/ScrimmageAppStore'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
-import Vuex from 'vuex'
 
 Vue.use(Vuetify);
 
