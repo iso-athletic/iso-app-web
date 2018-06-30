@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-layout row wrap>
       <v-flex xs6 sm6 md6>
         <TeamView :TeamName="team1"/>
@@ -9,12 +9,12 @@
         <TeamView :TeamName="team2"/>
       </v-flex>
     </v-layout>
-  </v-container>
+  </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import TeamView from './TeamView.vue'
+import TeamView from './TeamView'
 
 export default {
   name: 'players',
