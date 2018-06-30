@@ -1,19 +1,25 @@
 <template>
 <div>
-  <ul class="list-group list-group-flush">
-    <router-link :to="{ path: '/settings/actions', params: {} }"
-      class="list-group-item">
-      <i class="far fa-hand-point-up"></i> Actions
-    </router-link>
-    <router-link :to="{ path: 'settings', params: {} }"
-      class="list-group-item">
-      <i class="far fa-user"></i> Players
-    </router-link>
-    <router-link :to="{ path: '/settings/clock', params: {} }"
-      class="list-group-item">
-      <i class="far fa-clock"></i> Clock
-    </router-link>
-  </ul>
+  <v-list>
+    <v-list-tile :to="{ path: '/settings/actions', params: {} }">
+      <v-list-tile-avatar>
+        <i class="far fa-user"></i>
+      </v-list-tile-avatar>
+        Players
+    </v-list-tile>
+    <v-list-tile :to="{ path: '/', params: {} }">
+      <v-list-tile-avatar>
+        <i class="far fa-hand-point-up"></i>
+      </v-list-tile-avatar>
+        Actions
+    </v-list-tile>
+    <v-list-tile :to="{ path: '/settings/clock', params: {} }">
+      <v-list-tile-avatar>
+        <i class="far fa-clock"></i>
+      </v-list-tile-avatar>
+        Clock
+    </v-list-tile>
+  </v-list>
 </div>
 </template>
 
