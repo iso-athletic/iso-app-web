@@ -58,7 +58,11 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true
+    }
   },
   performance: {
     hints: false

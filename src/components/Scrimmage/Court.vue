@@ -1,5 +1,5 @@
 <template>
-  <div ref="canvas"></div>
+  <div v-cloak ref="canvas"></div>
 </template>
 
 <script>
@@ -19,7 +19,9 @@ export default {
 
       p.dots = [];
       p.setup = _ => {
-        let canvas = p.createCanvas(400, 600);
+        let parentWidth = document.getElementById('court').offsetWidth;
+        let parentHeight = document.getElementById('app').offsetHeight;
+        let canvas = p.createCanvas(parentWidth,parentHeight);
         canvas.parent(this.$refs.canvas);
       },
 
@@ -53,7 +55,7 @@ export default {
           // p.ellipse(p.mouseX, p.mouseY, 10, 10);
           let point = {
             x: p.mouseX,
-            y: p.mouseY, 
+            y: p.mouseY,
             // 255 is max alpha value
             life: 255,
           }
