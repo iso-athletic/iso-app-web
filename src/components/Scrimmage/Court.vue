@@ -58,6 +58,7 @@ export default {
             life: 255,
           }
           p.dots.push(point);
+          this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY});
         }
       },
 
