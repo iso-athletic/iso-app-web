@@ -20,6 +20,11 @@ const mutations = {
   },
   SET_POSITION(state, position) {
     state.ActionEntry.position = position;
+  },
+  RESET_ACTION(state) {
+    state.ActionEntry.player = null;
+    state.ActionEntry.action = null;
+    state.ActionEntry.position = null;
   }
 };
 const actions = {
@@ -32,6 +37,9 @@ const actions = {
   updatePosition(context, position) {
     context.commit("SET_POSITION", position);
   },
+  resetAction(context) {
+    context.commit("RESET_ACTION");
+  }
 };
 
 const getters = {
@@ -40,6 +48,11 @@ const getters = {
   },
   getEntry(state) {
     return state.ActionEntry;
+  },
+  sendEntry(state) {
+    const holder = state.ActionEntry;
+    resetAction();
+    return holder;
   }
 };
 

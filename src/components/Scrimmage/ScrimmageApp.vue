@@ -18,6 +18,9 @@
       <v-flex xs3>
         <Players />
       </v-flex>
+      <v-flex xs3>
+        <!-- <Events :events="allEvents"/> -->
+      </v-flex>
     </v-layout>
   </div>
 </template>
@@ -30,6 +33,7 @@ import Court from './Court'
 import Players from './Players'
 import Scoreboard from './score-view/Scoreboard'
 import Actions from './actions/Actions'
+import Events from './events/Events'
 
 export default {
   name: 'scrimmage',
@@ -39,6 +43,21 @@ export default {
     Players,
     Scoreboard,
     Actions,
+    Events
+  },
+  computed: {
+    actionEventBuilt() {
+      if (this.$store.getters.isComplete) {
+        console.log('got this');
+      }
+      return done;
+    }
+  },
+  data() {
+    return {
+      finishedAction: this.$store.getters.isComplete,
+      allEvents: ['hi']
+    }
   }
 }
 </script>
