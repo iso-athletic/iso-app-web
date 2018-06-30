@@ -26,7 +26,7 @@ import Vue from 'vue'
 import PlayerCard from './PlayerCard'
 
 export default {
-  name: 'players',
+  name: 'teamView',
   components: {
     PlayerCard,
   },
