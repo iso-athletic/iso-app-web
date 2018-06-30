@@ -1,18 +1,17 @@
 <template>
   <div id="scrimmage-view">
     <v-layout row wrap>
-      <v-flex xs5>
-        <Timer />
+      <v-flex md5>
+        <v-layout row wrap>
+          <v-flex d-flex md12>
+            <Timer />
+          </v-flex>
+          <v-flex d-flex md12 id="court">
+            <Court />
+          </v-flex>
+        </v-layout>
       </v-flex>
-      <v-flex xs5>
-        <Scoreboard />
-      </v-flex>
-      <v-flex x2>
-      </v-flex>
-      <v-flex xs5>
-        <Court />
-      </v-flex>
-      <v-flex xs5>
+      <v-flex md5>
         <Players />
       </v-flex>
     </v-layout>
@@ -40,14 +39,14 @@ export default {
 
 <style>
 
-  html {
-      height: 100%;
-      margin-top: 0px;
-  }
+html {
+  height: 100%;
+  margin-top: 0px;
+}
 
-  body {
-      color: white;
-      background-color: black;
-  }
+body {
+  color: white;
+  background-color: black;
+}
 
 </style>
