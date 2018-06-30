@@ -43,10 +43,10 @@ export default {
   },
   methods: {
     addPlayer() {
-      console.log(this.players);
-      if (this.newPlayerName == null) {
-        console.log("no value is selected");
-      }
+      // checking for unexpected input
+      if (this.newPlayerName == null) alert("Please select a player");
+      if (this.players.length >= 5) alert("5 Players already on the team");
+
       this.players.push(this.newPlayerName);
       this.newPlayerName = null;
       this.addPlayerDialog = false;
@@ -54,7 +54,6 @@ export default {
     removePlayerFromTeam(playerName) {
       let i = this.players.indexOf(playerName);
       if (i != -1) this.players.splice(i, 1);
-      console.log(this.players);
     }
   }
 }
