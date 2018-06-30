@@ -1,51 +1,41 @@
 <template>
   <v-app dark>
-  <div>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Iso Athletic</a>
-        </div>
-        <div class="navbar-nav">
-          <router-link :to="'/'"
-            v-if="authenticated"
-            class="nav-item nav-link">
-              Home
-          </router-link>
-          <a
-            class="nav-item nav-link"
-            v-if="!authenticated"
-            @click="login()">
-              Log In
-          </a>
-          <a
-            class="nav-item nav-link"
-            v-if="!authenticated"
-            @click="login()">
-              Sign Up
-          </a>
-          <router-link :to="{ path: '/settings', params: {} }"
-            v-if="authenticated"
-            class="nav-item nav-link">
-            Settings
-          </router-link>
-          <a
-            class="nav-item nav-link"
-            v-if="authenticated"
-            @click="logout()">
-              Log Out
-          </a>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container">
+    <v-toolbar>
+      <v-toolbar-title>Iso Athletic</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn :to="'/'"
+                      v-if="authenticated"
+                      flat>
+                      Home
+        </v-btn>
+        <v-btn flat
+               v-if="!authenticated"
+               @click="login()">
+               Log In
+        </v-btn>
+        <v-btn flat
+               v-if="!authenticated"
+               @click="login()">
+               Sign Up
+        </v-btn>
+        <v-btn flat :to="{ path: '/settings', params: {} }"
+                     v-if="authenticated">
+                     Settings
+        </v-btn>
+        <v-btn flat
+               v-if="authenticated"
+               @click="logout()">
+               Log Out
+        </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    <v-container>
       <router-view
-        :auth="auth"
-        :authenticated="authenticated">
+            :auth="auth"
+            :authenticated="authenticated">
       </router-view>
-    </div>
-  </div>
+    </v-container>
   </v-app>
 </template>
 
@@ -55,12 +45,6 @@ import AuthService from './auth/AuthService'
 const auth = new AuthService()
 
 const { login, logout, authenticated, authNotifier } = auth
-
-import testAPI from './apis/get'
-
-const test = new testAPI()
-
-// const { getData } = test
 
 export default {
   name: 'app',
@@ -75,19 +59,7 @@ export default {
   },
   methods: {
     login,
-    logout,
-    // getData
+    logout
   }
 }
 </script>
-
-<style>
-
-.container {
-  margin: 50px;
-}
-
-.btn-margin {
-  margin-top: 7px
-}
-</style>

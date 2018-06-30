@@ -44,7 +44,7 @@ export default {
       height: 100%;
       margin-top: 0px;
   }
-  
+
   body {
       color: white;
       background-color: black;
