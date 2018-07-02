@@ -22,10 +22,9 @@
         <Events :occuredEvents="allEvents"/>
       </v-flex>
     </v-layout>
-    <v-btn @click="generateCSV()">End</v-btn>
+
     <!-- we need this here so computed gets run, prob a better way, but returns nothing -->
     {{actionEventBuilt}}
-
   </div>
 </template>
 
