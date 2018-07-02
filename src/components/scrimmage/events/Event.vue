@@ -1,25 +1,29 @@
 <template>
-  <div>
-    <h1>Event log</h1>
-    <p v-for="event in events">{{event}}</p>
-  </div>
+  <v-card>
+    <v-card-title primary-title>
+      <v-layout row>
+        <v-flex xs9>
+          <div>
+            <div class="headline">{{actionEntry.player}}</div>
+            <div>{{actionEntry.action}}</div>
+            <div>{{actionEntry.timeStamp}}</div>
+          </div>
+        </v-flex>
+        <v-flex xs3>
+        </v-flex>
+      </v-layout>
+    </v-card-title>
+  </v-card>
 </template>
 
 <script>
 import Vue from 'vue'
-import Event from './event'
 
 export default {
-  name: 'events',
-  components: {
-    Event
-  },
+  name: 'event',
   props: {
-    events
-  },
-  data() {
-    return {
-    }
+    actionEntry: Object,
   }
 }
+  
 </script>

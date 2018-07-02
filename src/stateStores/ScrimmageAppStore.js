@@ -4,6 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const state = {
+  Time: null,
   ActionEntry:  {
     player: null,
     action: null,
@@ -47,13 +48,13 @@ const getters = {
     return state.ActionEntry.player != null && state.ActionEntry.action != null && state.ActionEntry.position != null;
   },
   getEntry(state) {
-    return state.ActionEntry;
+    let copyActionEntry = {
+      player: state.ActionEntry.player,
+      action: state.ActionEntry.action,
+      position: state.ActionEntry.position,
+    }
+    return copyActionEntry;
   },
-  sendEntry(state) {
-    const holder = state.ActionEntry;
-    resetAction();
-    return holder;
-  }
 };
 
 export default new Vuex.Store({

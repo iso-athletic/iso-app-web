@@ -19,15 +19,16 @@
         <Players />
       </v-flex>
       <v-flex xs3>
-        <!-- <Events :events="allEvents"/> -->
+        <Events :occuredEvents="allEvents"/>
       </v-flex>
     </v-layout>
+    {{actionEventBuilt}}
   </div>
 </template>
 
 <script>
-import moment from 'moment'
 import Vue from 'vue'
+import moment from 'moment'
 import Timer from './Timer'
 import Court from './Court'
 import Players from './Players'
@@ -43,20 +44,28 @@ export default {
     Players,
     Scoreboard,
     Actions,
-    Events
+    Events,
+    moment
   },
   computed: {
     actionEventBuilt() {
       if (this.$store.getters.isComplete) {
-        console.log('got this');
+        let newEvent = this.$store.getters.getEntry;
+
+        // get timestamp
+        let moment = require('moment');
+        let timeStamp = moment().format('h:mm:ss');
+
+        newEvent.timeStamp = timeStamp;
+        this.allEvents.push(newEvent);
+        this.$store.dispatch('resetAction');
       }
-      return done;
     }
   },
   data() {
     return {
       finishedAction: this.$store.getters.isComplete,
-      allEvents: ['hi']
+      allEvents: []
     }
   }
 }
