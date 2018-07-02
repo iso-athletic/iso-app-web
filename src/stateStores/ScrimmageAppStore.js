@@ -4,6 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const state = {
+  Time: null,
   ActionEntry:  {
     player: null,
     action: null,
@@ -20,6 +21,14 @@ const mutations = {
   },
   SET_POSITION(state, position) {
     state.ActionEntry.position = position;
+  },
+  RESET_ACTION(state) {
+    state.ActionEntry.player = null;
+    state.ActionEntry.action = null;
+    state.ActionEntry.position = null;
+  },
+  SET_TIME(state, newTime) {
+    state.Time = newTime;
   }
 };
 const actions = {
@@ -32,14 +41,32 @@ const actions = {
   updatePosition(context, position) {
     context.commit("SET_POSITION", position);
   },
+  resetAction(context) {
+    context.commit("RESET_ACTION");
+  },
+  updateTime(context, time) {
+    context.commit("SET_TIME", time);
+  }
 };
 
 const getters = {
   isComplete(state) {
-    return state.ActionEntry.player != null && state.ActionEntry.action != null && state.ActionEntry.position != null;
+    return state.ActionEntry.player != null && 
+           state.ActionEntry.action != null && 
+           state.ActionEntry.position != null &&
+           state.Time != null;
   },
   getEntry(state) {
-    return state.ActionEntry;
+    let copyActionEntry = {
+      player: state.ActionEntry.player,
+      action: state.ActionEntry.action,
+      position: state.ActionEntry.position,
+    }
+    return copyActionEntry;
+  },
+  getTime(state) {
+    let t = state.Time;
+    return t;
   }
 };
 

@@ -29,7 +29,22 @@ export default {
     return{
       team1:"Purple",
       team2:"White",
-      playersAvailable: ['Michael Jordan', 'Kobe Bryant', 'Lebron James', 'Steph Curry']
+      playersAvailable: [
+        'Ryan Greer',
+        'Vic Law',
+        'Dererk Paron',
+        'Miller Kopp',
+        'Anthony Gaines',
+        'Ryan Taylor',
+        'Ryan Young',
+        'A.J. Turner',
+        'Pete Nance',
+        'Jordan Ash',
+        'Barret Benson',
+        'Tino Malnati',
+        'Charlie Hall',
+        'Aaron Falzon'
+      ]
     }
   },
 }
