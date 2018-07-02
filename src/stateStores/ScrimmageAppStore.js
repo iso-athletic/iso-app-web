@@ -26,6 +26,9 @@ const mutations = {
     state.ActionEntry.player = null;
     state.ActionEntry.action = null;
     state.ActionEntry.position = null;
+  },
+  SET_TIME(state, newTime) {
+    state.Time = newTime;
   }
 };
 const actions = {
@@ -40,12 +43,18 @@ const actions = {
   },
   resetAction(context) {
     context.commit("RESET_ACTION");
+  },
+  updateTime(context, time) {
+    context.commit("SET_TIME", time);
   }
 };
 
 const getters = {
   isComplete(state) {
-    return state.ActionEntry.player != null && state.ActionEntry.action != null && state.ActionEntry.position != null;
+    return state.ActionEntry.player != null && 
+           state.ActionEntry.action != null && 
+           state.ActionEntry.position != null &&
+           state.Time != null;
   },
   getEntry(state) {
     let copyActionEntry = {
@@ -55,6 +64,10 @@ const getters = {
     }
     return copyActionEntry;
   },
+  getTime(state) {
+    let t = state.Time;
+    return t;
+  }
 };
 
 export default new Vuex.Store({

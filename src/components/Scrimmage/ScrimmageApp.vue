@@ -22,7 +22,10 @@
         <Events :occuredEvents="allEvents"/>
       </v-flex>
     </v-layout>
+    <v-btn @click="generateCSV()">End</v-btn>
+    <!-- we need this here so computed gets run, prob a better way, but returns nothing -->
     {{actionEventBuilt}}
+
   </div>
 </template>
 
@@ -52,9 +55,7 @@ export default {
       if (this.$store.getters.isComplete) {
         let newEvent = this.$store.getters.getEntry;
 
-        // get timestamp
-        let moment = require('moment');
-        let timeStamp = moment().format('h:mm:ss');
+        let timeStamp = this.$store.getters.getTime;
 
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);

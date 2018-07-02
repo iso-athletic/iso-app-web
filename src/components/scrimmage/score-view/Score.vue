@@ -1,6 +1,6 @@
 <template>
   <div id="score">
-    {{team_score}}
+    {{teamScore}}
   </div>
 </template>
 
@@ -8,10 +8,8 @@
 import Vue from 'vue';
 export default {
   name: 'score',
-  data() {
-    return {
-      team_score: 0
-    }
+  props: {
+    teamScore: Number
   }
 }
 </script>

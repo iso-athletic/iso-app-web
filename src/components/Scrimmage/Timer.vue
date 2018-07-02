@@ -40,6 +40,7 @@ export default {
         this.timer = setInterval(() => {
           if (this.totalTime >= 0) {
             this.totalTime--;
+            this.$store.dispatch('updateTime', this.prettyTime);
           } else {
             clearInterval(this.timer);
             alert("Timer done!");
@@ -57,6 +58,7 @@ export default {
     reset() {
       this.stop();
       this.totalTime = this.minute*6000 + this.second*100 + this.decisecond;
+      this.$store.dispatch('updateTime', this.prettyTime);
     }
   },
   computed: {

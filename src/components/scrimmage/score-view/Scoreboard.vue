@@ -3,16 +3,22 @@
     <v-card color="blue-grey darken-2" class="white--text">
       <v-layout>
         <v-flex xs4>
-          Team 1
+          Purple
+          <v-btn @click="increment(1, 1)">+1</v-btn>
+          <v-btn @click="increment(2, 1)">+2</v-btn>
+          <v-btn @click="increment(3, 1)">+3</v-btn>
         </v-flex>
         <v-flex xs4>
-          <Score />
+          {{teamOneScore}}
         </v-flex>
         <v-flex xs4>
-          <Score />
+          {{teamTwoScore}}
         </v-flex>
         <v-flex xs4>
-          Team 2
+          White
+          <v-btn @click="increment(1, 2)">+1</v-btn>
+          <v-btn @click="increment(2, 2)">+2</v-btn>
+          <v-btn @click="increment(3, 2)">+3</v-btn>
         </v-flex>
       </v-layout>
     </v-card>
@@ -26,10 +32,22 @@ import Score from './Score.vue';
 export default {
   name: 'scoreboard',
   data () {
-    return {}
+    return {
+      teamOneScore: 0,
+      teamTwoScore: 0,
+    }
   },
   components: {
     Score,
+  },
+  methods: {
+    increment: function(amount, team) {
+      if (team == 1) {
+        this.teamOneScore += amount;
+      } else {
+        this.teamTwoScore += amount;
+      }
+    }
   }
 }
 
