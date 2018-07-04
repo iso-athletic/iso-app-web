@@ -29,9 +29,10 @@ pool.connect(function (err, client, done) {
     console.log('listening on 3000')
   })
   myClient = client
-  var testQuery = format('INSERT INTO users (name, role_id, organization_id) VALUES (%L,%L,%L)', 'Joe Cummings', 1,1);
+  var testQuery = format('INSERT INTO action (name) VALUES (%L)', 'Defensive Rebound');
   myClient.query(testQuery, function (err, result) {
     if (err) {
         console.log(err);
     }});
+  pool.end();
 });

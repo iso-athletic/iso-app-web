@@ -11,10 +11,13 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex md5>
+      <v-flex md3>
         <Players />
       </v-flex>
-      <v-flex xs3>
+      <v-flex md2>
+        <Actions />
+      </v-flex>
+      <v-flex xs2>
         <Events :occuredEvents="allEvents"/>
       </v-flex>
     </v-layout>
