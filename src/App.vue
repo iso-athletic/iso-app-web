@@ -30,7 +30,7 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <v-container>
+    <v-container fluid>
       <router-view
             :auth="auth"
             :authenticated="authenticated">

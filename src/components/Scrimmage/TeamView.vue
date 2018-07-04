@@ -2,7 +2,7 @@
   <div>
     <v-layout row>
       <v-flex xs12>
-        <h1 class="text-md-center">{{TeamName}}</h1>
+        <h2 class="text-md-center">{{TeamName}}</h2>
       </v-flex>
     </v-layout>
     <PlayerCard

@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <h1>Actions</h1>
-    <Action v-for="action in allActionNames"
-      :actionName="action"/>
-  </div>
+  <v-card class="ml-2 my-2">
+    <v-container fluid>
+      <h2 class="text-xs-center">Actions</h2>
+      <Action v-for="action in allActionNames"
+        :actionName="action"/>
+      </v-container>
+  </v-card>
 </template>
 
 <script>
