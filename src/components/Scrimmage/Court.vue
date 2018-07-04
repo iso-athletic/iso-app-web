@@ -26,7 +26,7 @@ export default {
       },
 
       p.drawCourt = _ => {
-        p.background(72);
+        p.background(95);
         /**** TODO ****
          * draw additional details (backboard/hoop, lane line ticks, etc)
          * coloring for the court
@@ -34,7 +34,7 @@ export default {
         */
 
         /**** drawing court lines ****/
-        const unit = p.height/50; // each unit represents 1 foot
+        const unit = p.height/65; // each unit represents 1 foot
 
         /**** drawing 3pt line  *****/
         // TODO: fix arc position (make flat on top and bottom)

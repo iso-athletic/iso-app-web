@@ -2,21 +2,15 @@
   <v-card class="my-2 mr-2">
     <v-container fluid>
       <v-layout row>
-        <v-flex xs12>
-          <h2 class="text-md-center">{{prettyTime}}</h2>
+        <v-flex xs4 offset-xs2>
+          <div class="large-text">{{prettyTime}}</div>
         </v-flex>
-      </v-layout>
-      <v-layout row>
-        <v-flex xs6>
-          <div class="text-xs-center">
-            <v-btn @click="reset">Reset</v-btn>
-          </div>
+        <v-flex xs2 offset-xs1>
+          <v-btn flat icon @click="reset"><v-icon>fas fa-redo</v-icon></v-btn>
         </v-flex>
-        <v-flex xs6>
-          <div class="text-xs-center">
-            <v-btn v-if="!isRunning" @click="start">start</v-btn>
-            <v-btn v-if="isRunning" @click="stop">stop</v-btn>
-          </div>
+        <v-flex xs2>
+          <v-btn flat icon color="green" v-if="!isRunning" @click="start" :ripple="false"><v-icon>fas fa-play</v-icon></v-btn>
+          <v-btn flat icon color="red" v-if="isRunning" @click="stop" :ripple="false"><v-icon>fas fa-stop</v-icon></v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -91,14 +85,8 @@ export default {
 
 <style>
 
-  html {
-      height: 100%;
-      margin: 0;
-  }
-
-  body {
-      color: white;
-      background-color: black;
-  }
+.large-text {
+  font-size: 2.25em;
+}
 
 </style>
