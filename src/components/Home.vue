@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 v-if="authenticated">
-        You are logged in!
+        <v-btn :to="{ path: '/scrimmage', params: {} }" color="primary">New Scrimmage</v-btn>
     </h4>
     <h4 v-if="!authenticated">
       You are not logged in! Please <a @click="auth.login()">Log In</a> or Sign Up to continue.
