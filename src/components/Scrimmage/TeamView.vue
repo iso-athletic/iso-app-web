@@ -9,10 +9,10 @@
     v-for="player in players"
     :playerName="player"
     @remove-player="removePlayerFromTeam($event)" />
-    <v-layout row>
+    <v-layout row v-for="players in playersLeftPerTeam">
       <v-flex xs12>
         <div class="text-xs-center">
-          <v-btn @click.native.stop="addPlayerDialog=true">
+          <v-btn small fab color="primary" @click.native.stop="addPlayerDialog=true">
             <v-icon>person_add</v-icon>
           </v-btn>
         </div>
@@ -47,6 +47,7 @@ export default {
       players: [],
       addPlayerDialog: false,
       newPlayerName: null,
+      playersLeftPerTeam: 5,
     }
   },
   props: {
@@ -70,10 +71,13 @@ export default {
       this.players.push(this.newPlayerName);
       this.newPlayerName = null;
       this.addPlayerDialog = false;
+
+      this.playersLeftPerTeam--;
     },
     removePlayerFromTeam(playerName) {
       let i = this.players.indexOf(playerName);
       if (i != -1) this.players.splice(i, 1);
+      this.playersLeftPerTeam++;
     }
   }
 }

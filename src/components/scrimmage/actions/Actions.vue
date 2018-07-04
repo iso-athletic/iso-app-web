@@ -1,10 +1,12 @@
 <template>
-  <v-card class="ml-2 my-2">
+  <v-card class="mx-2 my-2">
     <v-container fluid>
       <h2 class="text-xs-center">Actions</h2>
-      <Action v-for="action in allActionNames"
+      <v-layout row wrap>
+        <Action v-for="action in allActionNames"
         :actionName="action"/>
-      </v-container>
+      </v-layout>
+    </v-container>
   </v-card>
 </template>
 

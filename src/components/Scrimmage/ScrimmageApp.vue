@@ -12,14 +12,16 @@
         </v-layout>
       </v-flex>
       <v-flex md5>
-        <Players />
+        <v-layout row wrap>
+          <v-flex d-flex md12>
+            <Players />
+          </v-flex>
+          <v-flex d-flex md12>
+            <Actions />
+          </v-flex>
+        </v-layout>
       </v-flex>
-      <v-flex md2>
-        <Actions />
-      </v-flex>
-    </v-layout>
-    <v-layout>
-      <v-flex xs12>
+      <v-flex xs2>
         <Events :occuredEvents="allEvents"/>
       </v-flex>
     </v-layout>
@@ -82,6 +84,10 @@ html {
 body {
   color: white;
   background-color: black;
+}
+
+.full-height {
+  height:100vh;
 }
 
 </style>
