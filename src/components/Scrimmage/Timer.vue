@@ -1,13 +1,26 @@
 <template>
-  <div>
-    <input max="59" min="0" type="number" v-model="minute">minute</input>
-    <br />
-    <input max="59" min="0" type="number" v-model="second">second</input>
-    <v-btn @click="reset">reset</v-btn>
-    <v-btn v-if="!isRunning" @click="start">start</v-btn>
-    <v-btn v-if="isRunning" @click="stop">stop</v-btn>
-    <p>time left: {{prettyTime}}</p>
-  </div>
+  <v-card class="my-2 mr-2">
+    <v-container fluid>
+      <v-layout row>
+        <v-flex xs12>
+          <h2 class="text-md-center">{{prettyTime}}</h2>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs6>
+          <div class="text-xs-center">
+            <v-btn @click="reset">Reset</v-btn>
+          </div>
+        </v-flex>
+        <v-flex xs6>
+          <div class="text-xs-center">
+            <v-btn v-if="!isRunning" @click="start">start</v-btn>
+            <v-btn v-if="isRunning" @click="stop">stop</v-btn>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-card>
 </template>
 
 <script>
@@ -82,7 +95,7 @@ export default {
       height: 100%;
       margin: 0;
   }
-  
+
   body {
       color: white;
       background-color: black;
