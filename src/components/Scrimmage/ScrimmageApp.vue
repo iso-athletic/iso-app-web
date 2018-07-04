@@ -6,7 +6,7 @@
           <v-flex d-flex md12>
             <Timer />
           </v-flex>
-          <v-flex d-flex md12 id="court">
+          <v-flex d-flex md12 class="my-2 mr-2" id="court">
             <Court />
           </v-flex>
         </v-layout>

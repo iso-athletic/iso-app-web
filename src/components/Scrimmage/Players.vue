@@ -1,19 +1,19 @@
 <template>
-  <div>
+  <v-card class="mx-2 my-2">
     <v-layout row wrap>
       <v-flex xs6 sm6 md6>
-        <TeamView 
+        <TeamView
           :TeamName="team1"
           :playersLeft="playersAvailable"/>
       </v-flex>
 
       <v-flex xs6 sm6 md6>
-        <TeamView 
+        <TeamView
           :TeamName="team2"
           :playersLeft="playersAvailable"/>
       </v-flex>
     </v-layout>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -48,7 +48,7 @@ export default {
     }
   },
 }
-  
+
 </script>
 
 <style>

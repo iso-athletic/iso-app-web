@@ -1,5 +1,5 @@
 <template>
-  <div class="my-2 mr-2" v-cloak ref="canvas"></div>
+  <div v-cloak ref="canvas"></div>
 </template>
 
 <script>

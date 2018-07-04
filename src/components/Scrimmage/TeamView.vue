@@ -1,24 +1,36 @@
 <template>
   <div>
-    <h1>{{TeamName}}</h1>
-    <PlayerCard 
-      v-for="player in players" 
-      :playerName="player"
-      @remove-player="removePlayerFromTeam($event)" />
-    <v-btn @click.native.stop="addPlayerDialog=true"><v-icon>person_add</v-icon></v-btn>
+    <v-layout row>
+      <v-flex xs12>
+        <h1 class="text-md-center">{{TeamName}}</h1>
+      </v-flex>
+    </v-layout>
+    <PlayerCard
+    v-for="player in players"
+    :playerName="player"
+    @remove-player="removePlayerFromTeam($event)" />
+    <v-layout row>
+      <v-flex xs12>
+        <div class="text-xs-center">
+          <v-btn @click.native.stop="addPlayerDialog=true">
+            <v-icon>person_add</v-icon>
+          </v-btn>
+        </div>
+      </v-flex>
+    </v-layout>
     <v-dialog v-model="addPlayerDialog" max-width="300">
       <v-card>
         <v-card-title>Add Player</v-card-title>
         <v-select
-          :items="playersLeft"
-          label="Add player"
-          v-model="newPlayerName">
-        </v-select>
-        <v-btn
-          @click="addPlayer">Submit</v-btn>
-      </v-card>
-    </v-dialog>
-  </div>
+        :items="playersLeft"
+        label="Add player"
+        v-model="newPlayerName">
+      </v-select>
+      <v-btn
+      @click="addPlayer">Submit</v-btn>
+    </v-card>
+  </v-dialog>
+</div>
 </template>
 
 <script>
@@ -65,7 +77,7 @@ export default {
     }
   }
 }
-  
+
 </script>
 
 <style>
