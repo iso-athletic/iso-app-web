@@ -20,8 +20,8 @@ export default {
       p.dots = [];
       p.setup = _ => {
         let parentWidth = document.getElementById('court').offsetWidth;
-        let parentHeight = document.getElementById('app').offsetHeight;
-        let canvas = p.createCanvas(parentWidth,parentHeight);
+        let offsetHeights = document.getElementById('court').offsetTop + 15;
+        let canvas = p.createCanvas(parentWidth, window.innerHeight-offsetHeights);
         canvas.parent(this.$refs.canvas);
       },
 
@@ -34,7 +34,7 @@ export default {
         */
 
         /**** drawing court lines ****/
-        const unit = p.height/65; // each unit represents 1 foot
+        const unit = p.height/55; // each unit represents 1 foot
 
         /**** drawing 3pt line  *****/
         // TODO: fix arc position (make flat on top and bottom)

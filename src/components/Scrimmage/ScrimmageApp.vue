@@ -3,10 +3,10 @@
     <v-layout row wrap>
       <v-flex md5>
         <v-layout row wrap>
-          <v-flex d-flex md12>
+          <v-flex d-flex md12 id="timer">
             <Timer />
           </v-flex>
-          <v-flex d-flex md12 class="my-2 mr-2" id="court">
+          <v-flex d-flex md12 class="mt-2 mr-2" id="court">
             <Court />
           </v-flex>
         </v-layout>
@@ -70,6 +70,11 @@ export default {
       finishedAction: this.$store.getters.isComplete,
       allEvents: []
     }
+  },
+  mounted() {
+    var offsetHeights = window.innerHeight - (document.getElementById('events').offsetTop + 15);
+    var events = document.getElementById('events');
+    events.style.height = offsetHeights + "px";
   }
 }
 </script>
@@ -86,8 +91,8 @@ body {
   background-color: black;
 }
 
-.full-height {
+/* .full-height {
   height:100vh;
-}
+} */
 
 </style>

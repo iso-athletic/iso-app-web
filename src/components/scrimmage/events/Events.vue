@@ -1,13 +1,11 @@
 <template>
-  <div class="full-height">
-  <v-card class="my-2 ml-2" style="height:100%; overflow:scroll">
+  <div id="events">
+  <v-card class="mt-2 ml-2" style="height:100%; overflow:scroll">
     <v-container fluid>
       <h2 class="text-xs-center">Event log</h2>
-      <!-- <v-layout row> -->
         <Event v-for="(eventItem, i) in occuredEvents.slice().reverse()"
         :actionEntry="eventItem"
         :color="cardColor(i)"/>
-      <!-- </v-layout> -->
     </v-container>
   </v-card>
 </div>
@@ -36,9 +34,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.event-card {
-  height: 100%;
-}
-</style>
