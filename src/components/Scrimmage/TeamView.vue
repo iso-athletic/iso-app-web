@@ -22,12 +22,12 @@
       <v-card>
         <v-card-title>Add Player</v-card-title>
         <v-select
-        :items="playersLeft"
-        label="Add player"
-        v-model="newPlayerName">
+          :items="playersLeft"
+          label="Add player"
+          v-model="newPlayerName">
       </v-select>
       <v-btn
-      @click="addPlayer">Submit</v-btn>
+        @click="addPlayer">Submit</v-btn>
     </v-card>
   </v-dialog>
 </div>
@@ -69,6 +69,8 @@ export default {
       }
 
       this.players.push(this.newPlayerName);
+      // removing player from the available list
+      this.$emit('removePlayerFromAvailable', this.newPlayerName);
       this.newPlayerName = null;
       this.addPlayerDialog = false;
 
@@ -76,8 +78,11 @@ export default {
     },
     removePlayerFromTeam(playerName) {
       let i = this.players.indexOf(playerName);
-      if (i != -1) this.players.splice(i, 1);
-      this.playersLeftPerTeam++;
+      if (i != -1) {
+        this.players.splice(i, 1);
+        this.playersLeftPerTeam++;
+        this.$emit('addPlayerToAvailable', playerName);
+      }
     }
   }
 }

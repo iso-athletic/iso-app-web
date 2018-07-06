@@ -10,7 +10,7 @@
         </v-flex>
         <v-flex xs2>
           <v-btn flat icon color="green" v-if="!isRunning" @click="start" :ripple="false"><v-icon>fas fa-play</v-icon></v-btn>
-          <v-btn flat icon color="red" v-if="isRunning" @click="stop" :ripple="false"><v-icon>fas fa-stop</v-icon></v-btn>
+          <v-btn flat icon color="red" v-if="isRunning" @click="stop" :ripple="false"><v-icon>fas fa-pause</v-icon></v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -33,7 +33,7 @@ export default {
       minute: 20,
       second: 0,
       decisecond: 0,
-      totalTime: 0,
+      totalTime: 20*6000,
       timer: null,
       isRunning: false,
     }
