@@ -5,13 +5,17 @@
         <v-flex xs6 sm6 md6>
           <TeamView
           :TeamName="team1"
-          :playersLeft="playersAvailable"/>
+          :playersLeft="playersAvailable"
+          @removePlayerFromAvailable="removePlayerFromAvailable($event)"
+          @addPlayerToAvailable="playersAvailable.push($event)"/>
         </v-flex>
 
         <v-flex xs6 sm6 md6>
           <TeamView
           :TeamName="team2"
-          :playersLeft="playersAvailable"/>
+          :playersLeft="playersAvailable"
+          @removePlayerFromAvailable="removePlayerFromAvailable($event)"
+          @addPlayerToAvailable="playersAvailable.push($event)"/>
         </v-flex>
       </v-layout>
     </v-container>
@@ -50,6 +54,13 @@ export default {
       ]
     }
   },
+  methods: {
+    removePlayerFromAvailable: function(player) {
+      console.log("removing player");
+      const i = this.playersAvailable.indexOf(player);
+      if (i != -1) this.playersAvailable.splice(i, 1);
+    }
+  }
 }
 
 </script>
