@@ -87,8 +87,13 @@ html {
 }
 
 body {
+  
   color: white;
-  background-color: black;
+
+}
+
+#scrimmage-view {
+  background: none;
 }
 
 /* .full-height {

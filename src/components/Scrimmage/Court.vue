@@ -1,5 +1,5 @@
 <template>
-  <div v-cloak ref="canvas"></div>
+  <div id="courtCanvas" v-cloak ref="canvas"></div>
 </template>
 
 <script>
@@ -26,12 +26,14 @@ export default {
       },
 
       p.drawCourt = _ => {
-        p.background(95);
         /**** TODO ****
          * draw additional details (backboard/hoop, lane line ticks, etc)
          * coloring for the court
          * why isn't the math working out?
         */
+
+        /* makes court lines thicker */
+        p.drawingContext.lineWidth = 2;
 
         /**** drawing court lines ****/
         const unit = p.height/55; // each unit represents 1 foot
@@ -39,11 +41,13 @@ export default {
         /**** drawing 3pt line  *****/
         // TODO: fix arc position (make flat on top and bottom)
         p.noFill();
-        p.stroke(255);
-        p.arc(4*unit, p.height/2, 41.5*unit, 41.5*unit, -p.HALF_PI - p.QUARTER_PI, p.HALF_PI+p.QUARTER_PI);
+        p.stroke("#9B9B9B");
+        p.arc(4.3*unit, p.height/2, 41.5*unit, 41.5*unit, -p.HALF_PI - p.QUARTER_PI, p.HALF_PI+p.QUARTER_PI);
 
         /**** drawing lane lines ****/
         p.rect(0, p.height/2 - 6*unit, 19*unit, 12*unit);
+
+
 
         /**** drawing top of the key  ****/
         p.arc(19*unit, p.height/2, 12*unit, 12*unit, -p.HALF_PI, p.HALF_PI, p.CHORD);
@@ -84,3 +88,11 @@ export default {
   }
 }
 </script>
+
+<style>
+
+#courtCanvas {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #D1D1D1;
+}
+</style>

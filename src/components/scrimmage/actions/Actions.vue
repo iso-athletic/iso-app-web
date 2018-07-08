@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-2 my-2">
+  <v-card id="actionsContainer" class="mx-2 my-2">
     <v-container fluid>
       <h2 class="text-xs-center">Actions</h2>
       <v-layout row wrap>
@@ -36,3 +36,10 @@ export default {
   }
 }
 </script>
+
+<style>
+  #actionsContainer {
+    background: none;
+    border: 1px solid #D1D1D1;
+  }
+</style>
