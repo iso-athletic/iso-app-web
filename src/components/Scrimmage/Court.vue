@@ -71,7 +71,6 @@ export default {
           if (Math.hypot(threePointCenter.x - p.mouseX, threePointCenter.y - p.mouseY) > 41.5*unit/2) {
             threePointer = true;
           }
-          if (threePointer) console.log("THREEEE");
           this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY, threePointer: threePointer});
         }
       },
