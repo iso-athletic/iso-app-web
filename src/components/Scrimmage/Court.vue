@@ -31,6 +31,7 @@ export default {
          * coloring for the court
          * why isn't the math working out?
         */
+        // p.background(51);
 
         /* makes court lines thicker */
         p.drawingContext.lineWidth = 2;
@@ -54,6 +55,8 @@ export default {
       },
 
       p.mouseClicked = _ => {
+        const unit = p.height/55;
+        const threePointCenter = {x: 4.3*unit, y: p.height/2};
         if (p.mouseX < p.width && p.mouseX > 0 &&
             p.mouseY < p.height && p.mouseY > 0) {
           // p.ellipse(p.mouseX, p.mouseY, 10, 10);
@@ -64,11 +67,17 @@ export default {
             life: 255,
           }
           p.dots.push(point);
-          this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY});
+          let threePointer = false;
+          if (Math.hypot(threePointCenter.x - p.mouseX, threePointCenter.y - p.mouseY) > 41.5*unit/2) {
+            threePointer = true;
+          }
+          if (threePointer) console.log("THREEEE");
+          this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY, threePointer: threePointer});
         }
       },
 
       p.draw = _ => {
+        p.clear();
         p.drawCourt();
         let newDots = [];
         p.dots.forEach(point => {

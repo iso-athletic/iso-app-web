@@ -4,6 +4,8 @@
       <h3>{{actionEntry.player}}</h3>
       <div>{{actionEntry.action}}</div>
       <div>{{actionEntry.timeStamp}}</div>
+      <div v-if="actionEntry.position.threePointer">Three-pointer</div>
+      <div v-else>Two-pointer</div>
     </v-container>
   </v-card>
 </template>
