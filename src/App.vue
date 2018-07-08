@@ -63,3 +63,15 @@ export default {
   }
 }
 </script>
+
+<style>
+  #app {
+    background: url('Media/background.jpg');
+    background-size: 100% 100%;
+  }
+
+  #nav {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+</style>
