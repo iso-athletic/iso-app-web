@@ -6,7 +6,7 @@ import ActionsSelect from '../components/settings/ActionsSelect'
 import Settings from '../components/settings/Settings'
 import Clock from '../components/settings/Clock'
 import Team from '../components/Team/Team'
-import ScrimmageApp from '../components/Scrimmage/ScrimmageApp'
+import ScrimmageApp from '../components/scrimmage/ScrimmageApp'
 
 Vue.use(Router)
 
