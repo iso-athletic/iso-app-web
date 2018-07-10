@@ -3,7 +3,7 @@
     ["env",
       { "modules": false },
     ],
-    "stage-3",
-    "stage-0"
+    "es2015",
+    "stage-2"
   ]
 }
