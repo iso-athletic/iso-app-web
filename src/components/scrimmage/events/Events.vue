@@ -13,7 +13,7 @@
 
 <script>
 import Vue from 'vue'
-import Event from './event'
+import Event from './Event'
 
 export default {
   name: 'events',
