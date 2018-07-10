@@ -12,7 +12,7 @@
 
 <script>
 import Vue from 'vue'
-import Action from './action'
+import Action from './Action'
 
 export default {
   name: 'actions',
