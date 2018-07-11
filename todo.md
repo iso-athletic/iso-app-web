@@ -5,8 +5,8 @@
 - [ ] Fix views for all devices
 
 ### Deployment
-- [ ] Fix build errors
-- [ ] Choose hosting environment
+- [x] Fix build errors
+- [x] Choose hosting environment
 - [ ] Setup subdomain
 
 ### Functionality
