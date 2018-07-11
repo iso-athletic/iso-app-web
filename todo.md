@@ -3,6 +3,8 @@
 ### UI
 - [ ] Thicken court lines
 - [ ] Fix views for all devices
+- [ ] OnResize() function for court and Events
+- [ ] Remove scrollbars from Events Component
 
 ### Deployment
 - [x] Fix build errors
