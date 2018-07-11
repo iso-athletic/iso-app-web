@@ -8,15 +8,15 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --inline",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "start": "cross-env NODE_ENV=development webpack-dev-server",
-    "heroku-postbuild": "cross-env NODE_ENV=production webpack -p"
+    "postinstall": "cross-env NODE_ENV=production webpack -p",
+    "start": "node server.js"
   },
   "dependencies": {
     "EventEmitter": "^1.0.0",
     "auth0-js": "^9.4.2",
     "aws-sdk": "^2.233.1",
     "babel-preset-stage-0": "^6.24.1",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "fast-csv": "^2.4.1",
     "moment": "^2.22.1",
     "p5": "^0.6.1",
