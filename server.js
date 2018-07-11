@@ -5,7 +5,7 @@ var app = express();
 
 app.use(express.static(__dirname));
 
-require('./db/routes.js')(app);
+// require('./db/routes.js')(app);
 
 app.get('*',(req, res) => {
   res.sendFile(path.resolve(__dirname, 'index.html'))
