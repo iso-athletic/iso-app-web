@@ -6,6 +6,7 @@
 - [ ] OnResize() function for court and Events
 - [x] Remove scrollbars from Events Component
 - [ ] Set dynamic breakpoints for all sizes of devices
+- [ ] Add error message for why no event shows up
 
 ### Deployment
 - [x] Fix build errors
@@ -13,6 +14,7 @@
 - [ ] Setup subdomain
 
 ### Functionality
+- [ ] Actions timeout if event is not triggered in enough time
 - [ ] Undo/Remove event
 - [ ] Export events to CSV
 - [ ] Save info based on session user (page refresh should not remove data)
