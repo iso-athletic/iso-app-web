@@ -4,7 +4,7 @@
 - [ ] Thicken court lines
 - [ ] Fix views for all devices
 - [ ] OnResize() function for court and Events
-- [ ] Remove scrollbars from Events Component
+- [x] Remove scrollbars from Events Component
 - [ ] Set dynamic breakpoints for all sizes of devices
 
 ### Deployment
