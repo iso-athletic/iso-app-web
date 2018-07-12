@@ -1,12 +1,14 @@
 ## Things left to do to have a MVP
 
-### UI
+### UI/UX
 - [ ] Thicken court lines
 - [ ] Fix views for all devices
 - [ ] OnResize() function for court and Events
 - [x] Remove scrollbars from Events Component
 - [ ] Set dynamic breakpoints for all sizes of devices
 - [ ] Add error message for why no event shows up
+- [ ] Add confirmation message on deleting of a player
+- [ ] Remove need to "Submit" button when adding a player -- add automatically upon selection
 
 ### Deployment
 - [x] Fix build errors
