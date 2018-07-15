@@ -1,11 +1,13 @@
 <template>
-  <v-card id="actionsContainer" class="mx-2 my-2">
+  <v-card class="noBackground scrimmageBorder mx-2 my-2">
     <v-container fluid>
       <h2 class="text-xs-center">Actions</h2>
+      <v-container grid-list-xl>
       <v-layout row wrap>
-        <Action v-for="action in allActionNames"
-        :actionName="action"/>
+          <Action v-for="action in allActionNames"
+          :actionName="action"/>
       </v-layout>
+      </v-container>
     </v-container>
   </v-card>
 </template>
@@ -36,10 +38,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  #actionsContainer {
-    background: none;
-    border: 1px solid #D1D1D1;
-  }
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="scrimmage-view">
+  <div class="mb-10 noBackground">
     <v-layout row wrap>
       <v-flex md5>
         <v-layout row wrap>
@@ -12,7 +12,7 @@
         </v-layout>
       </v-flex>
       <v-flex md5>
-        <v-layout row wrap>
+        <v-layout fill-height row wrap>
           <v-flex d-flex md12>
             <Players />
           </v-flex>
@@ -94,17 +94,9 @@ html {
 }
 
 body {
-  
   color: white;
-
 }
 
-#scrimmage-view {
-  background: none;
-}
 
-/* .full-height {
-  height:100vh;
-} */
 
 </style>

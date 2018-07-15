@@ -1,5 +1,5 @@
 <template>
-  <v-card id="timerContainer" class="my-2 mr-2">
+  <v-card class="noBackground scrimmageBorder my-2 mr-2">
     <v-container fluid>
       <v-layout row>
         <v-flex xs4 offset-xs2>
@@ -87,11 +87,6 @@ export default {
 
 .large-text {
   font-size: 2.25em;
-}
-
-#timerContainer {
-  background: none;
-  border: 1px solid #D1D1D1;
 }
 
 </style>

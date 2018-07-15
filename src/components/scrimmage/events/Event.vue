@@ -1,5 +1,5 @@
 <template>
-  <v-card id="eventCardContainer">
+  <v-card class="noBackground fullWidth bottomScrimmageBorder">
     <v-container fluid>
       <h3>{{actionEntry.player}}</h3>
       <div>{{actionEntry.action}}</div>
@@ -38,9 +38,5 @@ export default {
 </script>
 
 <style>
-  #eventCardContainer {
-    width: 100%;
-    background: none;
-    border-bottom: 1px solid #D1D1D1;
-  }
+  
 </style>
