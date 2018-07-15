@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <v-btn @click="selectAction">{{actionName}}</v-btn>
-  </div>
+  <v-flex xs4>
+    <v-btn class="scrimmageButton ma-0 pa-0"  @click="selectAction">{{actionName}}</v-btn>
+  </v-flex>
 </template>
 
 <script>
@@ -22,3 +22,8 @@
     
   }
 </script>
+
+<style>
+
+
+</style>

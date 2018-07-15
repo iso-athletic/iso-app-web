@@ -1,18 +1,25 @@
 <template>
   <div>
-    <v-layout row>
-      <v-flex xs12>
-          <v-btn :ripple="false"
-                  class="mx-0"
+    <v-layout class="my-2" row>
+      <v-flex class="pl-4" sm11>
+         <v-btn class="scrimmageButton mx-0"
+                  :ripple="false"
+                 
                   @click="selectPlayer">
                   {{playerName}}
+                  
           </v-btn>
-          <v-btn flat icon color="error"
+      </v-flex>
+      <v-flex>
+           <v-btn id="deleteButton" flat icon color="error"
                   :ripple="false"
                   class="mx-0"
                   @click="$emit('remove-player', playerName)">
-                  <v-icon>delete</v-icon>
+                  <v-icon id="deleteIcon">delete</v-icon>
           </v-btn>
+         
+       
+          
       </v-flex>
     </v-layout>
   </div>
@@ -37,5 +44,3 @@
   }
 </script>
 
-<style>
-</style>

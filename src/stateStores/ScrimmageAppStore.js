@@ -9,7 +9,7 @@ const state = {
     player: null,
     action: null,
     position: null,
-  }
+  },
 };
 
 const mutations = {

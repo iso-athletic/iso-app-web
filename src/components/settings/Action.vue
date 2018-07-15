@@ -29,4 +29,5 @@ export default {
   margin: 10px;
   width: 125px
 }
+
 </style>
