@@ -62,13 +62,6 @@ export default {
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
         this.$store.dispatch('resetAction');
-
-        if (sessionStorage.count) {
-          sessionStorage.count++;
-        } else {
-          sessionStorage.count = 1
-        }
-        console.log(sessionStorage.count)
       }
     }
   },
