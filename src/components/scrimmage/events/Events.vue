@@ -34,8 +34,8 @@ export default {
     },
     removeEventFromList: function(id) {
       console.log('removing event');
-      const i = this.occuredEvents.map(function(x) {return x.id; }).indexOf(id);
-      if (i != -1) this.occuredEvents.splice(i, 1);
+      const i = this.occurredEvents.map(function(x) {return x.id; }).indexOf(id);
+      if (i != -1) this.occurredEvents.splice(i, 1);
     }
   }
 }
