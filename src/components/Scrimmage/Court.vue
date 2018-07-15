@@ -1,5 +1,5 @@
 <template>
-  <div id="courtCanvas" v-cloak ref="canvas"></div>
+  <div class="translucentBackground scrimmageBorder" v-cloak ref="canvas"></div>
 </template>
 
 <script>
@@ -88,11 +88,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-#courtCanvas {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #D1D1D1;
-}
-</style>
