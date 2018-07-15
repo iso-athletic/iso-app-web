@@ -9,7 +9,7 @@
     v-for="player in players"
     :playerName="player"
     @remove-player="removePlayerFromTeam($event)" />
-    <v-layout id="rowContainer" row v-for="players in playersLeftPerTeam">
+    <v-layout class="my-1" row v-for="players in playersLeftPerTeam">
       <v-flex xs12>
         <div class="text-xs-center">
           <v-btn small fab color="primary" @click.native.stop="addPlayerDialog=true">
@@ -89,8 +89,3 @@ export default {
 
 </script>
 
-<style>
-  #rowContainer {
-    margin-top: 5%;
-  }
-</style>
