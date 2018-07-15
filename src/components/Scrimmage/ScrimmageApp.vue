@@ -21,7 +21,7 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex>
+      <v-flex xs2>
         <Events :occuredEvents="allEvents"/>
       </v-flex>
     </v-layout>

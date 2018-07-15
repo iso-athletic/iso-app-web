@@ -1,5 +1,5 @@
 <template>
-  <v-card class="noBackground fullWidth" style="border-bottom: 1px solid #D1D1D1;">
+  <v-card class="noBackground fullWidth bottomScrimmageBorder">
     <v-container fluid>
       <h3>{{actionEntry.player}}</h3>
       <div>{{actionEntry.action}}</div>
@@ -20,3 +20,7 @@ export default {
 }
 
 </script>
+
+<style>
+  
+</style>
