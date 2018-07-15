@@ -1,9 +1,9 @@
 <template>
   <div id="events">
-  <v-card class="mt-2 ml-2" style="height:100%; overflow:scroll">
-    <v-container fluid>
-      <h2 class="text-xs-center">Event log</h2>
-        <Event v-for="(eventItem, i) in occuredEvents.slice().reverse()"
+  <v-card class="mt-2 ml-2 translucentBackground scrimmageBorder" style="height:100%; overflow:scroll">
+    <v-container class="pa-0" fluid>
+      <h2 class="text-xs-center bottomScrimmageBorder py-2">Event log</h2>
+        <Event v-for="(eventItem, i) in occurredEvents.slice().reverse()"
         :actionEntry="eventItem"
         :color="cardColor(i)"
         @remove-event="removeEventFromList($event)"/>
@@ -22,7 +22,7 @@ export default {
     Event
   },
   props: {
-    occuredEvents: Array,
+    occurredEvents: Array,
   },
   methods: {
     cardColor: function(index) {

@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-toolbar id="nav">
+    <v-toolbar class="translucentBackground">
       <v-toolbar-title>Iso Athletic</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
@@ -63,3 +63,39 @@ export default {
   }
 }
 </script>
+
+<style>
+  #app {
+    background: url('Media/background.jpg');
+    background-size: 100% 100%;
+  }
+
+
+
+  .scrimmageButton {
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1) 99%);
+    outline: 1px solid #D1D1D1;
+  }
+
+  .noBackground {
+    background: none !important;
+  }
+
+   .scrimmageBorder {
+    border: 1px solid #D1D1D1;
+  }
+
+  .fullWidth {
+    width: 100%;
+  }
+
+  .translucentBackground {
+  background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .bottomScrimmageBorder {
+    border-bottom: 1px solid #D1D1D1;
+  }
+</style>
