@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-2 my-2">
+  <v-card id="playersContainer" class="mx-2 my-2">
     <v-container fluid>
       <v-layout row wrap>
         <v-flex xs6 sm6 md6>
@@ -66,4 +66,10 @@ export default {
 </script>
 
 <style>
+
+#playersContainer {
+  background: none;
+  border: 1px solid #D1D1D1;
+}
+
 </style>
