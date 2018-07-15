@@ -86,10 +86,4 @@ html {
   margin-top: 0px;
 }
 
-body {
-  color: white;
-}
-
-
-
 </style>
