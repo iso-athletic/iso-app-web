@@ -3,7 +3,7 @@
   <v-card class="mt-2 ml-2" style="height:100%; overflow:scroll">
     <v-container fluid>
       <h2 class="text-xs-center">Event log</h2>
-        <Event v-for="(eventItem, i) in occuredEvents.slice().reverse()"
+        <Event v-for="(eventItem, i) in occurredEvents.slice().reverse()"
         :actionEntry="eventItem"
         :color="cardColor(i)"/>
     </v-container>
@@ -21,7 +21,7 @@ export default {
     Event
   },
   props: {
-    occuredEvents: Array,
+    occurredEvents: Array,
   },
   methods: {
     cardColor: function(index) {
