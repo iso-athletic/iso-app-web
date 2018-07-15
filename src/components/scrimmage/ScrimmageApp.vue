@@ -41,6 +41,8 @@ import Scoreboard from './score-view/Scoreboard'
 import Actions from './actions/Actions'
 import Events from './events/Events'
 
+var eventId;
+
 export default {
   name: 'scrimmage',
   components: {
@@ -56,8 +58,10 @@ export default {
     actionEventBuilt() {
       if (this.$store.getters.isComplete) {
         let newEvent = this.$store.getters.getEntry;
-
         let timeStamp = this.$store.getters.getTime;
+        eventId++;
+
+        newEvent.id = eventId;
 
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
@@ -75,6 +79,7 @@ export default {
     var offsetHeights = window.innerHeight - (document.getElementById('events').offsetTop + 15);
     var events = document.getElementById('events');
     events.style.height = offsetHeights + "px";
+    eventId = 0;
   }
 }
 </script>

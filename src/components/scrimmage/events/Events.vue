@@ -5,7 +5,8 @@
       <h2 class="text-xs-center">Event log</h2>
         <Event v-for="(eventItem, i) in occuredEvents.slice().reverse()"
         :actionEntry="eventItem"
-        :color="cardColor(i)"/>
+        :color="cardColor(i)"
+        @remove-event="removeEventFromList($event)"/>
     </v-container>
   </v-card>
 </div>
@@ -30,6 +31,11 @@ export default {
       } else {
         return "grey darken-2";
       }
+    },
+    removeEventFromList: function(id) {
+      console.log('removing event');
+      const i = this.occuredEvents.map(function(x) {return x.id; }).indexOf(id);
+      if (i != -1) this.occuredEvents.splice(i, 1);
     }
   }
 }
