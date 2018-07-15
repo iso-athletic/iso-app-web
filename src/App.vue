@@ -66,11 +66,9 @@ export default {
 
 <style>
   #app {
-    background: url('Media/background.jpg');
+    background: url('assets/background.jpg');
     background-size: 100% 100%;
   }
-
-
 
   .scrimmageButton {
     width: 100%;

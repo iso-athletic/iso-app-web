@@ -60,9 +60,7 @@ export default {
         let newEvent = this.$store.getters.getEntry;
         let timeStamp = this.$store.getters.getTime;
         eventId++;
-
         newEvent.id = eventId;
-
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
         this.$store.dispatch('resetAction');
