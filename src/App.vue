@@ -66,7 +66,6 @@ export default {
 
 <style>
   #app {
-    background: url('Media/background.jpg');
     background-size: 100% 100%;
   }
 

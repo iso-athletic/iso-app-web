@@ -31,7 +31,7 @@ export default {
          * coloring for the court
          * why isn't the math working out?
         */
-        // p.background(51);
+        p.background(51);
 
         /* makes court lines thicker */
         p.drawingContext.lineWidth = 2;
