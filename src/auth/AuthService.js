@@ -6,20 +6,20 @@ import AWS from 'aws-sdk'
 
 export default class AuthService {
 
-  authenticated = this.isAuthenticated()
-  authNotifier = new EventEmitter()
+  authenticated = this.isAuthenticated();
+  authNotifier = new EventEmitter();
 
   constructor () {
-    this.login = this.login.bind(this)
-    this.setSession = this.setSession.bind(this)
-    this.logout = this.logout.bind(this)
-    this.isAuthenticated = this.isAuthenticated.bind(this)
+    this.login = this.login.bind(this);
+    this.setSession = this.setSession.bind(this);
+    this.logout = this.logout.bind(this);
+    this.isAuthenticated = this.isAuthenticated.bind(this);
   }
 
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
     clientID: AUTH_CONFIG.clientId,
-    redirectUri: AUTH_CONFIG.callbackUrl,
+    redirectUri: window.location.protocol + '//' + window.location.host + '/' + 'callback',
     audience: `https://${AUTH_CONFIG.domain}/userinfo`,
     responseType: 'token id_token',
     scope: 'openid',
