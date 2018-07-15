@@ -6,6 +6,7 @@ Vue.use(Vuex);
 const state = {
   Time: null,
   ActionEntry:  {
+    id: null,
     player: null,
     action: null,
     position: null,
@@ -51,8 +52,8 @@ const actions = {
 
 const getters = {
   isComplete(state) {
-    return state.ActionEntry.player != null && 
-           state.ActionEntry.action != null && 
+    return state.ActionEntry.player != null &&
+           state.ActionEntry.action != null &&
            state.ActionEntry.position != null &&
            state.Time != null;
   },
