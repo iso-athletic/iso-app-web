@@ -20,6 +20,6 @@
 - [ ] Undo/Remove event
 - [ ] Export events to CSV
 - [ ] Save info based on session user (page refresh should not remove data)
-- [ ] Score determined based on court location (no need to choose whether it was a 3 PT or 2 PT)
+- [x] Score determined based on court location (no need to choose whether it was a 3 PT or 2 PT)
 
 
