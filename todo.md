@@ -19,5 +19,10 @@
 - [x] Undo/Remove event
 - [ ] Export events to CSV
 - [x] Score determined based on court location (no need to choose whether it was a 3 PT or 2 PT)
+- [ ] Scoreboard
+- [ ] Move pages behind security points (ie can't view unless authenticated)
+
+### Prepare for backend
+- [ ] Restructure file structure according to server/client split
 
 
