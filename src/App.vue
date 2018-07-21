@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-toolbar class="translucentBackground">
+    <v-toolbar>
       <v-toolbar-title>Iso Athletic</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
