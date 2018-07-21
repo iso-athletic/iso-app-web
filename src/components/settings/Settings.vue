@@ -22,6 +22,3 @@
   </v-list>
 </div>
 </template>
-
-<script>
-</script>

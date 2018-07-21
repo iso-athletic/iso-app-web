@@ -5,6 +5,8 @@
       <v-container grid-list-xl>
       <v-layout row wrap>
           <Action v-for="action in allActionNames"
+          v-bind:data="action"
+          v-bind:key="action.actionName"
           :actionName="action"/>
       </v-layout>
       </v-container>

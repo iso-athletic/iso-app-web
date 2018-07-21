@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-toolbar class="translucentBackground">
+    <v-toolbar>
       <v-toolbar-title>Iso Athletic</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
@@ -66,11 +66,9 @@ export default {
 
 <style>
   #app {
-    background: url('Media/background.jpg');
+    background: url('assets/background.jpg');
     background-size: 100% 100%;
   }
-
-
 
   .scrimmageButton {
     width: 100%;
