@@ -34,9 +34,6 @@
     },
     methods: {
       selectPlayer() {
-        if (this.$store.getters.isComplete) {
-          // do fun stuff here
-        }
         this.$store.dispatch('updatePlayer', this.playerName);
       }
     }

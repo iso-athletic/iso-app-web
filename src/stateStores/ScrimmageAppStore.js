@@ -4,24 +4,31 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const state = {
-  Time: null,
   ActionEntry:  {
-    id: null,
     player: null,
     action: null,
     position: null,
   },
+  Time: {
+    currentTime: null,
+  },
 };
 
 const mutations = {
-  SET_PLAYER(state, player) {
-    state.ActionEntry.player = player;
-  },
-  SET_ACTION(state, action) {
-    state.ActionEntry.action = action;
-  },
-  SET_POSITION(state, position) {
-    state.ActionEntry.position = position;
+  SET_ACTION_ENTRY(state, entry) {
+    switch(entry.type) {
+      case "ACTION":
+        state.ActionEntry.action = entry.value;
+        break;
+      case "POSITION":
+        state.ActionEntry.position = entry.value;
+        break;
+      case "PLAYER":
+        state.ActionEntry.player = entry.value;
+        break;
+      default: 
+        console.log("this shouldn't happen");
+    }
   },
   RESET_ACTION(state) {
     state.ActionEntry.player = null;
@@ -29,18 +36,30 @@ const mutations = {
     state.ActionEntry.position = null;
   },
   SET_TIME(state, newTime) {
-    state.Time = newTime;
+    state.Time.currentTime = newTime;
   }
 };
 const actions = {
   updatePlayer(context, player) {
-    context.commit("SET_PLAYER", player);
+    let entry = {
+      type: "PLAYER",
+      value: player
+    };
+    context.commit("SET_ACTION_ENTRY", entry);
   },
   updateAction(context, action) {
-    context.commit("SET_ACTION", action);
+    let entry = {
+      type: "ACTION",
+      value: action 
+    };
+    context.commit("SET_ACTION_ENTRY", entry);
   },
   updatePosition(context, position) {
-    context.commit("SET_POSITION", position);
+    let entry = {
+      type: "POSITION",
+      value: position 
+    };
+    context.commit("SET_ACTION_ENTRY", entry);
   },
   resetAction(context) {
     context.commit("RESET_ACTION");
@@ -52,8 +71,8 @@ const actions = {
 
 const getters = {
   isComplete(state) {
-    return state.ActionEntry.player != null &&
-           state.ActionEntry.action != null &&
+    return state.ActionEntry.player != null && 
+           state.ActionEntry.action != null && 
            state.ActionEntry.position != null &&
            state.Time != null;
   },
@@ -66,7 +85,7 @@ const getters = {
     return copyActionEntry;
   },
   getTime(state) {
-    let t = state.Time;
+    let t = state.Time.currentTime;
     return t;
   }
 };
