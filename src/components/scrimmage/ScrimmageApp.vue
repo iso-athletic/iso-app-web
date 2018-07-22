@@ -27,8 +27,7 @@
     </v-layout>
 
     <!-- we need this here so computed gets run, prob a better way, but returns nothing -->
-    {{actionEventBuilt}}
-    {{getEventList}}
+    <!-- {{actionEventBuilt}} -->
   </div>
 </template>
 
@@ -57,25 +56,12 @@ export default {
     moment
   },
   computed: {
-    actionEventBuilt() {
-      if (this.$store.getters.isComplete) {
-        let newEvent = this.$store.getters.getEntry;
-        let timeStamp = this.$store.getters.getTime;
-        eventId++;
-        newEvent.id = eventId;
-        newEvent.timeStamp = timeStamp;
-        this.$store.dispatch('pushEvent', newEvent);
-        this.$store.dispatch('resetAction');
-      }
-    },
     ...mapGetters([
       "getEventList",
     ])
   },
   data() {
     return {
-      finishedAction: this.$store.getters.isComplete,
-      // allEvents: []
     }
   },
   mounted() {

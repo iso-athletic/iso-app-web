@@ -16,6 +16,20 @@ const state = {
   Events: [],
 };
 
+function isActionEntryFull() {
+  return state.ActionEntry.player != null && 
+          state.ActionEntry.action != null && 
+          state.ActionEntry.position != null &&
+          state.Time != null;
+}
+
+function resetActionEntry() {
+  state.ActionEntry.player = null;
+  state.ActionEntry.action = null;
+  state.ActionEntry.position = null;
+  state.ActionEntry.id++;
+}
+
 const mutations = {
   SET_ACTION_ENTRY(state, entry) {
     switch(entry.type) {
@@ -31,19 +45,15 @@ const mutations = {
       default: 
         alert("this shouldn't happen");
     }
-  },
-  RESET_ACTION(state) {
-    state.ActionEntry.player = null;
-    state.ActionEntry.action = null;
-    state.ActionEntry.position = null;
-    state.ActionEntry.id++;
+
+    if (isActionEntryFull()) {
+      state.Events.push({...state.ActionEntry, timeStamp: state.Time.currentTime});
+      resetActionEntry();
+    }
   },
   SET_TIME(state, newTime) {
     state.Time.currentTime = newTime;
   },
-  ADD_EVENT(state, event) {
-    state.Events.push(event);
-  }
 };
 const actions = {
   updatePlayer(context, player) {
@@ -67,32 +77,12 @@ const actions = {
     };
     context.commit("SET_ACTION_ENTRY", entry);
   },
-  resetAction(context) {
-    context.commit("RESET_ACTION");
-  },
   updateTime(context, time) {
     context.commit("SET_TIME", time);
   },
-  pushEvent(context, event) {
-    context.commit("ADD_EVENT", event);
-  }
 };
 
 const getters = {
-  isComplete(state) {
-    return state.ActionEntry.player != null && 
-           state.ActionEntry.action != null && 
-           state.ActionEntry.position != null &&
-           state.Time != null;
-  },
-  getEntry(state) {
-    let copyActionEntry = {
-      player: state.ActionEntry.player,
-      action: state.ActionEntry.action,
-      position: state.ActionEntry.position,
-    }
-    return copyActionEntry;
-  },
   getTime(state) {
     let t = state.Time.currentTime;
     return t;
