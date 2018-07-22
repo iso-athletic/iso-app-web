@@ -8,10 +8,12 @@ const state = {
     player: null,
     action: null,
     position: null,
+    id: 0,
   },
   Time: {
     currentTime: null,
   },
+  Events: [],
 };
 
 const mutations = {
@@ -27,16 +29,20 @@ const mutations = {
         state.ActionEntry.player = entry.value;
         break;
       default: 
-        console.log("this shouldn't happen");
+        alert("this shouldn't happen");
     }
   },
   RESET_ACTION(state) {
     state.ActionEntry.player = null;
     state.ActionEntry.action = null;
     state.ActionEntry.position = null;
+    state.ActionEntry.id++;
   },
   SET_TIME(state, newTime) {
     state.Time.currentTime = newTime;
+  },
+  ADD_EVENT(state, event) {
+    state.Events.push(event);
   }
 };
 const actions = {
@@ -66,6 +72,9 @@ const actions = {
   },
   updateTime(context, time) {
     context.commit("SET_TIME", time);
+  },
+  pushEvent(context, event) {
+    context.commit("ADD_EVENT", event);
   }
 };
 
@@ -87,6 +96,9 @@ const getters = {
   getTime(state) {
     let t = state.Time.currentTime;
     return t;
+  },
+  getEventList(state) {
+    return [...state.Events];
   }
 };
 

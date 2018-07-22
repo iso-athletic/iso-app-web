@@ -22,12 +22,13 @@
         </v-layout>
       </v-flex>
       <v-flex xs2>
-        <Events :occurredEvents="allEvents"/>
+        <Events :occurredEvents="getEventList"/>
       </v-flex>
     </v-layout>
 
     <!-- we need this here so computed gets run, prob a better way, but returns nothing -->
     {{actionEventBuilt}}
+    {{getEventList}}
   </div>
 </template>
 
@@ -40,6 +41,7 @@ import Players from './Players'
 import Scoreboard from './score-view/Scoreboard'
 import Actions from './actions/Actions'
 import Events from './events/Events'
+import {mapGetters} from 'vuex'
 
 var eventId;
 
@@ -62,15 +64,18 @@ export default {
         eventId++;
         newEvent.id = eventId;
         newEvent.timeStamp = timeStamp;
-        this.allEvents.push(newEvent);
+        this.$store.dispatch('pushEvent', newEvent);
         this.$store.dispatch('resetAction');
       }
-    }
+    },
+    ...mapGetters([
+      "getEventList",
+    ])
   },
   data() {
     return {
       finishedAction: this.$store.getters.isComplete,
-      allEvents: []
+      // allEvents: []
     }
   },
   mounted() {
