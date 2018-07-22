@@ -68,7 +68,7 @@ const getters = {
   getTime(state) {
     let t = state.Time;
     return t;
-  }
+  },
 };
 
 export default new Vuex.Store({

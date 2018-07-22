@@ -25,6 +25,11 @@
         <Events :occurredEvents="allEvents"/>
       </v-flex>
     </v-layout>
+     <v-dialog v-model="forgotTimer" max-width="300">
+      <v-card>
+        <v-card-title>Start the timer to add an event</v-card-title>
+    </v-card>
+    </v-dialog>
 
     <!-- we need this here so computed gets run, prob a better way, but returns nothing -->
     {{actionEventBuilt}}
@@ -63,14 +68,53 @@ export default {
         newEvent.id = eventId;
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
+        console.log(this.allEvents);
         this.$store.dispatch('resetAction');
       }
+    },
+    forgotTimer: {
+      get: function() {
+        return (this.$store.getters.getEntry.player != null &&
+                this.$store.getters.getEntry.action != null &&
+                this.$store.getters.getEntry.position != null &&
+                this.getTime == null)
+      },
+      set: function(newVal) {
+        this.forgotTimer = newVal;
+      }
     }
+
+    /*
+const getters = {
+  isComplete(state) {
+    return state.ActionEntry.player != null &&
+           state.ActionEntry.action != null &&
+           state.ActionEntry.position != null &&
+           state.Time != null;
+  },
+  getEntry(state) {
+    let copyActionEntry = {
+      player: state.ActionEntry.player,
+      action: state.ActionEntry.action,
+      position: state.ActionEntry.position,
+    }
+    return copyActionEntry;
+  },
+  getTime(state) {
+    let t = state.Time;
+    return t;
+  }, */
   },
   data() {
     return {
       finishedAction: this.$store.getters.isComplete,
-      allEvents: []
+      allEvents: [],
+    }
+  },
+  watch: {
+    forgotTimer (val) {
+      if (!val) return
+      setTimeout(() => (this.forgotTimer = false), 2000)
     }
   },
   mounted() {

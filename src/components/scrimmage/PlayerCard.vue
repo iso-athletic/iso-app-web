@@ -17,9 +17,6 @@
                   @click="$emit('remove-player', playerName)">
                   <v-icon id="deleteIcon">delete</v-icon>
           </v-btn>
-         
-       
-          
       </v-flex>
     </v-layout>
   </div>
