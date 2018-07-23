@@ -30,6 +30,16 @@ function resetActionEntry() {
   state.ActionEntry.id++;
 }
 
+function findEventIndex(eventID) {
+  for (var i = 0; i < state.Events.length; i++) {
+    if (state.Events[i].id == eventID) {
+      return i;
+    }
+  }
+  console.log("couldn't find the index");
+  return -1;
+}
+
 const mutations = {
   SET_ACTION_ENTRY(state, entry) {
     switch(entry.type) {
@@ -43,7 +53,7 @@ const mutations = {
         state.ActionEntry.player = entry.value;
         break;
       default: 
-        alert("this shouldn't happen");
+        console.log("Entry type: " + entry.type + " doesn't exist");
     }
 
     if (isActionEntryFull()) {
@@ -54,7 +64,15 @@ const mutations = {
   SET_TIME(state, newTime) {
     state.Time.currentTime = newTime;
   },
+  REMOVE_EVENT(state, eventID) {
+    let i = state.Events.map(function(e) { return e.id }).indexOf(eventID);
+    if (i > -1) {
+      state.Events.splice(i, 1);
+    }
+    console.log(state.Events);
+  }
 };
+
 const actions = {
   updatePlayer(context, player) {
     let entry = {
@@ -80,6 +98,9 @@ const actions = {
   updateTime(context, time) {
     context.commit("SET_TIME", time);
   },
+  removeEvent(context, eventID) {
+    context.commit("REMOVE_EVENT", eventID);
+  }
 };
 
 const getters = {

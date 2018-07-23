@@ -25,9 +25,6 @@
         <Events :occurredEvents="getEventList"/>
       </v-flex>
     </v-layout>
-
-    <!-- we need this here so computed gets run, prob a better way, but returns nothing -->
-    <!-- {{actionEventBuilt}} -->
   </div>
 </template>
 
@@ -41,8 +38,6 @@ import Scoreboard from './score-view/Scoreboard'
 import Actions from './actions/Actions'
 import Events from './events/Events'
 import {mapGetters} from 'vuex'
-
-var eventId;
 
 export default {
   name: 'scrimmage',
@@ -60,15 +55,10 @@ export default {
       "getEventList",
     ])
   },
-  data() {
-    return {
-    }
-  },
   mounted() {
     var offsetHeights = window.innerHeight - (document.getElementById('events').offsetTop + 15);
     var events = document.getElementById('events');
     events.style.height = offsetHeights + "px";
-    eventId = 0;
   }
 }
 </script>

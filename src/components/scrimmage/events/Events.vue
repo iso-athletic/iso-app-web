@@ -8,7 +8,7 @@
         v-bind:key="i"
         :actionEntry="eventItem"
         :color="cardColor(i)"
-        @remove-event="removeEventFromList($event)"/>
+        />
     </v-container>
   </v-card>
 </div>
@@ -34,11 +34,6 @@ export default {
         return "grey darken-2";
       }
     },
-    removeEventFromList: function(id) {
-      console.log('removing event');
-      const i = this.occurredEvents.map(function(x) {return x.id; }).indexOf(id);
-      if (i != -1) this.occurredEvents.splice(i, 1);
-    }
   }
 }
 </script>
