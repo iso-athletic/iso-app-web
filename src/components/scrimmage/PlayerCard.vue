@@ -14,7 +14,7 @@
            <v-btn id="deleteButton" flat icon color="error"
                   :ripple="false"
                   class="mx-0"
-                  @click="$emit('remove-player', playerName)">
+                  @click="removePlayer()">
                   <v-icon id="deleteIcon">delete</v-icon>
           </v-btn>
          
@@ -35,6 +35,9 @@
     methods: {
       selectPlayer() {
         this.$store.dispatch('updatePlayer', this.playerName);
+      },
+      removePlayer() {
+        this.$store.dispatch('removePlayerFromTeam', this.playerName);
       }
     }
 

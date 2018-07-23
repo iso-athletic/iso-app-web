@@ -8,8 +8,6 @@
           :playersLeft="availablePlayers"
           TeamNumber=1
           />
-          <!-- @removePlayerFromAvailable="removePlayerFromAvailable($event)"
-          @addPlayerToAvailable="playersAvailable.push($event)"/> -->
         </v-flex>
 
         <v-flex xs6 sm6 md6>
@@ -18,8 +16,6 @@
           :playersLeft="availablePlayers"
           TeamNumber=2
           />
-          <!-- @removePlayerFromAvailable="removePlayerFromAvailable($event)"
-          @addPlayerToAvailable="playersAvailable.push($event)"/> -->
         </v-flex>
       </v-layout>
     </v-container>
@@ -64,13 +60,6 @@ export default {
       return this.$store.getters.getAvailablePlayers(this.playersAvailable);
     }
   },
-  methods: {
-    removePlayerFromAvailable: function(player) {
-      console.log("removing player");
-      const i = this.playersAvailable.indexOf(player);
-      if (i != -1) this.playersAvailable.splice(i, 1);
-    }
-  }
 }
 
 </script>

@@ -16,7 +16,7 @@ const state = {
   Events: [],
   TeamInformation: {
     team1: {
-      players: ['Vic Law'],
+      players: [],
       score: 0
     },
     team2: {
@@ -77,6 +77,18 @@ const mutations = {
     } else {
       state.TeamInformation.team2.players.push(playerInformation.playerName);
     }
+  },
+  REMOVE_PLAYER_FROM_TEAM(state, playerName) {
+    let team1Index = state.TeamInformation.team1.players.indexOf(playerName);
+    let team2Index = state.TeamInformation.team2.players.indexOf(playerName);
+
+    if (team1Index > -1) {
+      state.TeamInformation.team1.players.splice(team1Index, 1);
+    } else if (team2Index > -1) {
+      state.TeamInformation.team2.players.splice(team2Index, 1);
+    } else {
+      console.log("Player to be removed wasn't found on either team");
+    }
   }
 };
 
@@ -110,6 +122,9 @@ const actions = {
   },
   addPlayerToTeam(context, playerInformation) {
     context.commit("ADD_PLAYER_TO_TEAM", playerInformation);
+  },
+  removePlayerFromTeam(context, playerName) {
+    context.commit("REMOVE_PLAYER_FROM_TEAM", playerName);
   }
 };
 

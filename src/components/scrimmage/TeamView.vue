@@ -10,7 +10,7 @@
     v-bind:data="player"
     v-bind:key="player.playerName"
     :playerName="player"
-    @remove-player="removePlayerFromTeam($event)" />
+    />
     <v-layout class="my-1" row v-for="players in playersLeftPerTeam" v-bind:data="players" v-bind:key="players.playersName">
       <v-flex xs12>
         <div class="text-xs-center">
@@ -82,13 +82,6 @@ export default {
       this.newPlayerName = null;
       this.addPlayerDialog = false;
     },
-    removePlayerFromTeam(playerName) {
-      let i = this.players.indexOf(playerName);
-      if (i != -1) {
-        this.players.splice(i, 1);
-        this.$emit('addPlayerToAvailable', playerName);
-      }
-    }
   }
 }
 
