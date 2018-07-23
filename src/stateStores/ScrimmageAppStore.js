@@ -30,16 +30,6 @@ function resetActionEntry() {
   state.ActionEntry.id++;
 }
 
-function findEventIndex(eventID) {
-  for (var i = 0; i < state.Events.length; i++) {
-    if (state.Events[i].id == eventID) {
-      return i;
-    }
-  }
-  console.log("couldn't find the index");
-  return -1;
-}
-
 const mutations = {
   SET_ACTION_ENTRY(state, entry) {
     switch(entry.type) {

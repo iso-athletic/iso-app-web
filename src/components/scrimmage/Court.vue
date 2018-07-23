@@ -59,7 +59,6 @@ export default {
         const threePointCenter = {x: 4.3*unit, y: p.height/2};
         if (p.mouseX < p.width && p.mouseX > 0 &&
             p.mouseY < p.height && p.mouseY > 0) {
-          // p.ellipse(p.mouseX, p.mouseY, 10, 10);
           let point = {
             x: p.mouseX,
             y: p.mouseY,
