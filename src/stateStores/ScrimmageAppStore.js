@@ -14,6 +14,16 @@ const state = {
     currentTime: null,
   },
   Events: [],
+  TeamInformation: {
+    team1: {
+      players: ['Vic Law'],
+      score: 0
+    },
+    team2: {
+      players: [],
+      score: 0
+    }
+  }
 };
 
 function isActionEntryFull() {
@@ -60,6 +70,13 @@ const mutations = {
       state.Events.splice(i, 1);
     }
     console.log(state.Events);
+  },
+  ADD_PLAYER_TO_TEAM(state, playerInformation) {
+    if (playerInformation.teamNumber == 1) {
+      state.TeamInformation.team1.players.push(playerInformation.playerName);
+    } else {
+      state.TeamInformation.team2.players.push(playerInformation.playerName);
+    }
   }
 };
 
@@ -90,6 +107,9 @@ const actions = {
   },
   removeEvent(context, eventID) {
     context.commit("REMOVE_EVENT", eventID);
+  },
+  addPlayerToTeam(context, playerInformation) {
+    context.commit("ADD_PLAYER_TO_TEAM", playerInformation);
   }
 };
 
@@ -100,6 +120,17 @@ const getters = {
   },
   getEventList(state) {
     return [...state.Events];
+  },
+  getAvailablePlayers: (state) => (roster) => {
+    return roster.filter(player => !state.TeamInformation.team1.players.includes(player) && 
+                                   !state.TeamInformation.team2.players.includes(player))
+  },
+  getTeamPlayers: (state) => (teamNumber) => {
+    if (teamNumber == 1) {
+      return state.TeamInformation.team1.players;
+    } else {
+      return state.TeamInformation.team2.players;
+    }
   }
 };
 

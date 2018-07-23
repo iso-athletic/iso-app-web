@@ -6,7 +6,7 @@
       </v-flex>
     </v-layout>
     <PlayerCard
-    v-for="player in players"
+    v-for="player in teamPlayers"
     v-bind:data="player"
     v-bind:key="player.playerName"
     :playerName="player"
@@ -49,12 +49,20 @@ export default {
       players: [],
       addPlayerDialog: false,
       newPlayerName: null,
-      playersLeftPerTeam: 5,
     }
   },
   props: {
     playersLeft: Array,
     TeamName: String,
+    TeamNumber: String,
+  },
+  computed: {
+    teamPlayers() {
+      return this.$store.getters.getTeamPlayers(this.TeamNumber);
+    },
+    playersLeftPerTeam() {
+      return 5 - this.$store.getters.getTeamPlayers(this.TeamNumber).length;
+    }
   },
   methods: {
     addPlayer() {
@@ -70,19 +78,14 @@ export default {
         return;
       }
 
-      this.players.push(this.newPlayerName);
-      // removing player from the available list
-      this.$emit('removePlayerFromAvailable', this.newPlayerName);
+      this.$store.dispatch("addPlayerToTeam", {playerName: this.newPlayerName, teamNumber: this.TeamNumber});
       this.newPlayerName = null;
       this.addPlayerDialog = false;
-
-      this.playersLeftPerTeam--;
     },
     removePlayerFromTeam(playerName) {
       let i = this.players.indexOf(playerName);
       if (i != -1) {
         this.players.splice(i, 1);
-        this.playersLeftPerTeam++;
         this.$emit('addPlayerToAvailable', playerName);
       }
     }
