@@ -58,6 +58,7 @@ const mutations = {
 
     if (isActionEntryFull()) {
       state.Events.push({...state.ActionEntry, timeStamp: state.Time.currentTime});
+      console.log(state.Events);
       resetActionEntry();
     }
   },

@@ -48,7 +48,7 @@ export default {
   computed: {
     madeShot: function() {
       if (this.actionEntry.action != "Made Shot") {
-        return actionEntry.action;
+        return this.actionEntry.action;
       }
       return "Made " + this.actionEntry.position.shotValue.toString() + "-pointer";
     }
