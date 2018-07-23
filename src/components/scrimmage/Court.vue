@@ -67,11 +67,11 @@ export default {
             life: 255,
           }
           p.dots.push(point);
-          let threePointer = false;
+          let shotValue = 2;
           if (Math.hypot(threePointCenter.x - p.mouseX, threePointCenter.y - p.mouseY) > 41.5*unit/2) {
-            threePointer = true;
+            shotValue = 3;
           }
-          this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY, threePointer: threePointer});
+          this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY, shotValue: shotValue});
         }
       },
 

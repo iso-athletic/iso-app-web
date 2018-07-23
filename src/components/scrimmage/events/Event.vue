@@ -8,7 +8,7 @@
               <h3>{{actionEntry.player}}</h3>
             </v-flex>
             <v-flex d-flex md12>
-              <div>{{actionEntry.action}}</div>
+              <div>{{madeShot}}</div>
             </v-flex>
             <v-flex d-flex md12>
               <div>{{actionEntry.timeStamp}}</div>
@@ -48,11 +48,9 @@ export default {
   computed: {
     madeShot: function() {
       if (this.actionEntry.action != "Made Shot") {
-        return false;
+        return actionEntry.action;
       }
-      if (this.actionEntry.position.threePointer) this.shotValue = 3;
-      else this.shotValue = 2;
-      return true;
+      return "Made " + this.actionEntry.position.shotValue.toString() + "-pointer";
     }
   },
   methods: {
