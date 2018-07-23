@@ -70,9 +70,10 @@ export default {
   },
   computed: {
     prettyTime() {
-      let minute = Math.floor(this.totalTime / 6000);
-      let second = Math.floor((this.totalTime - minute*6000)/100);
-      let decisecond = this.totalTime - minute*6000 - second*100;
+      let timeLeft = this.$store.getters.getTimeLeft;
+      let minute = Math.floor(timeLeft / 6000);
+      let second = Math.floor((timeLeft - minute*6000)/100);
+      let decisecond = timeLeft - minute*6000 - second*100;
 
       let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
       let prettySecond = second < 10 ? "0" + second.toString() : second.toString();

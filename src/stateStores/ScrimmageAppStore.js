@@ -11,7 +11,7 @@ const state = {
     id: 0,
   },
   Time: {
-    currentTime: null,
+    currentTime: 20*6000,
   },
   Events: [],
   TeamInformation: {
@@ -90,6 +90,9 @@ const mutations = {
     } else {
       console.log("Player to be removed wasn't found on either team");
     }
+  },
+  TICK_ONE_DECISECOND(state) {
+    if (state.Time.currentTime > 0) state.Time.currentTime--;
   }
 };
 
@@ -115,18 +118,31 @@ const actions = {
     };
     context.commit("SET_ACTION_ENTRY", entry);
   },
-  updateTime(context, time) {
-    context.commit("SET_TIME", time);
-  },
   removeEvent(context, eventID) {
     context.commit("REMOVE_EVENT", eventID);
   },
+
+  /*******************************************************/
+  /***************** TEAM ROSTER ACTIONS *****************/
+  /*******************************************************/
   addPlayerToTeam(context, playerInformation) {
     context.commit("ADD_PLAYER_TO_TEAM", playerInformation);
   },
   removePlayerFromTeam(context, playerName) {
     context.commit("REMOVE_PLAYER_FROM_TEAM", playerName);
-  }
+  },
+
+  /*******************************************************/
+  /******************** TIMER ACTIONS ********************/
+  /*******************************************************/
+  runTimer(context) {
+    setInterval(() => {
+      context.commit("TICK_ONE_DECISECOND");
+    }, 10);
+  },
+  updateTime(context, time) {
+    context.commit("SET_TIME", time);
+  },
 };
 
 const getters = {
@@ -147,6 +163,9 @@ const getters = {
     } else {
       return state.TeamInformation.team2.players;
     }
+  },
+  getTimeLeft(state) {
+    return state.Time.currentTime;
   }
 };
 
