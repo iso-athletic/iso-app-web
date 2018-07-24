@@ -67,7 +67,13 @@ export default {
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
         var scoreboard = this.$refs.scores;
-        scoreboard.increment(newEvent.position.threePointer ? 3 : 2, newEvent.team);
+        var amount;
+        if (newEvent.action == "Made FT"){
+          amount = 1;
+        } else {
+          amount = newEvent.position.threePointer ? 3 : 2;
+        }
+        scoreboard.increment(amount, newEvent.team);
         this.$store.dispatch('resetAction');
       }
     }
