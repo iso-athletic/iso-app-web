@@ -66,14 +66,9 @@ export default {
         newEvent.id = eventId;
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
-        var scoreboard = this.$refs.scores;
-        var amount;
-        if (newEvent.action == "Made FT"){
-          amount = 1;
-        } else {
-          amount = newEvent.position.threePointer ? 3 : 2;
-        }
-        scoreboard.increment(amount, newEvent.team);
+        if (newEvent.action == 'Made Shot' || newEvent.action == 'Made FT') {
+            this.updateScore(newEvent);
+        };
         this.$store.dispatch('resetAction');
       }
     }
@@ -82,6 +77,18 @@ export default {
     return {
       finishedAction: this.$store.getters.isComplete,
       allEvents: []
+    }
+  },
+  methods: {
+    updateScore: function(event) {
+      var amount;
+      var scoreboard = this.$refs.scores;
+      if (event.action == "Made FT"){
+          amount = 1;
+      } else {
+          amount = event.position.threePointer ? 3 : 2;
+      }
+      scoreboard.increment(amount, event.team);
     }
   },
   mounted() {
