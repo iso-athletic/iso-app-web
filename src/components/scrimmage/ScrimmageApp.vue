@@ -14,6 +14,9 @@
       <v-flex md5>
         <v-layout fill-height row wrap>
           <v-flex d-flex md12>
+            <Scoreboard ref="scores"/>
+          </v-flex>
+          <v-flex d-flex md12>
             <Players />
           </v-flex>
           <v-flex d-flex md12>
@@ -63,6 +66,8 @@ export default {
         newEvent.id = eventId;
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
+        var scoreboard = this.$refs.scores;
+        scoreboard.increment(newEvent.position.threePointer ? 3 : 2, newEvent.team);
         this.$store.dispatch('resetAction');
       }
     }

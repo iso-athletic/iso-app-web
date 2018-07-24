@@ -8,6 +8,7 @@ const state = {
   ActionEntry:  {
     id: null,
     player: null,
+    team: null,
     action: null,
     position: null,
   },
@@ -16,6 +17,9 @@ const state = {
 const mutations = {
   SET_PLAYER(state, player) {
     state.ActionEntry.player = player;
+  },
+  SET_TEAM(state, team){
+    state.ActionEntry.team = team;
   },
   SET_ACTION(state, action) {
     state.ActionEntry.action = action;
@@ -35,6 +39,9 @@ const mutations = {
 const actions = {
   updatePlayer(context, player) {
     context.commit("SET_PLAYER", player);
+  },
+  updateTeam(context, team){
+    context.commit("SET_TEAM", team)
   },
   updateAction(context, action) {
     context.commit("SET_ACTION", action);
@@ -62,13 +69,14 @@ const getters = {
       player: state.ActionEntry.player,
       action: state.ActionEntry.action,
       position: state.ActionEntry.position,
+      team: state.ActionEntry.team
     }
     return copyActionEntry;
   },
   getTime(state) {
     let t = state.Time;
     return t;
-  }
+  },
 };
 
 export default new Vuex.Store({

@@ -36,25 +36,25 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import PlayerCard from './PlayerCard'
+import Vue from "vue";
+import PlayerCard from "./PlayerCard";
 
 export default {
-  name: 'teamView',
+  name: "teamView",
   components: {
-    PlayerCard,
+    PlayerCard
   },
   data() {
-    return{
+    return {
       players: [],
       addPlayerDialog: false,
       newPlayerName: null,
-      playersLeftPerTeam: 5,
-    }
+      playersLeftPerTeam: 5
+    };
   },
   props: {
     playersLeft: Array,
-    TeamName: String,
+    TeamName: String
   },
   methods: {
     addPlayer() {
@@ -72,7 +72,7 @@ export default {
 
       this.players.push(this.newPlayerName);
       // removing player from the available list
-      this.$emit('removePlayerFromAvailable', this.newPlayerName);
+      this.$emit("removePlayerFromAvailable", this.newPlayerName);
       this.newPlayerName = null;
       this.addPlayerDialog = false;
 
@@ -83,10 +83,9 @@ export default {
       if (i != -1) {
         this.players.splice(i, 1);
         this.playersLeftPerTeam++;
-        this.$emit('addPlayerToAvailable', playerName);
+        this.$emit("addPlayerToAvailable", playerName);
       }
     }
   }
-}
-
+};
 </script>
