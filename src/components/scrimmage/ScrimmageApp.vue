@@ -14,6 +14,9 @@
       <v-flex md5>
         <v-layout fill-height row wrap>
           <v-flex d-flex md12>
+            <Scoreboard ref="scores"/>
+          </v-flex>
+          <v-flex d-flex md12>
             <Players />
           </v-flex>
           <v-flex d-flex md12>
@@ -63,6 +66,9 @@ export default {
         newEvent.id = eventId;
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
+        if (newEvent.action == 'Made Shot' || newEvent.action == 'Made FT') {
+            this.updateScore(newEvent);
+        };
         this.$store.dispatch('resetAction');
       }
     }
@@ -71,6 +77,18 @@ export default {
     return {
       finishedAction: this.$store.getters.isComplete,
       allEvents: []
+    }
+  },
+  methods: {
+    updateScore: function(event) {
+      var amount;
+      var scoreboard = this.$refs.scores;
+      if (event.action == "Made FT"){
+          amount = 1;
+      } else {
+          amount = event.position.threePointer ? 3 : 2;
+      }
+      scoreboard.increment(amount, event.team);
     }
   },
   mounted() {
