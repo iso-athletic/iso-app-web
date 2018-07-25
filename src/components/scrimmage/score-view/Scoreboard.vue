@@ -1,21 +1,23 @@
 <template>
   <div id="scoreboard">
-    <v-card color="blue-grey darken-2" class="white--text">
-      <v-layout>
-        <v-flex xs4>
-          Purple
+    <v-card class="noBackground scrimmageBorder mx-2 my-2">
+    <v-container fluid>
+      <v-layout row>
+        <v-flex xs3>
+            <h2 class="text-md-center">Purple</h2>
         </v-flex>
-        <v-flex xs4>
-          {{teamOneScore}}
+        <v-flex xs3>
+          <div class="large-text text-md-center">{{teamOneScore}}</div>
+        </v-flex> 
+        <v-flex xs3>
+          <div class="large-text text-md-center">{{teamTwoScore}}</div>
         </v-flex>
-        <v-flex xs4>
-          {{teamTwoScore}}
-        </v-flex>
-        <v-flex xs4>
-          White
-        </v-flex>
+        <v-flex xs3>
+          <h2 class="text-md-center">White</h2>
+        </v-flex> 
       </v-layout>
-    </v-card>
+    </v-container>
+  </v-card>
   </div>
 </template>
 
