@@ -1,10 +1,5 @@
 <template>
   <div>
-    <!-- <v-layout row>
-      <v-flex xs12>
-        <h2 class="text-md-center">{{TeamName}}</h2>
-      </v-flex>
-    </v-layout> -->
     <PlayerCard
     v-for="player in players"
     v-bind:data="player"
