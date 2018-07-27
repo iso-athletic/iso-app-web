@@ -14,6 +14,9 @@
       <v-flex md5>
         <v-layout fill-height row wrap>
           <v-flex d-flex md12>
+            <Scoreboard ref="scores"/>
+          </v-flex>
+          <v-flex d-flex md12>
             <Players />
           </v-flex>
           <v-flex d-flex md12>
@@ -41,7 +44,7 @@ import Vue from 'vue'
 import moment from 'moment'
 import Timer from './Timer'
 import Court from './Court'
-import Players from './Players'
+import Players from './players/Players'
 import Scoreboard from './score-view/Scoreboard'
 import Actions from './actions/Actions'
 import Events from './events/Events'
@@ -68,7 +71,13 @@ export default {
         newEvent.id = eventId;
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
+<<<<<<< HEAD
         console.log(this.allEvents);
+=======
+        if (newEvent.action == 'Made Shot' || newEvent.action == 'Made FT') {
+            this.updateScore(newEvent);
+        };
+>>>>>>> c420d75e4bd441e6596c39867856c9bb748bea02
         this.$store.dispatch('resetAction');
       }
     },
@@ -115,6 +124,18 @@ const getters = {
     forgotTimer (val) {
       if (!val) return
       setTimeout(() => (this.forgotTimer = false), 2000)
+    }
+  },
+  methods: {
+    updateScore: function(event) {
+      var amount;
+      var scoreboard = this.$refs.scores;
+      if (event.action == "Made FT"){
+          amount = 1;
+      } else {
+          amount = event.position.threePointer ? 3 : 2;
+      }
+      scoreboard.increment(amount, event.team);
     }
   },
   mounted() {

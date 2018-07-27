@@ -4,7 +4,6 @@
       <v-flex class="pl-4" sm11>
          <v-btn class="scrimmageButton mx-0"
                   :ripple="false"
-                 
                   @click="selectPlayer">
                   {{playerName}}
                   
@@ -23,21 +22,21 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  export default {
-    name: 'playerCard',
-    props: {
-      playerName: String,
-    },
-    methods: {
-      selectPlayer() {
-        if (this.$store.getters.isComplete) {
-          // do fun stuff here
-        }
-        this.$store.dispatch('updatePlayer', this.playerName);
+import Vue from "vue";
+export default {
+  name: "playerCard",
+  props: {
+    playerName: String
+  },
+  methods: {
+    selectPlayer() {
+      if (this.$store.getters.isComplete) {
+        // do fun stuff here
       }
+      this.$store.dispatch("updatePlayer", this.playerName);
+      this.$store.dispatch("updateTeam", this.$parent.TeamName);
     }
-
   }
+};
 </script>
 
