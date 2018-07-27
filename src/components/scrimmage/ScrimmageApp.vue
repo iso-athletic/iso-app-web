@@ -28,7 +28,7 @@
         <Events :occurredEvents="allEvents"/>
       </v-flex>
     </v-layout>
-     <v-dialog v-if="forgotTimer" max-width="300">
+     <v-dialog v-model="forgotTimer" max-width="300">
       <v-card>
         <v-card-title>Start the timer to add an event</v-card-title>
     </v-card>
@@ -71,27 +71,17 @@ export default {
         newEvent.id = eventId;
         newEvent.timeStamp = timeStamp;
         this.allEvents.push(newEvent);
-<<<<<<< HEAD
-        console.log(this.allEvents);
-=======
         if (newEvent.action == 'Made Shot' || newEvent.action == 'Made FT') {
             this.updateScore(newEvent);
         };
->>>>>>> c420d75e4bd441e6596c39867856c9bb748bea02
         this.$store.dispatch('resetAction');
       }
-    },
-    forgotTimer: {
-      get: function() {
-        return (this.$store.getters.getEntry.player != null &&
-                this.$store.getters.getEntry.action != null &&
-                this.$store.getters.getEntry.position != null &&
-                this.getTime == null)
-      },
-      set: function(newVal) {
-        this.forgotTimer = newVal;
-      }
+      else if (this.checkForgotTimer()) {
+                  this.reminderTimer();
+                }
     }
+
+
 
     /*
 const getters = {
@@ -118,14 +108,15 @@ const getters = {
     return {
       finishedAction: this.$store.getters.isComplete,
       allEvents: [],
+      forgotTimer: false
     }
   },
-  watch: {
+ /*  watch: {
     forgotTimer (val) {
       if (!val) return
       setTimeout(() => (this.forgotTimer = false), 2000)
     }
-  },
+  }, */
   methods: {
     updateScore: function(event) {
       var amount;
@@ -136,6 +127,16 @@ const getters = {
           amount = event.position.threePointer ? 3 : 2;
       }
       scoreboard.increment(amount, event.team);
+    },
+    checkForgotTimer: function() {
+      return  (this.$store.getters.getEntry.player != null ||
+              this.$store.getters.getEntry.action != null ||
+              this.$store.getters.getEntry.position != null) &&
+              this.$store.getters.getTime == null;
+    },
+    reminderTimer: function() {
+      this.forgotTimer = true;
+      setTimeout(function() {this.forgotTimer = false}, 2000);
     }
   },
   mounted() {
