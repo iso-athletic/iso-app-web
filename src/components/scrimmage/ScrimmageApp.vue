@@ -25,7 +25,7 @@
         <Events :occurredEvents="allEvents"/>
       </v-flex>
     </v-layout>
-     <v-dialog v-model="forgotTimer" max-width="300">
+     <v-dialog v-if="forgotTimer" max-width="300">
       <v-card>
         <v-card-title>Start the timer to add an event</v-card-title>
     </v-card>
