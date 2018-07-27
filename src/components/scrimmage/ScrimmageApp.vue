@@ -76,15 +76,13 @@ export default {
         };
         this.$store.dispatch('resetAction');
       }
-      else if (this.checkForgotTimer) {
-          this.reminderTimer();
-      }
-    },
-    checkForgotTimer: function() {
-      return (this.$store.getters.getEntry.player != null ||
+      else if ((this.$store.getters.getEntry.player != null ||
               this.$store.getters.getEntry.action != null ||
               this.$store.getters.getEntry.position != null) &&
-              this.$store.getters.getTime == null;
+              this.$store.getters.getTime == null) {
+                this.forgotTimer = true;
+                setTimeout(() => (this.forgotTimer = false), 1700);
+      }
     }
   },
   data() {
@@ -105,10 +103,6 @@ export default {
       }
       scoreboard.increment(amount, event.team);
     },
-    reminderTimer: function() {
-      this.forgotTimer = true;
-      setTimeout(() => (this.forgotTimer = false), 1700);
-    }
   },
   mounted() {
     var offsetHeights = window.innerHeight - (document.getElementById('events').offsetTop + 15);
