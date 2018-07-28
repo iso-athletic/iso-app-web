@@ -28,6 +28,7 @@
         <Events :occurredEvents="allEvents"/>
       </v-flex>
     </v-layout>
+    <EventsSummary allEvents="this.allEvents"/>
 
     <!-- we need this here so computed gets run, prob a better way, but returns nothing -->
     {{actionEventBuilt}}
@@ -43,6 +44,7 @@ import Players from './players/Players'
 import Scoreboard from './score-view/Scoreboard'
 import Actions from './actions/Actions'
 import Events from './events/Events'
+import EventsSummary from './events/EventsSummary'
 
 var eventId;
 
@@ -55,7 +57,8 @@ export default {
     Scoreboard,
     Actions,
     Events,
-    moment
+    moment,
+    EventsSummary
   },
   computed: {
     actionEventBuilt() {
