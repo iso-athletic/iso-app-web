@@ -102,8 +102,8 @@ export default {
     border-bottom: 1px solid #D1D1D1;
   }
 
-  .iceBlueBackground {
-    background: rgb(52, 145, 173) !important;
+  .iceBlueBackgroundButton {
+    background: rgb(52, 145, 173, 0.9) !important;
   }
 
   .scrimmageButtonSelected {
