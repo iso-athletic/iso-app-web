@@ -1,6 +1,11 @@
 <template>
   <v-flex xs4>
-    <v-btn class="scrimmageButton ma-0 pa-0"  @click="selectAction">{{actionName}}</v-btn>
+    <v-btn class="scrimmageButton ma-0 pa-0" 
+      v-bind:class="{scrimmageButtonSelected:isSelected}"  
+      @click="selectAction" :ripple="false">
+        {{actionName}}
+    </v-btn>
+  {{checkSelected}}
   </v-flex>
 </template>
 
@@ -9,7 +14,7 @@
   export default {
     name: 'action',
     props: {
-      actionName: String,
+      actionName: String
     },
     methods: {
       selectAction() {
@@ -18,12 +23,23 @@
         }
         this.$store.dispatch('updateAction', this.actionName);
       }
+    },
+    data() {
+      return {
+        isSelected: false
+      }
+      
+    },
+    computed: {
+      checkSelected() {
+        if (this.actionName == this.$store.getters.getEntry.action) this.isSelected = true;
+        else this.isSelected = false
+      }
+      
     }
-    
   }
 </script>
 
 <style>
-
 
 </style>

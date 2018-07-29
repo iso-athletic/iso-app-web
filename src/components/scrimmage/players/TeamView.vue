@@ -9,7 +9,7 @@
     <v-layout class="my-1" row v-for="players in playersLeftPerTeam" v-bind:data="players" v-bind:key="players.playersName">
       <v-flex xs12>
         <div class="text-xs-center">
-          <v-btn small fab color="primary" @click.native.stop="addPlayerDialog=true">
+          <v-btn small fab class="iceBlueBackground" @click.native.stop="addPlayerDialog=true">
             <v-icon>person_add</v-icon>
           </v-btn>
         </div>
