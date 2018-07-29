@@ -34,7 +34,7 @@ export default {
         p.background(51);
 
         /* makes court lines thicker */
-        p.drawingContext.lineWidth = 2;
+        p.drawingContext.lineWidth = 3;
 
         /**** drawing court lines ****/
         const unit = p.height/55; // each unit represents 1 foot
@@ -80,14 +80,20 @@ export default {
         p.drawCourt();
         let newDots = [];
         p.dots.forEach(point => {
-          p.noStroke();
-          p.fill(0, 126, 255, point.life);
-          p.ellipse(point.x, point.y, 15, 15);
+          p.strokeWeight(4);
+          p.stroke(52, 145, 173, point.life);
+          p.ellipse(point.x, point.y, 45, 45);
           let newPoint = point;
-          newPoint.life -= 4;
+          let loggedPosition = this.$store.getters.getEntry.position;
+          if (!loggedPosition) {
+            newPoint.life -= 10;
+          }
+          else if (newPoint.x != loggedPosition.x ||
+                  newPoint.y != loggedPosition.y) {
+            newPoint.life -= 4;
+          }
           if (newPoint.life > 0) newDots.push(newPoint);
         });
-
         p.dots = newDots;
       }
     }

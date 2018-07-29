@@ -28,6 +28,11 @@
         <Events :occurredEvents="allEvents"/>
       </v-flex>
     </v-layout>
+     <v-dialog v-model="forgotTimer" max-width="300">
+      <v-card>
+        <v-card-title>Please start the timer to add an event</v-card-title>
+    </v-card>
+    </v-dialog>
 
     <!-- we need this here so computed gets run, prob a better way, but returns nothing -->
     {{actionEventBuilt}}
@@ -71,12 +76,20 @@ export default {
         };
         this.$store.dispatch('resetAction');
       }
+      else if ((this.$store.getters.getEntry.player != null ||
+              this.$store.getters.getEntry.action != null ||
+              this.$store.getters.getEntry.position != null) &&
+              this.$store.getters.getTime == null) {
+                this.forgotTimer = true;
+                setTimeout(() => (this.forgotTimer = false), 1700);
+      }
     }
   },
   data() {
     return {
       finishedAction: this.$store.getters.isComplete,
-      allEvents: []
+      allEvents: [],
+      forgotTimer: false
     }
   },
   methods: {
@@ -89,7 +102,7 @@ export default {
           amount = event.position.threePointer ? 3 : 2;
       }
       scoreboard.increment(amount, event.team);
-    }
+    },
   },
   mounted() {
     var offsetHeights = window.innerHeight - (document.getElementById('events').offsetTop + 15);

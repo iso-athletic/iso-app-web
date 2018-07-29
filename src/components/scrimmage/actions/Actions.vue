@@ -34,8 +34,8 @@ export default {
         'Steal',
         'Block',
         'Foul'
-      ]
-    }
+      ],
+    } 
   }
 }
 </script>
