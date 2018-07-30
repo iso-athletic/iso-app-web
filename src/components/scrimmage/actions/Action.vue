@@ -11,34 +11,32 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  export default {
-    name: 'action',
-    props: {
-      actionName: String
-    },
-    methods: {
-      selectAction() {
-        this.$store.dispatch('updateAction', this.actionName);
-      }
-    },
-    data() {
-      return {
-        isSelected: false
-      }
-      
-    },
-    computed: {
-      checkSelected() {
-        if (this.actionName == this.$store.getters.getCurrentEvent.action) 
-          this.isSelected = true;
-        else this.isSelected = false
-      }
-      
+import Vue from "vue";
+export default {
+  name: "action",
+  props: {
+    actionName: String
+  },
+  methods: {
+    selectAction() {
+      this.$store.dispatch("updateAction", this.actionName);
+      if (this.$store.getters.getIfForgotTimer) this.$root.$emit('forgot', true);
+    }
+  },
+  data() {
+    return {
+      isSelected: false
+    };
+  },
+  computed: {
+    checkSelected() {
+      if (this.actionName == this.$store.getters.getCurrentEvent.action)
+        this.isSelected = true;
+      else this.isSelected = false;
     }
   }
+};
 </script>
 
 <style>
-
 </style>

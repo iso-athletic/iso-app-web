@@ -55,6 +55,7 @@ export default {
       },
 
       p.mouseClicked = _ => {
+        if (this.$store.getters.getIfForgotTimer) this.$root.$emit('forgot', true);
         const unit = p.height/55;
         const threePointCenter = {x: 4.3*unit, y: p.height/2};
         if (p.mouseX < p.width && p.mouseX > 0 &&

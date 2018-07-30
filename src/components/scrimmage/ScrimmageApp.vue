@@ -14,7 +14,7 @@
       <v-flex md5>
         <v-layout fill-height row wrap>
           <v-flex d-flex md12>
-            <Scoreboard ref="scores"/>
+            <Scoreboard/>
           </v-flex>
           <v-flex d-flex md12>
             <Players />
@@ -28,7 +28,7 @@
         <Events :occurredEvents="getEventList"/>
       </v-flex>
     </v-layout>
-     <v-dialog v-model="getIfForgotTimer" max-width="300">
+     <v-dialog v-model="forgotTimer" max-width="300">
       <v-card>
         <v-card-title>Please start the timer to add an event</v-card-title>
       </v-card>
@@ -58,17 +58,27 @@ export default {
     Events,
     moment
   },
+  data () {
+    return {
+      forgotTimer: false
+    }
+  },
   computed: {
     ...mapGetters([
-       "getEventList",
-       "getIfForgotTimer"
+       "getEventList"
     ]),
+  },
+  methods: {
+    toggleForgotTimerDialog: function(isForgotten) {
+      this.forgotTimer = isForgotten;
+    }
   },
   mounted() {
     var offsetHeights =
       window.innerHeight - (document.getElementById("events").offsetTop + 15);
     var events = document.getElementById("events");
     events.style.height = offsetHeights + "px";
+    this.$root.$on('forgot', this.toggleForgotTimerDialog);
   }
 };
 </script>
