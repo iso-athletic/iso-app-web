@@ -14,6 +14,9 @@
       <v-flex md5>
         <v-layout fill-height row wrap>
           <v-flex d-flex md12>
+            <Scoreboard ref="scores"/>
+          </v-flex>
+          <v-flex d-flex md12>
             <Players />
           </v-flex>
           <v-flex d-flex md12>
@@ -25,6 +28,11 @@
         <Events :occurredEvents="getEventList"/>
       </v-flex>
     </v-layout>
+     <v-dialog v-model="forgotTimer" max-width="300">
+      <v-card>
+        <v-card-title>Please start the timer to add an event</v-card-title>
+    </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -54,6 +62,18 @@ export default {
     ...mapGetters([
       "getEventList",
     ])
+  },
+  methods: {
+    updateScore: function(event) {
+      var amount;
+      var scoreboard = this.$refs.scores;
+      if (event.action == "Made FT"){
+          amount = 1;
+      } else {
+          amount = event.position.threePointer ? 3 : 2;
+      }
+      scoreboard.increment(amount, event.team);
+    },
   },
   mounted() {
     var offsetHeights = window.innerHeight - (document.getElementById('events').offsetTop + 15);

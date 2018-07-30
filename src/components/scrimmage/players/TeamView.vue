@@ -77,12 +77,10 @@ export default {
         this.addPlayerDialog = false;
         return;
       }
-
       this.$store.dispatch("addPlayerToTeam", {playerName: this.newPlayerName, teamNumber: this.TeamNumber});
       this.newPlayerName = null;
       this.addPlayerDialog = false;
     },
   }
 }
-
 </script>

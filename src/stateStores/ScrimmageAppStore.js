@@ -6,6 +6,7 @@ Vue.use(Vuex);
 const state = {
   ActionEntry: {
     player: null,
+    team: null,
     action: null,
     position: null,
     id: 0,
@@ -110,6 +111,9 @@ const actions = {
       value: player
     };
     context.commit("SET_ACTION_ENTRY", entry);
+  },
+  updateTeam(context, team){
+    context.commit("SET_TEAM", team)
   },
   updateAction(context, action) {
     let entry = {

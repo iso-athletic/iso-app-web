@@ -28,6 +28,7 @@ import Vue from 'vue'
 import TeamView from './TeamView'
 import {mapGetters} from 'vuex'
 
+
 export default {
   name: 'players',
   components: {
