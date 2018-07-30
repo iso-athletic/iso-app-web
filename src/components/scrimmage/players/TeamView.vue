@@ -36,25 +36,25 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import PlayerCard from './PlayerCard'
+import Vue from "vue";
+import PlayerCard from "./PlayerCard";
 
 export default {
-  name: 'teamView',
+  name: "teamView",
   components: {
-    PlayerCard,
+    PlayerCard
   },
   data() {
-    return{
+    return {
       players: [],
       addPlayerDialog: false,
-      newPlayerName: null,
-    }
+      newPlayerName: null
+    };
   },
   props: {
     playersLeft: Array,
     TeamName: String,
-    TeamNumber: String,
+    TeamNumber: String
   },
   computed: {
     teamPlayers() {
@@ -78,11 +78,13 @@ export default {
         return;
       }
 
-      this.$store.dispatch("addPlayerToTeam", {playerName: this.newPlayerName, teamNumber: this.TeamNumber});
+      this.$store.dispatch("addPlayerToTeam", {
+        playerName: this.newPlayerName,
+        teamNumber: this.TeamNumber
+      });
       this.newPlayerName = null;
       this.addPlayerDialog = false;
-    },
+    }
   }
-}
-
+};
 </script>
