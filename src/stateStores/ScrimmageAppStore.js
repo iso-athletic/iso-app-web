@@ -24,10 +24,11 @@ const state = {
       players: [],
       score: 0
     }
+  },
+  Errors: {
+    forgotTimer: false
   }
 };
-
-var forgotTimer = false;
 
 function isActionEntryFull() {
   return state.ActionEntry.player != null &&
@@ -45,6 +46,24 @@ function resetActionEntry() {
 
 function isTimerRunning(state) {
   return !(state.Time.currentTime == '20:00:00');
+}
+
+function updateTeamScore(team, score, method){
+  if (team == 1) {
+    if (method == "add"){
+      state.TeamInformation.team1.score += score;
+    }
+    if (method == "subtract"){
+      state.TeamInformation.team1.score -= score;
+    }
+  } else {
+    if (method == "add"){
+      state.TeamInformation.team2.score += score;
+    }
+    if (method == "subtract"){
+      state.TeamInformation.team2.score -= score;
+    }
+  }
 }
 
 const mutations = {
@@ -65,12 +84,18 @@ const mutations = {
       }
       if (isActionEntryFull()) {
         state.Events.push({ ...state.ActionEntry, timeStamp: state.Time.currentTime });
+        var freeThrow = (state.ActionEntry.action == "Made FT");
+        if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
+          updateTeamScore(1, freeThrow ? 1 : state.ActionEntry.position.shotValue, "add");
+        } else {
+          updateTeamScore(2, freeThrow ? 1 : state.ActionEntry.position.shotValue, "add");
+        }
         console.log(state.Events);
         resetActionEntry();
       }
-      forgotTimer = false;
+      state.Errors.forgotTimer = false;
     } else {
-      forgotTimer = true;
+      state.Errors.forgotTimer = true;
     }
   },
   SET_TIME(state, newTime) {
@@ -86,6 +111,12 @@ const mutations = {
   REMOVE_EVENT(state, eventID) {
     let i = state.Events.map(function (e) { return e.id }).indexOf(eventID);
     if (i > -1) {
+      var freeThrow = (state.Events[i].action == "Made FT");
+      if (state.TeamInformation.team1.players.includes(state.Events[i].player)){
+        updateTeamScore(1, freeThrow ? 1 : state.Events[i].position.shotValue, "subtract");
+      } else {
+        updateTeamScore(2, freeThrow ? 1 : state.Events[i].position.shotValue, "subtract");
+      }
       state.Events.splice(i, 1);
     }
     console.log(state.Events);
@@ -111,7 +142,7 @@ const mutations = {
   },
   TICK_ONE_DECISECOND(state) {
     if (state.Time.currentTime > 0) state.Time.currentTime--;
-  }
+  },
 };
 
 const actions = {
@@ -171,7 +202,7 @@ const getters = {
     return state.ActionEntry;
   },
   getIfForgotTimer(state) {
-    return forgotTimer;
+    return state.Errors.forgotTimer;
   },
   getEventList(state) {
     return [...state.Events];
@@ -189,6 +220,12 @@ const getters = {
   },
   getTimeLeft(state) {
     return state.Time.currentTime;
+  },
+  getTeam1Score(state){
+    return state.TeamInformation.team1.score;
+  },
+  getTeam2Score(state){
+    return state.TeamInformation.team2.score;
   }
 };
 

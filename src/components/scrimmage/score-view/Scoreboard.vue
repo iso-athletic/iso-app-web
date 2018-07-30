@@ -24,17 +24,16 @@
 <script>
 import Vue from "vue";
 import Score from "./Score.vue";
+import {mapGetters} from 'vuex'
 
 export default {
   name: "scoreboard",
-  data() {
-    return {
-      teamOneScore: 0,
-      teamTwoScore: 0
-    };
-  },
   components: {
     Score
+  },
+  computed: {
+    teamOneScore(){return this.$store.getters.getTeam1Score},
+    teamTwoScore(){return this.$store.getters.getTeam2Score}
   },
   methods: {
     increment: function(amount, team){
