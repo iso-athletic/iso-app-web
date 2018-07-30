@@ -14,6 +14,9 @@
       <v-flex md5>
         <v-layout fill-height row wrap>
           <v-flex d-flex md12>
+            <Scoreboard ref="scores"/>
+          </v-flex>
+          <v-flex d-flex md12>
             <Players />
           </v-flex>
           <v-flex d-flex md12>
@@ -25,22 +28,27 @@
         <Events :occurredEvents="getEventList"/>
       </v-flex>
     </v-layout>
+     <v-dialog v-model="getIfForgotTimer" max-width="300">
+      <v-card>
+        <v-card-title>Please start the timer to add an event</v-card-title>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import moment from 'moment'
-import Timer from './Timer'
-import Court from './Court'
-import Players from './players/Players'
-import Scoreboard from './score-view/Scoreboard'
-import Actions from './actions/Actions'
-import Events from './events/Events'
-import {mapGetters} from 'vuex'
+import Vue from "vue";
+import moment from "moment";
+import Timer from "./Timer";
+import Court from "./Court";
+import Players from "./players/Players";
+import Scoreboard from "./score-view/Scoreboard";
+import Actions from "./actions/Actions";
+import Events from "./events/Events";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'scrimmage',
+  name: "scrimmage",
   components: {
     Timer,
     Court,
@@ -52,22 +60,34 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getEventList",
-    ])
+       "getEventList",
+       "getIfForgotTimer"
+    ]),
+  },
+  methods: {
+    updateScore: function(event) {
+      var amount;
+      var scoreboard = this.$refs.scores;
+      if (event.action == "Made FT") {
+        amount = 1;
+      } else {
+        amount = event.position.threePointer ? 3 : 2;
+      }
+      scoreboard.increment(amount, event.team);
+    }
   },
   mounted() {
-    var offsetHeights = window.innerHeight - (document.getElementById('events').offsetTop + 15);
-    var events = document.getElementById('events');
+    var offsetHeights =
+      window.innerHeight - (document.getElementById("events").offsetTop + 15);
+    var events = document.getElementById("events");
     events.style.height = offsetHeights + "px";
   }
-}
+};
 </script>
 
 <style>
-
 html {
   height: 100%;
   margin-top: 0px;
 }
-
 </style>

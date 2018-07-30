@@ -6,6 +6,7 @@ Vue.use(Vuex);
 const state = {
   ActionEntry: {
     player: null,
+    team: null,
     action: null,
     position: null,
     id: 0,
@@ -26,6 +27,8 @@ const state = {
   }
 };
 
+var forgotTimer = false;
+
 function isActionEntryFull() {
   return state.ActionEntry.player != null &&
     state.ActionEntry.action != null &&
@@ -40,26 +43,34 @@ function resetActionEntry() {
   state.ActionEntry.id++;
 }
 
+function isTimerRunning(state) {
+  return !(state.Time.currentTime == '20:00:00');
+}
+
 const mutations = {
   SET_ACTION_ENTRY(state, entry) {
-    switch (entry.type) {
-      case "ACTION":
-        state.ActionEntry.action = entry.value;
-        break;
-      case "POSITION":
-        state.ActionEntry.position = entry.value;
-        break;
-      case "PLAYER":
-        state.ActionEntry.player = entry.value;
-        break;
-      default:
-        console.log("Entry type: " + entry.type + " doesn't exist");
-    }
-
-    if (isActionEntryFull()) {
-      state.Events.push({ ...state.ActionEntry, timeStamp: state.Time.currentTime });
-      console.log(state.Events);
-      resetActionEntry();
+    if (isTimerRunning(state)) {
+      switch (entry.type) {
+        case "ACTION":
+          state.ActionEntry.action = entry.value;
+          break;
+        case "POSITION":
+          state.ActionEntry.position = entry.value;
+          break;
+        case "PLAYER":
+          state.ActionEntry.player = entry.value;
+          break;
+        default:
+          console.log("Entry type: " + entry.type + " doesn't exist");
+      }
+      if (isActionEntryFull()) {
+        state.Events.push({ ...state.ActionEntry, timeStamp: state.Time.currentTime });
+        console.log(state.Events);
+        resetActionEntry();
+      }
+      forgotTimer = false;
+    } else {
+      forgotTimer = true;
     }
   },
   SET_TIME(state, newTime) {
@@ -111,6 +122,9 @@ const actions = {
     };
     context.commit("SET_ACTION_ENTRY", entry);
   },
+  updateTeam(context, team) {
+    context.commit("SET_TEAM", team)
+  },
   updateAction(context, action) {
     let entry = {
       type: "ACTION",
@@ -153,6 +167,12 @@ const actions = {
 };
 
 const getters = {
+  getCurrentEvent(state) {
+    return state.ActionEntry;
+  },
+  getIfForgotTimer(state) {
+    return forgotTimer;
+  },
   getEventList(state) {
     return [...state.Events];
   },
