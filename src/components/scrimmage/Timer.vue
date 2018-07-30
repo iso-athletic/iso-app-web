@@ -47,7 +47,7 @@ export default {
         this.timer = setInterval(() => {
           if (this.totalTime >= 0) {
             this.totalTime--;
-            this.$store.dispatch('updateTime', this.prettyTime);
+            this.$store.dispatch('updateTime', this.totalTime);
           } else {
             clearInterval(this.timer);
             alert("Timer done!");
@@ -65,20 +65,12 @@ export default {
     reset() {
       this.stop();
       this.totalTime = this.minute*6000 + this.second*100 + this.decisecond;
-      this.$store.dispatch('updateTime', this.prettyTime);
+      this.$store.dispatch('updateTime', this.totalTime);
     }
   },
   computed: {
     prettyTime() {
-      let timeLeft = this.$store.getters.getTimeLeft;
-      let minute = Math.floor(timeLeft / 6000);
-      let second = Math.floor((timeLeft - minute*6000)/100);
-      let decisecond = timeLeft - minute*6000 - second*100;
-
-      let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
-      let prettySecond = second < 10 ? "0" + second.toString() : second.toString();
-      let prettyDecisecond = decisecond< 10 ? "0" + decisecond.toString() : decisecond.toString();
-      return prettyMinute + ":" + prettySecond + ":" + prettyDecisecond;
+      return this.$store.getters.getTimeLeft;
     }
   }
 }

@@ -4,14 +4,14 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const state = {
-  ActionEntry:  {
+  ActionEntry: {
     player: null,
     action: null,
     position: null,
     id: 0,
   },
   Time: {
-    currentTime: 20*6000,
+    currentTime: "20:00:00",
   },
   Events: [],
   TeamInformation: {
@@ -27,10 +27,10 @@ const state = {
 };
 
 function isActionEntryFull() {
-  return state.ActionEntry.player != null && 
-          state.ActionEntry.action != null && 
-          state.ActionEntry.position != null &&
-          state.Time != null;
+  return state.ActionEntry.player != null &&
+    state.ActionEntry.action != null &&
+    state.ActionEntry.position != null &&
+    state.Time != null;
 }
 
 function resetActionEntry() {
@@ -42,7 +42,7 @@ function resetActionEntry() {
 
 const mutations = {
   SET_ACTION_ENTRY(state, entry) {
-    switch(entry.type) {
+    switch (entry.type) {
       case "ACTION":
         state.ActionEntry.action = entry.value;
         break;
@@ -52,21 +52,28 @@ const mutations = {
       case "PLAYER":
         state.ActionEntry.player = entry.value;
         break;
-      default: 
+      default:
         console.log("Entry type: " + entry.type + " doesn't exist");
     }
 
     if (isActionEntryFull()) {
-      state.Events.push({...state.ActionEntry, timeStamp: state.Time.currentTime});
+      state.Events.push({ ...state.ActionEntry, timeStamp: state.Time.currentTime });
       console.log(state.Events);
       resetActionEntry();
     }
   },
   SET_TIME(state, newTime) {
-    state.Time.currentTime = newTime;
+    let minute = Math.floor(newTime / 6000);
+    let second = Math.floor((newTime - minute * 6000) / 100);
+    let decisecond = newTime - minute * 6000 - second * 100;
+
+    let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
+    let prettySecond = second < 10 ? "0" + second.toString() : second.toString();
+    let prettyDecisecond = decisecond < 10 ? "0" + decisecond.toString() : decisecond.toString();
+    state.Time.currentTime = prettyMinute + ":" + prettySecond + ":" + prettyDecisecond;
   },
   REMOVE_EVENT(state, eventID) {
-    let i = state.Events.map(function(e) { return e.id }).indexOf(eventID);
+    let i = state.Events.map(function (e) { return e.id }).indexOf(eventID);
     if (i > -1) {
       state.Events.splice(i, 1);
     }
@@ -107,14 +114,14 @@ const actions = {
   updateAction(context, action) {
     let entry = {
       type: "ACTION",
-      value: action 
+      value: action
     };
     context.commit("SET_ACTION_ENTRY", entry);
   },
   updatePosition(context, position) {
     let entry = {
       type: "POSITION",
-      value: position 
+      value: position
     };
     context.commit("SET_ACTION_ENTRY", entry);
   },
@@ -146,16 +153,12 @@ const actions = {
 };
 
 const getters = {
-  getTime(state) {
-    let t = state.Time.currentTime;
-    return t;
-  },
   getEventList(state) {
     return [...state.Events];
   },
   getAvailablePlayers: (state) => (roster) => {
-    return roster.filter(player => !state.TeamInformation.team1.players.includes(player) && 
-                                   !state.TeamInformation.team2.players.includes(player))
+    return roster.filter(player => !state.TeamInformation.team1.players.includes(player) &&
+      !state.TeamInformation.team2.players.includes(player))
   },
   getTeamPlayers: (state) => (teamNumber) => {
     if (teamNumber == 1) {
