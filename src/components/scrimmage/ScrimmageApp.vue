@@ -64,18 +64,6 @@ export default {
        "getIfForgotTimer"
     ]),
   },
-  methods: {
-    updateScore: function(event) {
-      var amount;
-      var scoreboard = this.$refs.scores;
-      if (event.action == "Made FT") {
-        amount = 1;
-      } else {
-        amount = event.position.threePointer ? 3 : 2;
-      }
-      scoreboard.increment(amount, event.team);
-    }
-  },
   mounted() {
     var offsetHeights =
       window.innerHeight - (document.getElementById("events").offsetTop + 15);

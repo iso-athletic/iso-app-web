@@ -35,23 +35,6 @@ export default {
     teamOneScore(){return this.$store.getters.getTeam1Score},
     teamTwoScore(){return this.$store.getters.getTeam2Score}
   },
-  methods: {
-    increment: function(amount, team){
-      if (team == "Purple") {
-        this.teamOneScore += amount;
-      }
-      else {
-        this.teamTwoScore += amount;
-      }
-    },
-    reset: function(team) {
-      if (team == 1) {
-        this.teamOneScore = 0;
-      } else {
-        this.teamTwoScore = 0;
-      }
-    }
-  }
 };
 </script>
 
