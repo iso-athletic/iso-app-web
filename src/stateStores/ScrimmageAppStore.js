@@ -4,79 +4,229 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const state = {
-  Time: null,
-  ActionEntry:  {
-    id: null,
+  ActionEntry: {
     player: null,
     team: null,
     action: null,
     position: null,
+    id: 0,
+  },
+  Time: {
+    currentTime: "20:00:00",
+  },
+  Events: [],
+  TeamInformation: {
+    team1: {
+      players: [],
+      score: 0
+    },
+    team2: {
+      players: [],
+      score: 0
+    }
+  },
+  Errors: {
+    forgotTimer: false
+  }
+};
+
+function isActionEntryFull() {
+  return state.ActionEntry.player != null &&
+    state.ActionEntry.action != null &&
+    state.ActionEntry.position != null &&
+    state.Time != null;
+}
+
+function resetActionEntry() {
+  state.ActionEntry.player = null;
+  state.ActionEntry.action = null;
+  state.ActionEntry.position = null;
+  state.ActionEntry.id++;
+}
+
+function isTimerRunning(state) {
+  return !(state.Time.currentTime == '20:00:00');
+}
+
+function updateTeamScore(team, score, method){
+  if (team == 1) {
+    if (method == "add"){
+      state.TeamInformation.team1.score += score;
+    }
+    if (method == "subtract"){
+      state.TeamInformation.team1.score -= score;
+    }
+  } else {
+    if (method == "add"){
+      state.TeamInformation.team2.score += score;
+    }
+    if (method == "subtract"){
+      state.TeamInformation.team2.score -= score;
+    }
+  }
+}
+
+const mutations = {
+  SET_ACTION_ENTRY(state, entry) {
+    if (isTimerRunning(state)) {
+      switch (entry.type) {
+        case "ACTION":
+          state.ActionEntry.action = entry.value;
+          break;
+        case "POSITION":
+          state.ActionEntry.position = entry.value;
+          break;
+        case "PLAYER":
+          state.ActionEntry.player = entry.value;
+          break;
+        default:
+          console.log("Entry type: " + entry.type + " doesn't exist");
+      }
+      if (isActionEntryFull()) {
+        state.Events.push({ ...state.ActionEntry, timeStamp: state.Time.currentTime });
+        var freeThrow = (state.ActionEntry.action == "Made FT");
+        if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
+          updateTeamScore(1, freeThrow ? 1 : state.ActionEntry.position.shotValue, "add");
+        } else {
+          updateTeamScore(2, freeThrow ? 1 : state.ActionEntry.position.shotValue, "add");
+        }
+        console.log(state.Events);
+        resetActionEntry();
+      }
+      state.Errors.forgotTimer = false;
+    } else {
+      state.Errors.forgotTimer = true;
+    }
+  },
+  SET_TIME(state, newTime) {
+    let minute = Math.floor(newTime / 6000);
+    let second = Math.floor((newTime - minute * 6000) / 100);
+    let decisecond = newTime - minute * 6000 - second * 100;
+
+    let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
+    let prettySecond = second < 10 ? "0" + second.toString() : second.toString();
+    let prettyDecisecond = decisecond < 10 ? "0" + decisecond.toString() : decisecond.toString();
+    state.Time.currentTime = prettyMinute + ":" + prettySecond + ":" + prettyDecisecond;
+  },
+  REMOVE_EVENT(state, eventID) {
+    let i = state.Events.map(function (e) { return e.id }).indexOf(eventID);
+    if (i > -1) {
+      var freeThrow = (state.Events[i].action == "Made FT");
+      if (state.TeamInformation.team1.players.includes(state.Events[i].player)){
+        updateTeamScore(1, freeThrow ? 1 : state.Events[i].position.shotValue, "subtract");
+      } else {
+        updateTeamScore(2, freeThrow ? 1 : state.Events[i].position.shotValue, "subtract");
+      }
+      state.Events.splice(i, 1);
+    }
+    console.log(state.Events);
+  },
+  ADD_PLAYER_TO_TEAM(state, playerInformation) {
+    if (playerInformation.teamNumber == 1) {
+      state.TeamInformation.team1.players.push(playerInformation.playerName);
+    } else {
+      state.TeamInformation.team2.players.push(playerInformation.playerName);
+    }
+  },
+  REMOVE_PLAYER_FROM_TEAM(state, playerName) {
+    let team1Index = state.TeamInformation.team1.players.indexOf(playerName);
+    let team2Index = state.TeamInformation.team2.players.indexOf(playerName);
+
+    if (team1Index > -1) {
+      state.TeamInformation.team1.players.splice(team1Index, 1);
+    } else if (team2Index > -1) {
+      state.TeamInformation.team2.players.splice(team2Index, 1);
+    } else {
+      console.log("Player to be removed wasn't found on either team");
+    }
+  },
+  TICK_ONE_DECISECOND(state) {
+    if (state.Time.currentTime > 0) state.Time.currentTime--;
   },
 };
 
-const mutations = {
-  SET_PLAYER(state, player) {
-    state.ActionEntry.player = player;
-  },
-  SET_TEAM(state, team){
-    state.ActionEntry.team = team;
-  },
-  SET_ACTION(state, action) {
-    state.ActionEntry.action = action;
-  },
-  SET_POSITION(state, position) {
-    state.ActionEntry.position = position;
-  },
-  RESET_ACTION(state) {
-    state.ActionEntry.player = null;
-    state.ActionEntry.action = null;
-    state.ActionEntry.position = null;
-  },
-  SET_TIME(state, newTime) {
-    state.Time = newTime;
-  }
-};
 const actions = {
   updatePlayer(context, player) {
-    context.commit("SET_PLAYER", player);
+    let entry = {
+      type: "PLAYER",
+      value: player
+    };
+    context.commit("SET_ACTION_ENTRY", entry);
   },
-  updateTeam(context, team){
+  updateTeam(context, team) {
     context.commit("SET_TEAM", team)
   },
   updateAction(context, action) {
-    context.commit("SET_ACTION", action);
+    let entry = {
+      type: "ACTION",
+      value: action
+    };
+    context.commit("SET_ACTION_ENTRY", entry);
   },
   updatePosition(context, position) {
-    context.commit("SET_POSITION", position);
+    let entry = {
+      type: "POSITION",
+      value: position
+    };
+    context.commit("SET_ACTION_ENTRY", entry);
   },
-  resetAction(context) {
-    context.commit("RESET_ACTION");
+  removeEvent(context, eventID) {
+    context.commit("REMOVE_EVENT", eventID);
+  },
+
+  /*******************************************************/
+  /***************** TEAM ROSTER ACTIONS *****************/
+  /*******************************************************/
+  addPlayerToTeam(context, playerInformation) {
+    context.commit("ADD_PLAYER_TO_TEAM", playerInformation);
+  },
+  removePlayerFromTeam(context, playerName) {
+    context.commit("REMOVE_PLAYER_FROM_TEAM", playerName);
+  },
+
+  /*******************************************************/
+  /******************** TIMER ACTIONS ********************/
+  /*******************************************************/
+  runTimer(context) {
+    setInterval(() => {
+      context.commit("TICK_ONE_DECISECOND");
+    }, 10);
   },
   updateTime(context, time) {
     context.commit("SET_TIME", time);
-  }
+  },
 };
 
 const getters = {
-  isComplete(state) {
-    return state.ActionEntry.player != null &&
-           state.ActionEntry.action != null &&
-           state.ActionEntry.position != null &&
-           state.Time != null;
+  getCurrentEvent(state) {
+    return state.ActionEntry;
   },
-  getEntry(state) {
-    let copyActionEntry = {
-      player: state.ActionEntry.player,
-      action: state.ActionEntry.action,
-      position: state.ActionEntry.position,
-      team: state.ActionEntry.team
+  getIfForgotTimer(state) {
+    return state.Errors.forgotTimer;
+  },
+  getEventList(state) {
+    return [...state.Events];
+  },
+  getAvailablePlayers: (state) => (roster) => {
+    return roster.filter(player => !state.TeamInformation.team1.players.includes(player) &&
+      !state.TeamInformation.team2.players.includes(player))
+  },
+  getTeamPlayers: (state) => (teamNumber) => {
+    if (teamNumber == 1) {
+      return state.TeamInformation.team1.players;
+    } else {
+      return state.TeamInformation.team2.players;
     }
-    return copyActionEntry;
   },
-  getTime(state) {
-    let t = state.Time;
-    return t;
+  getTimeLeft(state) {
+    return state.Time.currentTime;
   },
+  getTeam1Score(state){
+    return state.TeamInformation.team1.score;
+  },
+  getTeam2Score(state){
+    return state.TeamInformation.team2.score;
+  }
 };
 
 export default new Vuex.Store({

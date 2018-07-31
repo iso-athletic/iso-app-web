@@ -13,7 +13,7 @@
            <v-btn id="deleteButton" flat icon color="error"
                   :ripple="false"
                   class="mx-0"
-                  @click="$emit('remove-player', playerName)">
+                  @click="removePlayer()">
                   <v-icon id="deleteIcon">delete</v-icon>
           </v-btn>
       </v-flex>
@@ -30,22 +30,23 @@ export default {
   },
   methods: {
     selectPlayer() {
-      if (this.$store.getters.isComplete) {
-        // do fun stuff here
-      }
       this.$store.dispatch("updatePlayer", this.playerName);
-      this.$store.dispatch("updateTeam", this.$parent.TeamName);
+      if (this.$store.getters.getIfForgotTimer) this.$root.$emit('forgot', true);
+    },
+    removePlayer() {
+      this.$store.dispatch("removePlayerFromTeam", this.playerName);
     }
   },
   data() {
     return {
       isSelected: false
-    }
+    };
   },
   computed: {
     checkSelected() {
-      if (this.playerName == this.$store.getters.getEntry.player) this.isSelected = true;
-      else this.isSelected = false
+      if (this.playerName == this.$store.getters.getCurrentEvent.player)
+        this.isSelected = true;
+      else this.isSelected = false;
     }
   }
 };

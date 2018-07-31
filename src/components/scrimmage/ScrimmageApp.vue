@@ -14,7 +14,7 @@
       <v-flex md5>
         <v-layout fill-height row wrap>
           <v-flex d-flex md12>
-            <Scoreboard ref="scores"/>
+            <Scoreboard/>
           </v-flex>
           <v-flex d-flex md12>
             <Players />
@@ -25,34 +25,30 @@
         </v-layout>
       </v-flex>
       <v-flex xs2>
-        <Events :occurredEvents="allEvents"/>
+        <Events :occurredEvents="getEventList"/>
       </v-flex>
     </v-layout>
      <v-dialog v-model="forgotTimer" max-width="300">
       <v-card>
         <v-card-title>Please start the timer to add an event</v-card-title>
-    </v-card>
+      </v-card>
     </v-dialog>
-
-    <!-- we need this here so computed gets run, prob a better way, but returns nothing -->
-    {{actionEventBuilt}}
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import moment from 'moment'
-import Timer from './Timer'
-import Court from './Court'
-import Players from './players/Players'
-import Scoreboard from './score-view/Scoreboard'
-import Actions from './actions/Actions'
-import Events from './events/Events'
-
-var eventId;
+import Vue from "vue";
+import moment from "moment";
+import Timer from "./Timer";
+import Court from "./Court";
+import Players from "./players/Players";
+import Scoreboard from "./score-view/Scoreboard";
+import Actions from "./actions/Actions";
+import Events from "./events/Events";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'scrimmage',
+  name: "scrimmage",
   components: {
     Timer,
     Court,
@@ -62,62 +58,34 @@ export default {
     Events,
     moment
   },
-  computed: {
-    actionEventBuilt() {
-      if (this.$store.getters.isComplete) {
-        let newEvent = this.$store.getters.getEntry;
-        let timeStamp = this.$store.getters.getTime;
-        eventId++;
-        newEvent.id = eventId;
-        newEvent.timeStamp = timeStamp;
-        this.allEvents.push(newEvent);
-        if (newEvent.action == 'Made Shot' || newEvent.action == 'Made FT') {
-            this.updateScore(newEvent);
-        };
-        this.$store.dispatch('resetAction');
-      }
-      else if ((this.$store.getters.getEntry.player != null ||
-              this.$store.getters.getEntry.action != null ||
-              this.$store.getters.getEntry.position != null) &&
-              this.$store.getters.getTime == null) {
-                this.forgotTimer = true;
-                setTimeout(() => (this.forgotTimer = false), 1700);
-      }
-    }
-  },
-  data() {
+  data () {
     return {
-      finishedAction: this.$store.getters.isComplete,
-      allEvents: [],
       forgotTimer: false
     }
   },
+  computed: {
+    ...mapGetters([
+       "getEventList"
+    ]),
+  },
   methods: {
-    updateScore: function(event) {
-      var amount;
-      var scoreboard = this.$refs.scores;
-      if (event.action == "Made FT"){
-          amount = 1;
-      } else {
-          amount = event.position.threePointer ? 3 : 2;
-      }
-      scoreboard.increment(amount, event.team);
-    },
+    toggleForgotTimerDialog: function(isForgotten) {
+      this.forgotTimer = isForgotten;
+    }
   },
   mounted() {
-    var offsetHeights = window.innerHeight - (document.getElementById('events').offsetTop + 15);
-    var events = document.getElementById('events');
+    var offsetHeights =
+      window.innerHeight - (document.getElementById("events").offsetTop + 15);
+    var events = document.getElementById("events");
     events.style.height = offsetHeights + "px";
-    eventId = 0;
+    this.$root.$on('forgot', this.toggleForgotTimerDialog);
   }
-}
+};
 </script>
 
 <style>
-
 html {
   height: 100%;
   margin-top: 0px;
 }
-
 </style>

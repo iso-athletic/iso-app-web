@@ -5,17 +5,17 @@
         <v-flex xs6 sm6 md6>
           <TeamView
           :TeamName="team1"
-          :playersLeft="playersAvailable"
-          @removePlayerFromAvailable="removePlayerFromAvailable($event)"
-          @addPlayerToAvailable="playersAvailable.push($event)"/>
+          :playersLeft="availablePlayers"
+          TeamNumber=1
+          />
         </v-flex>
 
         <v-flex xs6 sm6 md6>
           <TeamView
           :TeamName="team2"
-          :playersLeft="playersAvailable"
-          @removePlayerFromAvailable="removePlayerFromAvailable($event)"
-          @addPlayerToAvailable="playersAvailable.push($event)"/>
+          :playersLeft="availablePlayers"
+          TeamNumber=2
+          />
         </v-flex>
       </v-layout>
     </v-container>
@@ -26,6 +26,8 @@
 <script>
 import Vue from 'vue'
 import TeamView from './TeamView'
+import {mapGetters} from 'vuex'
+
 
 export default {
   name: 'players',
@@ -54,13 +56,11 @@ export default {
       ]
     }
   },
-  methods: {
-    removePlayerFromAvailable: function(player) {
-      console.log("removing player");
-      const i = this.playersAvailable.indexOf(player);
-      if (i != -1) this.playersAvailable.splice(i, 1);
+  computed: {
+    availablePlayers() {
+      return this.$store.getters.getAvailablePlayers(this.playersAvailable);
     }
-  }
+  },
 }
 
 </script>

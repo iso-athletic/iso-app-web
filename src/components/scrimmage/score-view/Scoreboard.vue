@@ -24,35 +24,17 @@
 <script>
 import Vue from "vue";
 import Score from "./Score.vue";
+import {mapGetters} from 'vuex'
 
 export default {
   name: "scoreboard",
-  data() {
-    return {
-      teamOneScore: 0,
-      teamTwoScore: 0
-    };
-  },
   components: {
     Score
   },
-  methods: {
-    increment: function(amount, team){
-      if (team == "Purple") {
-        this.teamOneScore += amount;
-      }
-      else {
-        this.teamTwoScore += amount;
-      }
-    },
-    reset: function(team) {
-      if (team == 1) {
-        this.teamOneScore = 0;
-      } else {
-        this.teamTwoScore = 0;
-      }
-    }
-  }
+  computed: {
+    teamOneScore(){return this.$store.getters.getTeam1Score},
+    teamTwoScore(){return this.$store.getters.getTeam2Score}
+  },
 };
 </script>
 

@@ -8,7 +8,7 @@
               <h3>{{actionEntry.player}}</h3>
             </v-flex>
             <v-flex d-flex md12>
-              <div>{{actionEntry.action}}</div>
+              <div>{{madeShot}}</div>
             </v-flex>
             <v-flex d-flex md12>
               <div>{{actionEntry.timeStamp}}</div>
@@ -20,7 +20,7 @@
             <v-flex d-flex md12>
               <v-btn flat icon color="error"
                       :ripple="false"
-                      @click="$emit('remove-event', actionEntry.id)">
+                      @click="removeEvent()">
                       <v-icon>delete</v-icon>
               </v-btn>
             </v-flex>
@@ -43,18 +43,22 @@ export default {
   },
   props: {
     actionEntry: Object,
-    color: String,
+    color: String,  
   },
   computed: {
     madeShot: function() {
       if (this.actionEntry.action != "Made Shot") {
-        return false;
+        return this.actionEntry.action;
       }
-      if (this.actionEntry.position.threePointer) this.shotValue = 3;
-      else this.shotValue = 2;
-      return true;
+      return "Made " + this.actionEntry.position.shotValue.toString() + "-pointer";
+    }
+  },
+  methods: {
+    removeEvent() {
+      this.$store.dispatch("removeEvent", this.actionEntry.id);
     }
   }
+
 }
 
 </script>

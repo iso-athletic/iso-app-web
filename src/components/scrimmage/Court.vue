@@ -55,11 +55,11 @@ export default {
       },
 
       p.mouseClicked = _ => {
+        if (this.$store.getters.getIfForgotTimer) this.$root.$emit('forgot', true);
         const unit = p.height/55;
         const threePointCenter = {x: 4.3*unit, y: p.height/2};
         if (p.mouseX < p.width && p.mouseX > 0 &&
             p.mouseY < p.height && p.mouseY > 0) {
-          // p.ellipse(p.mouseX, p.mouseY, 10, 10);
           let point = {
             x: p.mouseX,
             y: p.mouseY,
@@ -67,11 +67,11 @@ export default {
             life: 255,
           }
           p.dots.push(point);
-          let threePointer = false;
+          let shotValue = 2;
           if (Math.hypot(threePointCenter.x - p.mouseX, threePointCenter.y - p.mouseY) > 41.5*unit/2) {
-            threePointer = true;
+            shotValue = 3;
           }
-          this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY, threePointer: threePointer});
+          this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY, shotValue: shotValue});
         }
       },
 
@@ -84,7 +84,7 @@ export default {
           p.stroke(52, 145, 173, point.life);
           p.ellipse(point.x, point.y, 45, 45);
           let newPoint = point;
-          let loggedPosition = this.$store.getters.getEntry.position;
+          let loggedPosition = this.$store.getters.getCurrentEvent.position;
           if (!loggedPosition) {
             newPoint.life -= 10;
           }
