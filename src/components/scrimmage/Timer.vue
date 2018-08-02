@@ -1,5 +1,5 @@
 <template>
-  <v-card class="noBackground scrimmageBorder my-2 mr-2">
+  <v-card class="noBackground scrimmageBorder">
     <v-container fluid>
       <v-layout row>
         <v-flex xs4 offset-xs2>
