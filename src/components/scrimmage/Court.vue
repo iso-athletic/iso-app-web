@@ -20,7 +20,7 @@ export default {
       p.dots = [];
       p.setup = _ => {
         let parentWidth = document.getElementById('court').offsetWidth;
-        let offsetHeights = document.getElementById('court').offsetTop + 15;
+        let offsetHeights = document.getElementById('court').offsetTop;
         let canvas = p.createCanvas(parentWidth, window.innerHeight-offsetHeights);
         canvas.parent(this.$refs.canvas);
       },
