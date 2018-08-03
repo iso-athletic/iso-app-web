@@ -2,7 +2,7 @@
   <div id="events" class="events">
   <v-card class="translucentBackground scrimmageBorder events-card">
     <v-container class="pa-0" fluid>
-      <h2 class="text-xs-center bottomScrimmageBorder py-2">Event log</h2>
+      <h2 class="text-xs-center bottomScrimmageBorder py-2 fixed">Event log</h2>
         <Event v-for="(eventItem, i) in occurredEvents.slice().reverse()"
         v-bind:data="eventItem"
         v-bind:key="i"
