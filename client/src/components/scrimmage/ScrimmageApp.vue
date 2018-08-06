@@ -28,9 +28,10 @@
         <Events :occurredEvents="getEventList"/>
       </v-flex>
     </v-layout>
-     <v-dialog v-model="forgotTimer" max-width="300">
+     <v-dialog v-if="forgotTimer" @close="forgotTimer = false" max-width="300">
       <v-card>
         <v-card-title>Please start the timer to add an event</v-card-title>
+        <v-btn @click="$emit('close')">OK</v-btn>
       </v-card>
     </v-dialog>
   </div>
