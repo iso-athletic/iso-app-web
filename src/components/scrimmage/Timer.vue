@@ -3,14 +3,14 @@
     <v-container fluid>
       <v-layout row>
         <v-flex xs4 offset-xs2>
-          <div class="large-text">{{prettyTime}}</div>
+          <div class="large-text">{{getPrettyTime}}</div>
         </v-flex>
         <v-flex xs2 offset-xs1>
-          <v-btn flat icon @click="reset"><v-icon>fas fa-redo</v-icon></v-btn>
+          <v-btn flat icon @click="resetTimer"><v-icon>fas fa-redo</v-icon></v-btn>
         </v-flex>
         <v-flex xs2>
-          <v-btn flat icon color="green" v-if="!isRunning" @click="start" :ripple="false"><v-icon>fas fa-play</v-icon></v-btn>
-          <v-btn flat icon color="red" v-if="isRunning" @click="stop" :ripple="false"><v-icon>fas fa-pause</v-icon></v-btn>
+          <v-btn flat icon color="green" v-if="getTimerRunning" @click="startTimer" :ripple="false"><v-icon>fas fa-play</v-icon></v-btn>
+          <v-btn flat icon color="red" v-if="!getTimerRunning" @click="stopTimer" :ripple="false"><v-icon>fas fa-pause</v-icon></v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -24,6 +24,7 @@
  * alert sound when timer done?
  */
 import Vue from 'vue'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: 'timer',
@@ -66,12 +67,18 @@ export default {
       this.stop();
       this.totalTime = this.minute*6000 + this.second*100 + this.decisecond;
       this.$store.dispatch('updateTime', this.totalTime);
-    }
+    },
+    ...mapActions([
+      'startTimer',
+      'stopTimer',
+      'resetTimer'
+    ])
   },
   computed: {
-    prettyTime() {
-      return this.$store.getters.getTimeLeft;
-    }
+    ...mapGetters([
+      'getPrettyTime',
+      'getTimerRunning'
+    ])
   }
 }
 </script>

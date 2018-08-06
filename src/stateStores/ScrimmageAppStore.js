@@ -1,7 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { stat } from "fs";
 
 Vue.use(Vuex);
+
+var defaultTime = 20 * 6000
 
 const state = {
   ActionEntry: {
@@ -12,7 +15,8 @@ const state = {
     id: 0,
   },
   Time: {
-    currentTime: "20:00:00",
+    currentTime: defaultTime,
+    interval: null,
   },
   Events: [],
   TeamInformation: {
@@ -45,7 +49,7 @@ function resetActionEntry() {
 }
 
 function isTimerRunning(state) {
-  return !(state.Time.currentTime == '20:00:00');
+  return state.Time.interval == null
 }
 
 function updateTeamScore(team, score, method){
@@ -98,16 +102,6 @@ const mutations = {
       state.Errors.forgotTimer = true;
     }
   },
-  SET_TIME(state, newTime) {
-    let minute = Math.floor(newTime / 6000);
-    let second = Math.floor((newTime - minute * 6000) / 100);
-    let decisecond = newTime - minute * 6000 - second * 100;
-
-    let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
-    let prettySecond = second < 10 ? "0" + second.toString() : second.toString();
-    let prettyDecisecond = decisecond < 10 ? "0" + decisecond.toString() : decisecond.toString();
-    state.Time.currentTime = prettyMinute + ":" + prettySecond + ":" + prettyDecisecond;
-  },
   REMOVE_EVENT(state, eventID) {
     let i = state.Events.map(function (e) { return e.id }).indexOf(eventID);
     if (i > -1) {
@@ -143,6 +137,9 @@ const mutations = {
   TICK_ONE_DECISECOND(state) {
     if (state.Time.currentTime > 0) state.Time.currentTime--;
   },
+  RESET_TIMER(state) {
+    state.Time.currentTime = defaultTime
+  }
 };
 
 const actions = {
@@ -187,10 +184,17 @@ const actions = {
   /*******************************************************/
   /******************** TIMER ACTIONS ********************/
   /*******************************************************/
-  runTimer(context) {
-    setInterval(() => {
+  startTimer(context) {
+    state.Time.interval = setInterval(() => {
       context.commit("TICK_ONE_DECISECOND");
     }, 10);
+  },
+  stopTimer(context) {
+    clearInterval(state.Time.interval);
+    state.Time.interval = null;
+  },
+  resetTimer(context) {
+    context.commit("RESET_TIMER");
   },
   updateTime(context, time) {
     context.commit("SET_TIME", time);
@@ -226,6 +230,19 @@ const getters = {
   },
   getTeam2Score(state){
     return state.TeamInformation.team2.score;
+  },
+  getPrettyTime(state) {
+    let minute = Math.floor(state.Time.currentTime/ 6000);
+    let second = Math.floor((state.Time.currentTime - minute * 6000) / 100);
+    let decisecond = state.Time.currentTime - minute * 6000 - second * 100;
+
+    let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
+    let prettySecond = second < 10 ? "0" + second.toString() : second.toString();
+    let prettyDecisecond = decisecond < 10 ? "0" + decisecond.toString() : decisecond.toString();
+    return prettyMinute + ":" + prettySecond + ":" + prettyDecisecond;
+  },
+  getTimerRunning(state) {
+    return isTimerRunning(state);
   }
 };
 
