@@ -33,7 +33,9 @@ export default {
         'Turnover',
         'Steal',
         'Block',
-        'Foul'
+        'Foul',
+        'Missed Shot',
+        'Missed FT'
       ],
     } 
   },
