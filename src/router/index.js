@@ -7,6 +7,7 @@ import Settings from '../components/settings/Settings'
 import Clock from '../components/settings/Clock'
 import Team from '../components/Team/Team'
 import ScrimmageApp from '../components/scrimmage/ScrimmageApp'
+import EventsSummary from '../components/scrimmage/events/EventsSummary'
 
 Vue.use(Router)
 
@@ -51,6 +52,11 @@ const router = new Router({
       path: '/scrimmage',
       name: 'Scrimmage',
       component: ScrimmageApp
+    },
+    {
+      path: '/events',
+      name: 'EventsSummary',
+      component: EventsSummary
     }
   ]
 })
