@@ -9,8 +9,8 @@
           <v-btn flat icon @click="resetTimer"><v-icon>fas fa-redo</v-icon></v-btn>
         </v-flex>
         <v-flex xs2>
-          <v-btn flat icon color="green" v-if="getTimerRunning" @click="startTimer" :ripple="false"><v-icon>fas fa-play</v-icon></v-btn>
-          <v-btn flat icon color="red" v-if="!getTimerRunning" @click="stopTimer" :ripple="false"><v-icon>fas fa-pause</v-icon></v-btn>
+          <v-btn flat icon color="green" v-if="getIsTimerRunning" @click="startTimer" :ripple="false"><v-icon>fas fa-play</v-icon></v-btn>
+          <v-btn flat icon color="red" v-if="!getIsTimerRunning" @click="stopTimer" :ripple="false"><v-icon>fas fa-pause</v-icon></v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -28,46 +28,7 @@ import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: 'timer',
-  data() {
-    return {
-      // default minute and second values
-      minute: 20,
-      second: 0,
-      decisecond: 0,
-      totalTime: 20*6000,
-      timer: null,
-      isRunning: false,
-    }
-  },
   methods: {
-    start() {
-      this.isRunning = true;
-      // using deciseconds
-      this.totalTime = this.minute*6000 + this.second*100 + this.decisecond;
-      if (!this.timer) {
-        this.timer = setInterval(() => {
-          if (this.totalTime >= 0) {
-            this.totalTime--;
-            this.$store.dispatch('updateTime', this.totalTime);
-          } else {
-            clearInterval(this.timer);
-            alert("Timer done!");
-            this.reset();
-            // add some audio clip
-          }
-        }, 10);
-      }
-    },
-    stop() {
-      this.isRunning = false;
-      clearInterval(this.timer);
-      this.timer = null;
-    },
-    reset() {
-      this.stop();
-      this.totalTime = this.minute*6000 + this.second*100 + this.decisecond;
-      this.$store.dispatch('updateTime', this.totalTime);
-    },
     ...mapActions([
       'startTimer',
       'stopTimer',
@@ -77,7 +38,7 @@ export default {
   computed: {
     ...mapGetters([
       'getPrettyTime',
-      'getTimerRunning'
+      'getIsTimerRunning'
     ])
   }
 }

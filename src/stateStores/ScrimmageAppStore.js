@@ -49,7 +49,18 @@ function resetActionEntry() {
 }
 
 function isTimerRunning(state) {
-  return state.Time.interval == null
+  return state.Time.interval != null
+}
+
+function prettyTime(time) {
+  let minute = Math.floor(time / 6000);
+  let second = Math.floor((time - minute * 6000) / 100);
+  let decisecond = time - minute * 6000 - second * 100;
+
+  let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
+  let prettySecond = second < 10 ? "0" + second.toString() : second.toString();
+  let prettyDecisecond = decisecond < 10 ? "0" + decisecond.toString() : decisecond.toString();
+  return prettyMinute + ":" + prettySecond + ":" + prettyDecisecond;
 }
 
 function updateTeamScore(team, score, method){
@@ -87,7 +98,7 @@ const mutations = {
           console.log("Entry type: " + entry.type + " doesn't exist");
       }
       if (isActionEntryFull()) {
-        state.Events.push({ ...state.ActionEntry, timeStamp: state.Time.currentTime });
+        state.Events.push({ ...state.ActionEntry, timeStamp: prettyTime(state.Time.currentTime) });
         var freeThrow = (state.ActionEntry.action == "Made FT");
         if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
           updateTeamScore(1, freeThrow ? 1 : state.ActionEntry.position.shotValue, "add");
@@ -194,10 +205,9 @@ const actions = {
     state.Time.interval = null;
   },
   resetTimer(context) {
+    clearInterval(state.Time.interval);
+    state.Time.interval = null;
     context.commit("RESET_TIMER");
-  },
-  updateTime(context, time) {
-    context.commit("SET_TIME", time);
   },
 };
 
@@ -232,17 +242,10 @@ const getters = {
     return state.TeamInformation.team2.score;
   },
   getPrettyTime(state) {
-    let minute = Math.floor(state.Time.currentTime/ 6000);
-    let second = Math.floor((state.Time.currentTime - minute * 6000) / 100);
-    let decisecond = state.Time.currentTime - minute * 6000 - second * 100;
-
-    let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
-    let prettySecond = second < 10 ? "0" + second.toString() : second.toString();
-    let prettyDecisecond = decisecond < 10 ? "0" + decisecond.toString() : decisecond.toString();
-    return prettyMinute + ":" + prettySecond + ":" + prettyDecisecond;
+    return prettyTime(state.Time.currentTime)
   },
-  getTimerRunning(state) {
-    return isTimerRunning(state);
+  getIsTimerRunning(state) {
+    return !isTimerRunning(state);
   }
 };
 
