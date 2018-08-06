@@ -84,13 +84,18 @@ const mutations = {
       }
       if (isActionEntryFull()) {
         state.Events.push({ ...state.ActionEntry, timeStamp: state.Time.currentTime });
-        var freeThrow = (state.ActionEntry.action == "Made FT");
-        if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
-          updateTeamScore(1, freeThrow ? 1 : state.ActionEntry.position.shotValue, "add");
-        } else {
-          updateTeamScore(2, freeThrow ? 1 : state.ActionEntry.position.shotValue, "add");
+
+        if (state.ActionEntry.action == "Made FT") {
+          state.ActionEntry.position.shotValue = 1
+        } else if(state.ActionEntry.action != "Made Shot") {
+          state.ActionEntry.position.shotValue = 0
         }
-        console.log(state.Events);
+        
+        if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
+          updateTeamScore(1, state.ActionEntry.position.shotValue, "add");
+        } else {
+          updateTeamScore(2, state.ActionEntry.position.shotValue, "add");
+        }
         resetActionEntry();
       }
       state.Errors.forgotTimer = false;
