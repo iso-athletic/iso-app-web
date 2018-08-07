@@ -9,7 +9,6 @@ var defaultTime = 20 * 6000
 const state = {
   ActionEntry: {
     player: null,
-    team: null,
     action: null,
     position: null,
     id: 0,
@@ -99,12 +98,13 @@ const mutations = {
       }
       if (isActionEntryFull()) {
         state.Events.push({ ...state.ActionEntry, timeStamp: prettyTime(state.Time.currentTime) });
-        var freeThrow = (state.ActionEntry.action == "Made FT");
+
         if (state.ActionEntry.action == "Made FT") {
           state.ActionEntry.position.shotValue = 1
-        } else if(state.ActionEntry.action != "Made Shot") {
+        } else if (state.ActionEntry.action != "Made Shot") {
           state.ActionEntry.position.shotValue = 0
         }
+
         if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
           updateTeamScore(1, state.ActionEntry.position.shotValue, "add");
         } else {
@@ -128,7 +128,6 @@ const mutations = {
       }
       state.Events.splice(i, 1);
     }
-    console.log(state.Events);
   },
   ADD_PLAYER_TO_TEAM(state, playerInformation) {
     if (playerInformation.teamNumber == 1) {
@@ -200,6 +199,7 @@ const actions = {
   /******************** TIMER ACTIONS ********************/
   /*******************************************************/
   startTimer(context) {
+    // shoulnd't manipulate state directly in here
     state.Time.interval = setInterval(() => {
       context.commit("TICK_ONE_DECISECOND");
     }, 10);
@@ -249,7 +249,7 @@ const getters = {
     return prettyTime(state.Time.currentTime)
   },
   getIsTimerRunning(state) {
-    return !isTimerRunning(state);
+    return isTimerRunning(state);
   }
 };
 
