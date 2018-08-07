@@ -41,6 +41,12 @@ function isActionEntryFull() {
     state.Time != null;
 }
 
+function isMadeFTEntryFull() {
+  return state.ActionEntry.player != null &&
+    state.ActionEntry.action == 'Made FT' &&
+    state.Time != null;
+}
+
 function resetActionEntry() {
   state.ActionEntry.player = null;
   state.ActionEntry.action = null;
@@ -97,19 +103,36 @@ const mutations = {
         default:
           console.log("Entry type: " + entry.type + " doesn't exist");
       }
-      if (isActionEntryFull()) {
-        state.Events.push({ ...state.ActionEntry, timeStamp: prettyTime(state.Time.currentTime) });
-        var freeThrow = (state.ActionEntry.action == "Made FT");
-        if (state.ActionEntry.action == "Made FT") {
-          state.ActionEntry.position.shotValue = 1
-        } else if(state.ActionEntry.action != "Made Shot") {
-          state.ActionEntry.position.shotValue = 0
+
+      // special case in which action is a free throw
+      if (isMadeFTEntryFull()) {
+        // these values were eyeballed, check them better later
+        state.ActionEntry.position = {
+          shotValue: 1,
+          x: 252,
+          y: 366
         }
+
         if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
           updateTeamScore(1, state.ActionEntry.position.shotValue, "add");
         } else {
           updateTeamScore(2, state.ActionEntry.position.shotValue, "add");
         }
+        state.Events.push({ ...state.ActionEntry, timeStamp: prettyTime(state.Time.currentTime) });
+        resetActionEntry();
+      }
+
+      if (isActionEntryFull()) {
+        if(state.ActionEntry.action != "Made Shot") {
+          state.ActionEntry.position.shotValue = 0
+        }
+
+        if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
+          updateTeamScore(1, state.ActionEntry.position.shotValue, "add");
+        } else {
+          updateTeamScore(2, state.ActionEntry.position.shotValue, "add");
+        }
+        state.Events.push({ ...state.ActionEntry, timeStamp: prettyTime(state.Time.currentTime) });
         resetActionEntry();
       }
       state.Errors.forgotTimer = false;
