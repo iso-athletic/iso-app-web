@@ -41,9 +41,9 @@ function isActionEntryFull() {
     state.Time != null;
 }
 
-function isMadeFTEntryFull() {
+function isFTEntryFull() {
   return state.ActionEntry.player != null &&
-    state.ActionEntry.action == 'Made FT' &&
+    (state.ActionEntry.action == 'Made FT' || state.ActionEntry.action == 'Missed FT') &&
     state.Time != null;
 }
 
@@ -105,12 +105,16 @@ const mutations = {
       }
 
       // special case in which action is a free throw
-      if (isMadeFTEntryFull()) {
+      if (isFTEntryFull()) {
         // these values were eyeballed, check them better later
         state.ActionEntry.position = {
-          shotValue: 1,
           x: 252,
           y: 366
+        }
+        if (state.ActionEntry.action == 'Made FT') {
+          state.ActionEntry.position.shotValue = 1
+        } else {
+          state.ActionEntry.position.shotValue = 0
         }
 
         if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
