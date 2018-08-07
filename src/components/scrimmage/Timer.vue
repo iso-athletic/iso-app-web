@@ -9,8 +9,8 @@
           <v-btn flat icon @click="resetTimer"><v-icon>fas fa-redo</v-icon></v-btn>
         </v-flex>
         <v-flex xs2>
-          <v-btn flat icon color="green" v-if="getIsTimerRunning" @click="startTimer" :ripple="false"><v-icon>fas fa-play</v-icon></v-btn>
-          <v-btn flat icon color="red" v-if="!getIsTimerRunning" @click="stopTimer" :ripple="false"><v-icon>fas fa-pause</v-icon></v-btn>
+          <v-btn flat icon color="green" v-if="!getIsTimerRunning" @click="startTimer" :ripple="false"><v-icon>fas fa-play</v-icon></v-btn>
+          <v-btn flat icon color="red" v-if="getIsTimerRunning" @click="stopTimer" :ripple="false"><v-icon>fas fa-pause</v-icon></v-btn>
         </v-flex>
       </v-layout>
     </v-container>
