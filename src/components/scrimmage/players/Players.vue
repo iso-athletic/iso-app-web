@@ -18,11 +18,11 @@
       <v-layout row>
         <v-flex xs12>
         <div class="text-xs-center">
-          <v-btn small fab color="primary" @click.native.stop="addPlayerDialog=true">
+          <v-btn small fab color="primary" @click.native.stop="editPlayersDialog=true">
             <v-icon>person_add</v-icon>
           </v-btn>
         </div>
-        <v-dialog v-model="addPlayerDialog" max-width="600">
+        <v-dialog v-model="editPlayersDialog" max-width="600">
            <v-toolbar class="pa-0">
               <v-toolbar-items style="width:100%">
                 <v-btn block flat :ripple="false" color="blue" 
@@ -51,14 +51,14 @@
               </v-layout>
             </v-container>
             <v-layout justify-end>
-            <v-btn class="mb-3 mr-3 normalButton" @click="addPlayerDialog=false">DONE</v-btn>
+            <v-btn class="mb-3 mr-3 normalButton" @click="editPlayersDialog=false">DONE</v-btn>
             </v-layout>
             </v-card>
         </v-dialog>
       </v-flex>
       </v-layout>
     </v-container>
-    {{updateTeams}}
+    {{updateTeamsFromStore}}
   </v-card>
 </template>
 
@@ -77,7 +77,7 @@ export default {
   },
   data() {
     return{
-      addPlayerDialog: false,
+      editPlayersDialog: false,
       selectingTeam1: true,
       team1:"Purple",
       team2:"White",
@@ -103,12 +103,10 @@ export default {
     }
   },
   computed: {
-      updateTeams() {
+      updateTeamsFromStore() {
         this.team1Players = this.$store.getters.getTeamPlayers(1);
         this.team2Players = this.$store.getters.getTeamPlayers(2);
-        this.$store.dispatch("newTeams", {newTeam1: this.team1Players, newTeam2: this.team2Players});
       }
-
   },
   methods: {
     teamColor(playerName) {
@@ -124,13 +122,12 @@ export default {
         team.includes(playerName) ? team.splice(team.indexOf(playerName), 1): team.push(playerName);
       }
       return team;
+      this.$store.dispatch("addPlayersToTeam", {team1: this.team1Players, team2: this.team2Players});
     },
   },
   watch: {
-    addPlayerDialog (val) {
-      if (!val) {
-        this.selectingTeam1 = true;
-      }
+    editPlayersDialog (val) {
+      this.selectingTeam1 = true;
       this.checkboxesSelected = this.team1Players.concat(this.team2Players);
     },
   },    
@@ -138,7 +135,6 @@ export default {
 </script>
 
 <style>
-
 .hoverStateTeam1:before {
   background-color: #4695EC;
 }

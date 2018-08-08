@@ -12,11 +12,7 @@
     :playerName="player"
     />
   </div>
-
 </template>
-
-
-
 
 <script>
 import Vue from "vue";
@@ -30,8 +26,6 @@ export default {
   data() {
     return {
       players: [],
-      addPlayerDialog: false,
-      newPlayerName: null
     };
   },
   props: {

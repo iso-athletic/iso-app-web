@@ -144,7 +144,5 @@ export default {
   .v-toolbar__content {
     padding: 0 0;
   }
-  
-
 
 </style>
