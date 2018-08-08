@@ -1,6 +1,6 @@
 <template>
   <div id="scoreboard">
-    <v-card class="noBackground scrimmageBorder mx-2 my-2">
+    <v-card class="noBackground scrimmageBorder">
     <v-container fluid>
       <v-layout row>
         <v-flex xs3>

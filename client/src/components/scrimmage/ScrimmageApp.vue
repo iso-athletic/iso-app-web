@@ -1,31 +1,35 @@
 <template>
   <div class="mb-10 noBackground">
     <v-layout row wrap>
-      <v-flex md5>
+      <v-flex md5 class="full-height">
         <v-layout row wrap>
-          <v-flex d-flex md12 id="timer">
+          <v-flex d-flex md12 id="timer" class="mb-2 mr-2">
             <Timer />
           </v-flex>
-          <v-flex d-flex md12 class="mt-2 mr-2" id="court">
-            <Court />
-          </v-flex>
-        </v-layout>
-      </v-flex>
-      <v-flex md5>
-        <v-layout fill-height row wrap>
-          <v-flex d-flex md12>
-            <Scoreboard/>
-          </v-flex>
-          <v-flex d-flex md12>
+          <v-flex d-flex md12 class="my-2 mr-2">
             <Players />
           </v-flex>
-          <v-flex d-flex md12>
+          <v-flex d-flex md12 class="mt-2 mr-2">
             <Actions />
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex xs2>
-        <Events :occurredEvents="getEventList"/>
+      <v-flex md5 class="full-height">
+        <v-layout row wrap>
+          <v-flex d-flex md12 class="mx-2 mb-2">
+            <Scoreboard/>
+          </v-flex>
+          <v-flex d-flex md12 class="mt-2 mx-2" id="court">
+            <Court />
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      <v-flex xs2 class="full-height">
+        <v-layout class="events" row wrap>
+          <v-flex class="ml-2">
+            <Events :occurredEvents="getEventList"/>
+        </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
      <v-dialog v-if="forgotTimer" @close="forgotTimer = false" max-width="300">
@@ -75,18 +79,13 @@ export default {
     }
   },
   mounted() {
-    var offsetHeights =
-      window.innerHeight - (document.getElementById("events").offsetTop + 15);
-    var events = document.getElementById("events");
-    events.style.height = offsetHeights + "px";
     this.$root.$on('forgot', this.toggleForgotTimerDialog);
   }
 };
 </script>
 
 <style>
-html {
-  height: 100%;
-  margin-top: 0px;
+.full-height {
+  height: 92vh;
 }
 </style>

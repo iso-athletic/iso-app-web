@@ -1,5 +1,5 @@
 <template>
-  <v-card class="noBackground scrimmageBorder mx-2 my-2">
+  <v-card class="noBackground scrimmageBorder">
     <v-container fluid>
       <v-layout row wrap>
         <v-flex xs6 sm6 md6>

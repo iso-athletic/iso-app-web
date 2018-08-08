@@ -65,6 +65,11 @@ export default {
 </script>
 
 <style>
+
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
   #app {
     background: url('assets/background.jpg');
     background-size: 100% 100%;
@@ -103,11 +108,11 @@ export default {
   }
 
   .iceBlueBackgroundButton {
-    background: rgb(52, 145, 173, 0.9) !important;
+    background: #4695EC !important;
   }
 
   .scrimmageButtonSelected {
-    background: rgba(52, 145, 173, 0.8) !important;
+    background: #4695EC !important;
     transition: background 0s;
     -moz-transition: background 0s;
     -webkit-transition: background 0s;
@@ -117,7 +122,8 @@ export default {
   /* undoing the animation effect that v-btn uses which looked bad */
   .scrimmageButton--active:before, .scrimmageButton:focus:before, .scrimmageButton:hover:before {
     background-color: rgba(0,0,0,0) !important;
-}
+  }
+  
 
 
 </style>

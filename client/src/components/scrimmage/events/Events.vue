@@ -1,8 +1,18 @@
 <template>
-  <div id="events">
-  <v-card class="mt-2 ml-2 translucentBackground scrimmageBorder" style="height:100%; overflow:scroll">
+  <div id="events" class="events">
+  <v-card class="translucentBackground scrimmageBorder events-card">
     <v-container class="pa-0" fluid>
-      <h2 class="text-xs-center bottomScrimmageBorder py-2">Event log</h2>
+        <v-layout class="bottomScrimmageBorder py-2 pl-3 pr-4">
+          <v-flex class="mt-1">
+            <h2>Event log</h2>
+          </v-flex>
+          <v-flex xs2>
+            <v-btn class="ma-0" color="blue" flat icon :to="{path: '/events', params: {}}">
+              <v-icon medium>exit_to_app</v-icon>
+            </v-btn>
+        </v-flex>
+        </v-layout>
+
         <Event v-for="(eventItem, i) in occurredEvents.slice().reverse()"
         v-bind:data="eventItem"
         v-bind:key="i"
@@ -15,16 +25,16 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Event from './Event'
+import Vue from "vue";
+import Event from "./Event";
 
 export default {
-  name: 'events',
+  name: "events",
   components: {
     Event
   },
   props: {
-    occurredEvents: Array,
+    occurredEvents: Array
   },
   methods: {
     cardColor: function(index) {
@@ -33,13 +43,20 @@ export default {
       } else {
         return "grey darken-2";
       }
-    },
+    }
   }
-}
+};
 </script>
 
 <style>
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
+}
+.events {
+  height: 100%;
+}
+.events-card {
+  height: 100% !important;
+  overflow: auto;
 }
 </style>
