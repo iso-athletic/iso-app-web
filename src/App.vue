@@ -75,11 +75,28 @@ export default {
     background-size: 100% 100%;
   }
 
+  .patternBackground {
+    background: url('assets/background.jpg');
+    background-size: 900% 900%;
+    background-position: center center;
+  }
+
   .scrimmageButton {
     width: 100%;
     box-sizing: border-box;
     background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1) 99%);
     background: -webkit-linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1) 99%);
+    outline: 1px solid #D1D1D1;
+    transition: background 0.5s;
+    -moz-transition: background 0.5s;
+    -webkit-transition: background 0.5s;
+    -o-transition: background 0.5s;
+  }
+
+  .normalButton {
+    box-sizing: border-box;
+    background: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02) 99%);
+    background: -webkit-linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02) 99%);
     outline: 1px solid #D1D1D1;
     transition: background 0.5s;
     -moz-transition: background 0.5s;
@@ -122,6 +139,10 @@ export default {
   /* undoing the animation effect that v-btn uses which looked bad */
   .scrimmageButton--active:before, .scrimmageButton:focus:before, .scrimmageButton:hover:before {
     background-color: rgba(0,0,0,0) !important;
+  }
+
+  .v-toolbar__content {
+    padding: 0 0;
   }
   
 
