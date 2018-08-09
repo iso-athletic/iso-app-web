@@ -1,8 +1,8 @@
 <template>
   <v-card class="noBackground fullWidth bottomScrimmageBorder">
     <v-container fluid>
-      <v-layout row wrap>
-        <v-flex md10>
+      <v-layout row>
+        <v-flex sm10 md10 lg10>
           <v-layout row wrap>
             <v-flex d-flex md12>
               <h3>{{actionEntry.player}}</h3>
@@ -15,7 +15,7 @@
             </v-flex>
           </v-layout>
         </v-flex>
-        <v-flex md2>
+        <v-flex>
           <v-layout row wrap>
             <v-flex d-flex md12>
               <v-btn flat icon color="error"
