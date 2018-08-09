@@ -1,6 +1,0 @@
-projectKey=iso-app
-serverUrl=http://localhost:9000
-serverVersion=7.2.1.14109
-dashboardUrl=http://localhost:9000/dashboard?id=iso-app
-ceTaskId=AWUUfB7xL09KQoinagAk
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AWUUfB7xL09KQoinagAk
