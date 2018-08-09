@@ -1,18 +1,21 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { stat } from "fs";
 
 Vue.use(Vuex);
+
+var defaultTime = 20 * 6000
 
 const state = {
   ActionEntry: {
     player: null,
-    team: null,
     action: null,
     position: null,
     id: 0,
   },
   Time: {
-    currentTime: "20:00:00",
+    currentTime: defaultTime,
+    interval: null,
   },
   Events: [],
   TeamInformation: {
@@ -45,7 +48,18 @@ function resetActionEntry() {
 }
 
 function isTimerRunning(state) {
-  return !(state.Time.currentTime == '20:00:00');
+  return state.Time.interval != null
+}
+
+function prettyTime(time) {
+  let minute = Math.floor(time / 6000);
+  let second = Math.floor((time - minute * 6000) / 100);
+  let decisecond = time - minute * 6000 - second * 100;
+
+  let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
+  let prettySecond = second < 10 ? "0" + second.toString() : second.toString();
+  let prettyDecisecond = decisecond < 10 ? "0" + decisecond.toString() : decisecond.toString();
+  return prettyMinute + ":" + prettySecond + ":" + prettyDecisecond;
 }
 
 function updateTeamScore(team, score, method){
@@ -83,30 +97,25 @@ const mutations = {
           console.log("Entry type: " + entry.type + " doesn't exist");
       }
       if (isActionEntryFull()) {
-        state.Events.push({ ...state.ActionEntry, timeStamp: state.Time.currentTime });
-        var freeThrow = (state.ActionEntry.action == "Made FT");
-        if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
-          updateTeamScore(1, freeThrow ? 1 : state.ActionEntry.position.shotValue, "add");
-        } else {
-          updateTeamScore(2, freeThrow ? 1 : state.ActionEntry.position.shotValue, "add");
+        state.Events.push({ ...state.ActionEntry, timeStamp: prettyTime(state.Time.currentTime) });
+
+        if (state.ActionEntry.action == "Made FT") {
+          state.ActionEntry.position.shotValue = 1
+        } else if (state.ActionEntry.action != "Made Shot") {
+          state.ActionEntry.position.shotValue = 0
         }
-        console.log(state.Events);
+
+        if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
+          updateTeamScore(1, state.ActionEntry.position.shotValue, "add");
+        } else {
+          updateTeamScore(2, state.ActionEntry.position.shotValue, "add");
+        }
         resetActionEntry();
       }
       state.Errors.forgotTimer = false;
     } else {
       state.Errors.forgotTimer = true;
     }
-  },
-  SET_TIME(state, newTime) {
-    let minute = Math.floor(newTime / 6000);
-    let second = Math.floor((newTime - minute * 6000) / 100);
-    let decisecond = newTime - minute * 6000 - second * 100;
-
-    let prettyMinute = minute < 10 ? "0" + minute.toString() : minute.toString();
-    let prettySecond = second < 10 ? "0" + second.toString() : second.toString();
-    let prettyDecisecond = decisecond < 10 ? "0" + decisecond.toString() : decisecond.toString();
-    state.Time.currentTime = prettyMinute + ":" + prettySecond + ":" + prettyDecisecond;
   },
   REMOVE_EVENT(state, eventID) {
     let i = state.Events.map(function (e) { return e.id }).indexOf(eventID);
@@ -119,7 +128,6 @@ const mutations = {
       }
       state.Events.splice(i, 1);
     }
-    console.log(state.Events);
   },
   ADD_PLAYER_TO_TEAM(state, playerInformation) {
     if (playerInformation.teamNumber == 1) {
@@ -143,6 +151,9 @@ const mutations = {
   TICK_ONE_DECISECOND(state) {
     if (state.Time.currentTime > 0) state.Time.currentTime--;
   },
+  RESET_TIMER(state) {
+    state.Time.currentTime = defaultTime
+  }
 };
 
 const actions = {
@@ -187,13 +198,20 @@ const actions = {
   /*******************************************************/
   /******************** TIMER ACTIONS ********************/
   /*******************************************************/
-  runTimer(context) {
-    setInterval(() => {
+  startTimer(context) {
+    // shoulnd't manipulate state directly in here
+    state.Time.interval = setInterval(() => {
       context.commit("TICK_ONE_DECISECOND");
     }, 10);
   },
-  updateTime(context, time) {
-    context.commit("SET_TIME", time);
+  stopTimer(context) {
+    clearInterval(state.Time.interval);
+    state.Time.interval = null;
+  },
+  resetTimer(context) {
+    clearInterval(state.Time.interval);
+    state.Time.interval = null;
+    context.commit("RESET_TIMER");
   },
 };
 
@@ -226,6 +244,12 @@ const getters = {
   },
   getTeam2Score(state){
     return state.TeamInformation.team2.score;
+  },
+  getPrettyTime(state) {
+    return prettyTime(state.Time.currentTime)
+  },
+  getIsTimerRunning(state) {
+    return isTimerRunning(state);
   }
 };
 
