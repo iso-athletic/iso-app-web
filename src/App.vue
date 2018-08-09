@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>Iso Athletic</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
+      <v-toolbar-items class="hidden-xs-and-down">
         <v-btn :to="'/'"
                       v-if="authenticated"
                       flat>
@@ -55,7 +55,6 @@ export default {
       this.authenticated = authState.authenticated;
     });
     return {
-      drawer: false,
       auth,
       authenticated
     };
