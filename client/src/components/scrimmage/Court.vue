@@ -81,7 +81,7 @@ export default {
         let newDots = [];
         p.dots.forEach(point => {
           p.strokeWeight(4);
-          p.stroke(52, 145, 173, point.life);
+          p.stroke(70, 149, 236, point.life);
           p.ellipse(point.x, point.y, 45, 45);
           let newPoint = point;
           let loggedPosition = this.$store.getters.getCurrentEvent.position;

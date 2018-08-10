@@ -1,8 +1,8 @@
 <template>
   <v-card class="noBackground fullWidth bottomScrimmageBorder">
-    <v-container fluid>
-      <v-layout row>
-        <v-flex sm10 md10 lg10>
+    <v-container fluid class="pa-2">
+      <v-layout row style="flex-shrink: 0; flex-grow: 0;">
+        <v-flex>
           <v-layout row wrap>
             <v-flex d-flex md12>
               <h3>{{actionEntry.player}}</h3>

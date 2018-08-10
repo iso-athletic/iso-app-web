@@ -1,7 +1,5 @@
 <template>
-  <v-card class="noBackground scrimmageBorder">
-    <v-container fluid>
-      <v-layout row>
+      <v-layout class="pa-2 noBackground scrimmageBorder" row>
         <v-flex xs4 offset-xs2>
           <div class="large-text">{{getPrettyTime}}</div>
         </v-flex>
@@ -13,8 +11,6 @@
           <v-btn flat icon color="red" v-if="getIsTimerRunning" @click="stopTimer" :ripple="false"><v-icon>fas fa-pause</v-icon></v-btn>
         </v-flex>
       </v-layout>
-    </v-container>
-  </v-card>
 </template>
 
 <script>

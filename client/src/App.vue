@@ -31,7 +31,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
-    <v-container fluid class="overall-container">
+    <v-container xl10 fluid class="overall-container">
       <router-view
             :auth="auth"
             :authenticated="authenticated">
@@ -77,11 +77,6 @@ export default {
   background-size: 100% 100%;
 }
 
-.overall-container {
-  margin: auto !important;
-  max-width: 1100px !important;
-}
-
 .scrimmageButton {
   width: 100%;
   box-sizing: border-box;
@@ -124,22 +119,29 @@ export default {
   background: #4695EC !important;
 }
 
-.scrimmageButtonSelected {
-  background: #4695EC !important;
-  transition: background 0s;
-  -moz-transition: background 0s;
-  -webkit-transition: background 0s;
-  -o-transition: background 0s;
+.patternBackground {
+  background: url('assets/background.jpg');
+  background-size: 900% 900%;
+  background-position: center center;
 }
-  
-/* undoing the animation effect that v-btn uses which looked bad */
-.scrimmageButton--active:before, .scrimmageButton:focus:before, .scrimmageButton:hover:before {
-  background-color: rgba(0,0,0,0) !important;
+
+.normalButton {
+  box-sizing: border-box;
+  background: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02) 99%);
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02) 99%);
+  outline: 1px solid #D1D1D1;
+  transition: background 0.5s;
+  -moz-transition: background 0.5s;
+  -webkit-transition: background 0.5s;
+  -o-transition: background 0.5s;
 }
-  
+
+.v-toolbar__content {
+  padding: 0 0;
+}
 
 .scrimmageButtonSelected {
-  background: rgba(52, 145, 173, 0.8) !important;
+  background: #4695EC !important;
   transition: background 0s;
   -moz-transition: background 0s;
   -webkit-transition: background 0s;
@@ -152,4 +154,9 @@ export default {
 .scrimmageButton:hover:before {
   background-color: rgba(0, 0, 0, 0) !important;
 }
+
+.floatingPlayerButton {
+  margin-bottom: -3vh !important;
+}
+
 </style>

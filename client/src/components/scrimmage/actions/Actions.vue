@@ -1,7 +1,7 @@
 <template>
   <v-card class="noBackground scrimmageBorder">
-    <v-container fluid>
-      <v-container grid-list-xl>
+    <v-layout column style="flex-grow: 1;">
+      <v-container grid-list-md class="pa-2">
       <v-layout row wrap>
           <Action v-for="action in allActionNames"
           v-bind:data="action"
@@ -9,7 +9,7 @@
           :actionName="action"/>
       </v-layout>
       </v-container>
-    </v-container>
+      </v-layout>
   </v-card>
 </template>
 
