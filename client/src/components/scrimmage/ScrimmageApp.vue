@@ -5,18 +5,18 @@
           <v-layout d-flex id="timer" class="mb-2 mr-2" style="flex-shrink: 0; flex-grow: 0;">
             <Timer />
           </v-layout>
-          <v-flex d-flex md4 class="my-2 mr-2" style="flex-grow: 1;">
+          <v-flex d-flex md6 class="my-2 mr-2" style="flex-grow: 1;">
             <Players />
           </v-flex>
           <v-layout d-flex class="mt-2 mr-2" style="flex-shrink: 0; flex-grow: 1;" >
             <Actions/>
           </v-layout>
         </v-layout>
-        <v-layout row wrap md5 style="flex-shrink: 0; flex-grow:0;">
-          <v-flex d-flex md12 class="mx-2 mb-2">
+        <v-layout column style="flex-shrink: 0; flex-grow:0;">
+          <v-flex md12 class="mx-2 mb-2" style="flex-shrink: 1; flex-grow:0;">
             <Scoreboard/>
           </v-flex>
-          <v-flex d-flex md12 class="mt-2 mx-2" id="court">
+          <v-flex d-flex md12 class="mt-2 mx-2" id="court" style="flex-shrink: 0; flex-grow:1; flex-basis: 100% !important; height: 0; width: 20rem;">
             <Court />
           </v-flex>
         </v-layout>
