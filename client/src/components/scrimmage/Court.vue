@@ -1,5 +1,5 @@
 <template>
-  <div class="translucentBackground scrimmageBorder" id="" v-cloak ref="canvas" style="height:100%;"></div>
+  <div class="noBackground scrimmageBorder" id="" v-cloak ref="canvas" style="height:100%;"></div>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
         let parentWidth = document.getElementById('court').offsetWidth;
         let offsetHeights = document.getElementById('scoreboard').offsetHeight;
         let parentHeight = document.getElementById('scrimmageAppContainer').offsetHeight;
-        let canvas = p.createCanvas(parentWidth-2, parentHeight-offsetHeights-26);
+        let canvas = p.createCanvas(parentWidth-4, parentHeight-offsetHeights-24);
         canvas.parent(this.$refs.canvas);
       },
 
@@ -32,7 +32,7 @@ export default {
          * coloring for the court
          * why isn't the math working out?
         */
-        p.background(51);
+        p.background(40);
 
         /* makes court lines thicker */
         p.drawingContext.lineWidth = 3;
@@ -80,7 +80,7 @@ export default {
         let newDots = [];
         p.dots.forEach(point => {
           p.strokeWeight(4);
-          p.stroke(52, 145, 173, point.life);
+          p.stroke(70, 149, 236, point.life);
           p.ellipse(point.x, point.y, 45, 45);
           let newPoint = point;
           let loggedPosition = this.$store.getters.getCurrentEvent.position;

@@ -129,12 +129,9 @@ const mutations = {
       state.Events.splice(i, 1);
     }
   },
-  ADD_PLAYER_TO_TEAM(state, playerInformation) {
-    if (playerInformation.teamNumber == 1) {
-      state.TeamInformation.team1.players.push(playerInformation.playerName);
-    } else {
-      state.TeamInformation.team2.players.push(playerInformation.playerName);
-    }
+  ADD_PLAYERS_TO_TEAM(state, teamsInfo) {
+    state.TeamInformation.team1.players = teamsInfo.team1;
+    state.TeamInformation.team2.players = teamsInfo.team2;
   },
   REMOVE_PLAYER_FROM_TEAM(state, playerName) {
     let team1Index = state.TeamInformation.team1.players.indexOf(playerName);
@@ -188,8 +185,8 @@ const actions = {
   /*******************************************************/
   /***************** TEAM ROSTER ACTIONS *****************/
   /*******************************************************/
-  addPlayerToTeam(context, playerInformation) {
-    context.commit("ADD_PLAYER_TO_TEAM", playerInformation);
+  addPlayersToTeam(context, teamsInfo) {
+    context.commit("ADD_PLAYERS_TO_TEAM", teamsInfo);
   },
   removePlayerFromTeam(context, playerName) {
     context.commit("REMOVE_PLAYER_FROM_TEAM", playerName);

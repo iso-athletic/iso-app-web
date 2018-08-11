@@ -6,7 +6,7 @@
           <v-flex d-flex md12 id="timer" class="mb-2 mr-2">
             <Timer />
           </v-flex>
-          <v-flex d-flex md12 class="my-2 mr-2">
+          <v-flex d-flex md12 class="my-2 mr-2" style="height: 30rem;">
             <Players />
           </v-flex>
           <v-flex d-flex md12 class="mt-2 mr-2">
@@ -16,10 +16,10 @@
       </v-flex>
       <v-flex md5 >
         <div style="height:100%;">
-          <v-flex class="mx-2 mb-3">
+          <v-flex class="mx-2 mb-2">
             <Scoreboard/>
           </v-flex>
-          <v-flex class="mx-2" id="court">
+          <v-flex class="mx-2 mt-3" id="court">
             <Court />
           </v-flex>
         </div>

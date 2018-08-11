@@ -2,7 +2,7 @@
   <div id="scoreboard">
     <v-card class="noBackground scrimmageBorder">
     <v-container fluid>
-      <v-layout row>
+      <v-layout row align-center>
         <v-flex xs3>
             <h2 class="text-md-center">Purple</h2>
         </v-flex>

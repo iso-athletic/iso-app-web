@@ -81,6 +81,23 @@ export default {
   margin: auto !important;
 }
 
+.patternBackground {
+  background: url('assets/background.jpg');
+  background-size: 900% 900%;
+  background-position: center center;
+}
+
+.normalButton {
+  box-sizing: border-box;
+  background: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02) 99%);
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02) 99%);
+  outline: 1px solid #D1D1D1;
+  transition: background 0.5s;
+  -moz-transition: background 0.5s;
+  -webkit-transition: background 0.5s;
+  -o-transition: background 0.5s;
+}
+
 .scrimmageButton {
   width: 100%;
   box-sizing: border-box;
@@ -138,7 +155,7 @@ export default {
   
 
 .scrimmageButtonSelected {
-  background: rgba(52, 145, 173, 0.8) !important;
+  background: #336DAD !important;
   transition: background 0s;
   -moz-transition: background 0s;
   -webkit-transition: background 0s;
@@ -150,6 +167,17 @@ export default {
 .scrimmageButton:focus:before,
 .scrimmageButton:hover:before {
   background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.editTeamDialogHoverTeam1:before {
+  background-color: #4695EC;
+}
+.editTeamDialogHoverTeam2:before {
+  background-color: #E25141;
+}
+
+.editTeamToolbar .v-toolbar__content {
+  padding: 0 0;
 }
 
 </style>
