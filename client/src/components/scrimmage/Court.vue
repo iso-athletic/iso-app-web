@@ -1,5 +1,5 @@
 <template>
-  <div class="translucentBackground scrimmageBorder" v-cloak ref="canvas"></div>
+  <div class="translucentBackground scrimmageBorder" id="" v-cloak ref="canvas" style="height:100%;"></div>
 </template>
 
 <script>
@@ -20,8 +20,9 @@ export default {
       p.dots = [];
       p.setup = _ => {
         let parentWidth = document.getElementById('court').offsetWidth;
-        let offsetHeights = document.getElementById('court').offsetTop;
-        let canvas = p.createCanvas(parentWidth, window.innerHeight+5-offsetHeights);
+        let offsetHeights = document.getElementById('scoreboard').offsetHeight;
+        let parentHeight = document.getElementById('scrimmageAppContainer').offsetHeight;
+        let canvas = p.createCanvas(parentWidth-2, parentHeight-offsetHeights-26);
         canvas.parent(this.$refs.canvas);
       },
 
@@ -47,8 +48,6 @@ export default {
 
         /**** drawing lane lines ****/
         p.rect(0, p.height/2 - 6*unit, 19*unit, 12*unit);
-
-
 
         /**** drawing top of the key  ****/
         p.arc(19*unit, p.height/2, 12*unit, 12*unit, -p.HALF_PI, p.HALF_PI, p.CHORD);

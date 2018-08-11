@@ -79,7 +79,6 @@ export default {
 
 .overall-container {
   margin: auto !important;
-  max-width: 1100px !important;
 }
 
 .scrimmageButton {
@@ -152,4 +151,5 @@ export default {
 .scrimmageButton:hover:before {
   background-color: rgba(0, 0, 0, 0) !important;
 }
+
 </style>

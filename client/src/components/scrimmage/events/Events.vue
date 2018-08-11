@@ -2,12 +2,6 @@
   <div id="events" class="events">
   <v-card class="translucentBackground scrimmageBorder events-card">
     <v-container class="pa-0" fluid>
-<<<<<<< HEAD:client/src/components/scrimmage/events/Events.vue
-<<<<<<< HEAD:src/components/scrimmage/events/Events.vue
-      <h2 class="text-xs-center bottomScrimmageBorder py-2 fixed">Event log</h2>
-=======
-=======
->>>>>>> 537f3e91edcafd5b1aedbb62bb2c26dd8df813af:src/components/scrimmage/events/Events.vue
         <v-layout class="bottomScrimmageBorder py-2 pl-3 pr-4">
           <v-flex class="mt-1">
             <h2>Event log</h2>
@@ -19,10 +13,6 @@
         </v-flex>
         </v-layout>
 
-<<<<<<< HEAD:client/src/components/scrimmage/events/Events.vue
->>>>>>> origin/master:client/src/components/scrimmage/events/Events.vue
-=======
->>>>>>> 537f3e91edcafd5b1aedbb62bb2c26dd8df813af:src/components/scrimmage/events/Events.vue
         <Event v-for="(eventItem, i) in occurredEvents.slice().reverse()"
         v-bind:data="eventItem"
         v-bind:key="i"
