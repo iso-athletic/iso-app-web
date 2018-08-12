@@ -2,7 +2,7 @@
 <div>
  <v-dialog v-model="editPlayersDialog" max-width="600">
     <v-toolbar class="pa-0 editTeamToolbar">
-        <v-toolbar-items>
+        <v-toolbar-items style="width:100%">
         <v-btn block flat :ripple="false" color="blue"
             @click="selectingTeam1=true"
             v-bind:class="{editTeamDialogHoverTeam1:selectingTeam1}">TEAM ONE
@@ -90,7 +90,10 @@ export default {
             let otherTeam = this.selectingTeam1 ? this.team2Players: this.team1Players;
             if (otherTeam.includes(playerName)) otherTeam.splice(otherTeam.indexOf(playerName), 1);
             else {
-                team.includes(playerName) ? team.splice(team.indexOf(playerName), 1): team.push(playerName);
+                if (team.includes(playerName))
+                    team.splice(team.indexOf(playerName), 1)
+                else if (team.length < 5) team.push(playerName);
+                else this.checkboxesSelected.splice(this.checkboxesSelected.indexOf(playerName), 1);
             }
             return team;
             this.$store.dispatch("addPlayersToTeam", {team1: this.team1Players, team2: this.team2Players});

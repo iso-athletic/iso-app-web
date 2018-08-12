@@ -103,8 +103,18 @@ $light-grey: #D1D1D1;
 }
 
 
-.editTeamCheckbox .container {
-  padding: 24px;
+.editTeamCheckbox {
+  .container {padding: 24px;}
+  .v-input {
+    margin-top: 0;
+    .v-input--selection-controls__input {
+      padding: 17px 0;
+    }
+    .v-label {
+      padding: 17px 0;
+      width:100%;
+    }
+  }
 }
 
 .playersContainer {
@@ -138,3 +148,4 @@ $light-grey: #D1D1D1;
 .full-height {
   height: 100%;
 }
+
