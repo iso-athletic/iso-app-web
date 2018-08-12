@@ -49,14 +49,6 @@ export default class AuthService {
   }
 
   setSession (authResult) {
-
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: 'us-east-1:1620e40d-5f16-44d4-bde4-f160d34a2e6e',
-      Logins: {
-        'iso-athletic.auth0.com': authResult.accessToken
-      }
-    });
-
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()

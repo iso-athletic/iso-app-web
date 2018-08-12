@@ -5,7 +5,7 @@ import Callback from '../components/Callback'
 import ActionsSelect from '../components/settings/ActionsSelect'
 import Settings from '../components/settings/Settings'
 import Clock from '../components/settings/Clock'
-import Team from '../components/Team/Team'
+import Team from '../components/team/Team'
 import ScrimmageApp from '../components/scrimmage/ScrimmageApp'
 import EventsSummary from '../components/scrimmage/events/EventsSummary'
 

@@ -1,12 +1,12 @@
 <template>
-  <div class="mb-10 noBackground">
+  <div class="mb-10 noBackground" id="scrimmageAppContainer">
     <v-layout row wrap>
-      <v-flex md5 class="full-height">
-        <v-layout row wrap>
+      <v-flex md5>
+        <v-layout column>
           <v-flex d-flex md12 id="timer" class="mb-2 mr-2">
             <Timer />
           </v-flex>
-          <v-flex d-flex md12 class="my-2 mr-2">
+          <v-flex d-flex md12 class="my-2 mr-2 playersContainer">
             <Players />
           </v-flex>
           <v-flex d-flex md12 class="mt-2 mr-2">
@@ -14,29 +14,31 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex md5 class="full-height">
-        <v-layout row wrap>
-          <v-flex d-flex md12 class="mx-2 mb-2">
+      <v-flex md5 >
+        <div>
+          <v-flex class="mx-2 mb-2">
             <Scoreboard/>
           </v-flex>
-          <v-flex d-flex md12 class="mt-2 mx-2" id="court">
+          <v-flex class="mx-2 mt-3" id="court">
             <Court />
           </v-flex>
-        </v-layout>
+        </div>
       </v-flex>
-      <v-flex xs2 class="full-height">
-        <v-layout class="events" row wrap>
+      <v-flex xs2 class="containEvents">
+        <v-layout row wrap full-height>
           <v-flex class="ml-2">
             <Events :occurredEvents="getEventList"/>
         </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
-     <v-dialog v-model="forgotTimer" max-width="300">
+     <v-dialog v-if="forgotTimer" @close="forgotTimer = false" max-width="300">
       <v-card>
         <v-card-title>Please start the timer to add an event</v-card-title>
+        <v-btn @click="$emit('close')">OK</v-btn>
       </v-card>
     </v-dialog>
+    <EditTeam/>
   </div>
 </template>
 
@@ -49,8 +51,8 @@ import Players from "./players/Players";
 import Scoreboard from "./score-view/Scoreboard";
 import Actions from "./actions/Actions";
 import Events from "./events/Events";
+import EditTeam from './players/EditTeam';
 import { mapGetters } from "vuex";
-
 export default {
   name: "scrimmage",
   components: {
@@ -60,11 +62,13 @@ export default {
     Scoreboard,
     Actions,
     Events,
-    moment
+    moment,
+    EditTeam
   },
   data () {
     return {
-      forgotTimer: false
+      forgotTimer: false,
+      eventsHeight: 0
     }
   },
   computed: {
@@ -75,16 +79,20 @@ export default {
   methods: {
     toggleForgotTimerDialog: function(isForgotten) {
       this.forgotTimer = isForgotten;
-    }
+    },
   },
   mounted() {
-    this.$root.$on('forgot', this.toggleForgotTimerDialog);
+    setTimeout(() => {
+      this.$store.dispatch("editTeams");
+    }, 1500);
+  },
+  updated() {
+    /* to prevent overflow of events container we need a pixel height */
+    let eventsHeight = document.getElementById('events').offsetHeight;
+    document.getElementById('events').style.height = eventsHeight + "px";
   }
 };
 </script>
 
 <style>
-.full-height {
-  height: 92vh;
-}
 </style>
