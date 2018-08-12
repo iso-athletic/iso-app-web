@@ -1,0 +1,135 @@
+$blue: #4695EC;
+$light-grey: #D1D1D1;
+
+@mixin ipad {
+  @media only screen 
+  and (min-width : 765px) 
+  and (max-width : 1030px) {
+    @content;
+  }
+}
+
+* {
+    -webkit-print-color-adjust: exact;
+  }
+#app {
+  background: url('./assets/background.jpg');
+  background-size: 100% 100%;
+}
+.overall-container {
+  margin: auto !important;
+  padding: 24px !important;
+}
+.patternBackground {
+  background: url('./assets/background.jpg');
+  background-size: 900% 900%;
+  background-position: center center;
+}
+.normalButton {
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.07) !important;
+  outline: 1px solid $light-grey;
+  transition: background 0.5s;
+}
+.scrimmageButton {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.07) !important;
+  outline: 1px solid $light-grey;
+  transition: background 0.5s;
+}
+.noBackground {
+  background: none !important;
+}
+.scrimmageBorder {
+  border: 1px solid $light-grey;
+}
+.fullWidth {
+  width: 100%;
+}
+.translucentBackground {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+.bottomScrimmageBorder {
+  border-bottom: 1px solid #d1d1d1;
+}
+.iceBlueBackgroundButton {
+  background: $blue !important;
+}
+.scrimmageButtonSelected {
+  background: $blue !important;
+  transition: background 0s;
+}
+  
+/* undoing the animation effect that v-btn uses which looked bad */
+.scrimmageButton--active:before, .scrimmageButton:focus:before, .scrimmageButton:hover:before {
+  background-color: rgba(0,0,0,0) !important;
+}
+  
+.scrimmageButtonSelected {
+  background: #336DAD !important;
+  transition: background 0s;
+  div {
+    transition: all 1s;
+  }
+}
+/* undoing the animation effect that v-btn uses which looked bad */
+.scrimmageButton--active:before,
+.scrimmageButton:focus:before,
+.scrimmageButton:hover:before {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+.editTeamDialogHoverTeam1:before {
+  background-color: $blue;
+}
+.editTeamDialogHoverTeam2:before {
+  background-color: #E25141;
+}
+.editTeamToolbar .v-toolbar__content {
+  padding: 0 0;
+}
+.editTeamToolbar {
+  .v-toolbar__content {
+    border-bottom: 1px solid rgba(255,255,255,0.6);
+  }
+  .v-btn__content {
+    color: white;
+  }
+}
+
+
+.editTeamCheckbox .container {
+  padding: 24px;
+}
+
+.playersContainer {
+  height: 30rem;
+  @include ipad {height: 26rem;}
+}
+
+@include ipad {
+  .container {
+    padding: 10px;
+  }
+  .event {
+    .v-btn {
+      margin: 0;
+    }
+  }
+}
+
+.events {
+  height: 100%;
+  overflow-y: scroll;
+  .container {
+    overflow-y: scroll;
+  }
+}
+
+.large-text {
+  font-size: 2.25em;
+}
+
+.full-height {
+  height: 100%;
+}

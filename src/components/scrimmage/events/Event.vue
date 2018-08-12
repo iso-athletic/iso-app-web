@@ -1,5 +1,5 @@
 <template>
-  <v-card class="noBackground fullWidth bottomScrimmageBorder">
+  <v-card class="noBackground fullWidth bottomScrimmageBorder event">
     <v-container fluid>
       <v-layout row>
         <v-flex sm10 md10 lg10>

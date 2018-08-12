@@ -1,7 +1,7 @@
 <template>
   <v-card class="noBackground scrimmageBorder">
     <v-container fluid>
-      <v-layout row>
+      <v-layout row align-center>
         <v-flex xs4 offset-xs2>
           <div class="large-text">{{getPrettyTime}}</div>
         </v-flex>
@@ -45,9 +45,4 @@ export default {
 </script>
 
 <style>
-
-.large-text {
-  font-size: 2.25em;
-}
-
 </style>

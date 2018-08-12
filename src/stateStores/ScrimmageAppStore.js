@@ -26,6 +26,10 @@ const state = {
     team2: {
       players: [],
       score: 0
+    },
+    editTeamsInfo: {
+      editingTeams: false,
+      teamEditing: 1
     }
   },
   Errors: {
@@ -129,12 +133,9 @@ const mutations = {
       state.Events.splice(i, 1);
     }
   },
-  ADD_PLAYER_TO_TEAM(state, playerInformation) {
-    if (playerInformation.teamNumber == 1) {
-      state.TeamInformation.team1.players.push(playerInformation.playerName);
-    } else {
-      state.TeamInformation.team2.players.push(playerInformation.playerName);
-    }
+  ADD_PLAYERS_TO_TEAM(state, teamsInfo) {
+    state.TeamInformation.team1.players = teamsInfo.team1;
+    state.TeamInformation.team2.players = teamsInfo.team2;
   },
   REMOVE_PLAYER_FROM_TEAM(state, playerName) {
     let team1Index = state.TeamInformation.team1.players.indexOf(playerName);
@@ -147,6 +148,14 @@ const mutations = {
     } else {
       console.log("Player to be removed wasn't found on either team");
     }
+  },
+  EDIT_TEAMS(state, teamNumber) {
+    state.TeamInformation.editTeamsInfo.editingTeams = true;
+    state.TeamInformation.editTeamsInfo.teamEditing = teamNumber;
+  },
+  STOP_EDITING_TEAMS(state) {
+    state.TeamInformation.editTeamsInfo.editingTeams = false;
+    state.TeamInformation.editTeamsInfo.teamEditing = 1;
   },
   TICK_ONE_DECISECOND(state) {
     if (state.Time.currentTime > 0) state.Time.currentTime--;
@@ -188,11 +197,17 @@ const actions = {
   /*******************************************************/
   /***************** TEAM ROSTER ACTIONS *****************/
   /*******************************************************/
-  addPlayerToTeam(context, playerInformation) {
-    context.commit("ADD_PLAYER_TO_TEAM", playerInformation);
+  addPlayersToTeam(context, teamsInfo) {
+    context.commit("ADD_PLAYERS_TO_TEAM", teamsInfo);
   },
   removePlayerFromTeam(context, playerName) {
     context.commit("REMOVE_PLAYER_FROM_TEAM", playerName);
+  },
+  editTeams(context, teamNumber=1) {
+    context.commit("EDIT_TEAMS", teamNumber)
+  },
+  stopEditingTeams(context) {
+    context.commit("STOP_EDITING_TEAMS");
   },
 
   /*******************************************************/
@@ -245,12 +260,16 @@ const getters = {
   getTeam2Score(state){
     return state.TeamInformation.team2.score;
   },
+  getEditTeamsInfo(state) {
+    return state.TeamInformation.editTeamsInfo;
+  },
   getPrettyTime(state) {
     return prettyTime(state.Time.currentTime)
   },
   getIsTimerRunning(state) {
     return isTimerRunning(state);
-  }
+  },
+  
 };
 
 export default new Vuex.Store({

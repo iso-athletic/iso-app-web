@@ -12,6 +12,7 @@
             </v-btn>
         </v-flex>
         </v-layout>
+
         <Event v-for="(eventItem, i) in occurredEvents.slice().reverse()"
         v-bind:data="eventItem"
         v-bind:key="i"
@@ -26,7 +27,6 @@
 <script>
 import Vue from "vue";
 import Event from "./Event";
-
 export default {
   name: "events",
   components: {
@@ -58,4 +58,5 @@ export default {
   height: 100% !important;
   overflow: auto;
 }
+
 </style>
