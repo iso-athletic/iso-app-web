@@ -28,15 +28,6 @@ export default {
       ],
     };
   },
-  /* manually styling bc vuetify doesn't expose the relevant HTML element */
-  mounted: function() {
-    document.getElementsByTagName("table")[0].className +=
-      " " + "translucentBackground";
-  }
 };
 </script>
 
-<style>
-    @media print{@page {size: landscape}; nav {display:none;}}
-    
-</style>

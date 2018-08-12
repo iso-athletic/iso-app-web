@@ -9,14 +9,6 @@
                   {{checkSelected}} 
           </v-btn>
       </v-flex>
-      <v-flex>
-           <v-btn id="deleteButton" flat icon color="error"
-                  :ripple="false"
-                  class="mx-0"
-                  @click="removePlayer()">
-                  <v-icon id="deleteIcon">delete</v-icon>
-          </v-btn>
-      </v-flex>
     </v-layout>
   </div>
 </template>
@@ -51,4 +43,3 @@ export default {
   }
 };
 </script>
-
