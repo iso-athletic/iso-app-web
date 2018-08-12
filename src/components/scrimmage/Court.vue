@@ -1,6 +1,6 @@
 
 <template>
-  <div class="noBackground scrimmageBorder" id="court" v-cloak ref="canvas" style="height:100%;"></div>
+  <div class="noBackground scrimmageBorder" id="court" v-cloak ref="canvas"></div>
 </template>
 
 <script>

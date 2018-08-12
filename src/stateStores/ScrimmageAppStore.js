@@ -34,7 +34,7 @@ const state = {
   },
   Errors: {
     forgotTimer: false
-  }
+  },
 };
 
 function isActionEntryFull() {

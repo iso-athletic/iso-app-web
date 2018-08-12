@@ -15,7 +15,7 @@
         </v-layout>
       </v-flex>
       <v-flex md5 >
-        <div style="height:100%;">
+        <div>
           <v-flex class="mx-2 mb-2">
             <Scoreboard/>
           </v-flex>
@@ -85,9 +85,9 @@ export default {
     setTimeout(() => {
       this.$store.dispatch("editTeams");
     }, 1500);
-    /* to prevent overflow of events container we need a pixel height */
   },
   updated() {
+    /* to prevent overflow of events container we need a pixel height */
     let eventsHeight = document.getElementById('events').offsetHeight;
     document.getElementById('events').style.height = eventsHeight + "px";
   }
