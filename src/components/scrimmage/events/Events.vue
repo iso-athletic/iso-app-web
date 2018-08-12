@@ -2,7 +2,7 @@
   <div id="events" class="events">
   <v-card class="translucentBackground scrimmageBorder events-card">
     <v-container class="pa-0" fluid>
-        <v-layout class="bottomScrimmageBorder py-2 pl-3 pr-4">
+        <v-layout class="bottomScrimmageBorder py-2 pl-3 pr-4" align-center>
           <v-flex class="mt-1">
             <h2>Event log</h2>
           </v-flex>

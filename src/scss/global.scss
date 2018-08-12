@@ -9,6 +9,8 @@ $light-grey: #D1D1D1;
   }
 }
 
+@media print{@page {size: landscape}; nav {display:none;}}
+
 * {
     -webkit-print-color-adjust: exact;
   }
@@ -47,7 +49,7 @@ $light-grey: #D1D1D1;
 .fullWidth {
   width: 100%;
 }
-.translucentBackground {
+.translucentBackground, .v-datatable {
   background: rgba(255, 255, 255, 0.1) !important;
 }
 .bottomScrimmageBorder {

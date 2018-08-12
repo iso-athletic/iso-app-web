@@ -1,7 +1,7 @@
 <template>
 <div>
  <v-dialog v-model="editPlayersDialog" max-width="600">
-    <v-toolbar class="pa-0 editTeamToolbar patternBackground">
+    <v-toolbar class="pa-0 editTeamToolbar">
         <v-toolbar-items style="width:100%">
         <v-btn block flat :ripple="false" color="blue"
             @click="selectingTeam1=true"
