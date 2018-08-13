@@ -86,8 +86,11 @@ export default {
     events.style.height = offsetHeights + "px";
     this.$root.$on('forgot', this.toggleForgotTimerDialog);
 
-    var API = new GetAPI();
-    API.GetActionNames();
+    // dont forget to take this out
+    // var API = new GetAPI();
+    // API.GetActionNames();
+
+    console.log(document.cookie);
   }
 };
 </script>
