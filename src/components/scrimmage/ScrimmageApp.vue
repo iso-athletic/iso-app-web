@@ -51,6 +51,7 @@ import Scoreboard from "./score-view/Scoreboard";
 import Actions from "./actions/Actions";
 import Events from "./events/Events";
 import { mapGetters } from "vuex";
+import GetAPI from '../../apis/get'
 
 export default {
   name: "scrimmage",
@@ -84,6 +85,9 @@ export default {
     var events = document.getElementById("events");
     events.style.height = offsetHeights + "px";
     this.$root.$on('forgot', this.toggleForgotTimerDialog);
+
+    var API = new GetAPI();
+    API.GetActionNames();
   }
 };
 </script>
