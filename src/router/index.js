@@ -17,48 +17,72 @@ const router = new Router({
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: { requiresAuth: false }
     },
     {
+      // i have no clue what we wanna do here
       path: '/callback',
       name: 'Callback',
       component: Callback
     },
     {
       path: '*',
-      redirect: '/home'
+      redirect: '/home',
+      meta: { requiresAuth: false }
     },
     {
       path: '/settings',
       name: 'Settings',
-      component: Settings
+      component: Settings,
+      meta: { requiresAuth: true }
     },
     {
       path: '/settings/actions',
       name: 'ActionsSelect',
-      component: ActionsSelect
+      component: ActionsSelect,
+      meta: { requiresAuth: true }
     },
     {
       path: '/settings/clock',
       name: 'Clock',
-      component: Clock
+      component: Clock,
+      meta: { requiresAuth: true }
     },
     {
       path: '/team',
       name: 'Team',
-      component: Team
+      component: Team,
+      meta: { requiresAuth: true }
     },
     {
       path: '/scrimmage',
       name: 'Scrimmage',
-      component: ScrimmageApp
+      component: ScrimmageApp,
+      meta: { requiresAuth: true }
     },
     {
       path: '/events',
       name: 'EventsSummary',
-      component: EventsSummary
+      component: EventsSummary,
+      meta: { requiresAuth: true }
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // not sure if this is the proper way to check auth
+    if (localStorage.getItem('access_token') == null) {
+      next({
+        path: '/home',
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

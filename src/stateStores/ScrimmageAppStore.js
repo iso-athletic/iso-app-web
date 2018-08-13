@@ -7,6 +7,7 @@ Vue.use(Vuex);
 var defaultTime = 20 * 6000
 
 const state = {
+  LoggedIn: false,
   ActionEntry: {
     player: null,
     action: null,
@@ -216,6 +217,9 @@ const actions = {
 };
 
 const getters = {
+  getIsLoggedIn(state) {
+    return state.LoggedIn
+  },
   getCurrentEvent(state) {
     return state.ActionEntry;
   },
