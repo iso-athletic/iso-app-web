@@ -115,9 +115,9 @@ export default {
     .container {padding: 24px;}
     .v-input {
       margin-top: 0;
-      .input-group--selection-controls.input-group {
+    }
+    .input-group--selection-controls.input-group {
         padding: 17px 0;
       }
-    }
   }
 </style>
