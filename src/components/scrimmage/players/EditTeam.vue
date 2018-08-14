@@ -129,12 +129,12 @@ export default {
   }    
   
   .editTeamDialogHoverTeam1 {
-     &:before, btn__content:before {
+     &:before, .btn__content:before {
       background-color: #4695EC !important;
     }
   }
   .editTeamDialogHoverTeam2 {
-    &:before, btn__content:before {
+    &:before, .btn__content:before {
       background-color: #E25141 !important;
     }
   }
