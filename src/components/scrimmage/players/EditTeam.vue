@@ -110,5 +110,18 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+  .editTeamCheckbox {
+    .container {padding: 24px;}
+    .v-input {
+      margin-top: 0;
+      .v-input--selection-controls__input {
+        padding: 17px 0;
+      }
+      .v-label {
+        padding: 17px 0;
+        width:100%;
+      }
+    }
+  }
 </style>
