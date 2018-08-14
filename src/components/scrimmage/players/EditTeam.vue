@@ -116,8 +116,23 @@ export default {
     .v-input {
       margin-top: 0;
     }
-    .input-group--selection-controls.input-group {
-        padding: 17px 0;
-      }
+    .input-group--selection-controls.input-group, .v-input--selection-controls {
+      padding: 17px 0;
+    }
+    .v-label {width: 100%;}
+  }
+  .editTeamToolbar {
+    .v-toolbar__items {
+      width: 100%;
+      border-bottom: 1px solid rgba(255,255,255,0.6);
+    }
+  }    
+  .editTeamDialogHoverTeam1:before {
+    background-color: #4695EC !important;
+    color: #4695EC !important;
+  }
+  .editTeamDialogHoverTeam2:before {
+    background-color: #E25141 !important;
+    color:  #E25141 !important;
   }
 </style>

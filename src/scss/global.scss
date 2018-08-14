@@ -82,24 +82,13 @@ $light-grey: #D1D1D1;
   background-color: rgba(0, 0, 0, 0) !important;
 }
 .editTeamDialogHoverTeam1:before {
-  background-color: $blue;
+  background-color: #4695EC;
 }
 .editTeamDialogHoverTeam2:before {
   background-color: #E25141;
 }
 .editTeamToolbar .v-toolbar__content {
   padding: 0 0;
-}
-.editTeamToolbar {
-  .v-toolbar__content {
-    border-bottom: 1px solid rgba(255,255,255,0.6);
-  }
-  .v-btn__content {
-    color: white;
-  }
-  .v-toolbar__items {
-    width: 100%;
-  }
 }
 
 
