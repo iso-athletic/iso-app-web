@@ -127,12 +127,15 @@ export default {
       border-bottom: 1px solid rgba(255,255,255,0.6);
     }
   }    
-  .editTeamDialogHoverTeam1:before {
-    background-color: #4695EC !important;
-    color: #4695EC !important;
+  
+  .editTeamDialogHoverTeam1 {
+     &:before, btn__content:before {
+      background-color: #4695EC !important;
+    }
   }
-  .editTeamDialogHoverTeam2:before {
-    background-color: #E25141 !important;
-    color:  #E25141 !important;
+  .editTeamDialogHoverTeam2 {
+    &:before, btn__content:before {
+      background-color: #E25141 !important;
+    }
   }
 </style>
