@@ -40,6 +40,7 @@
 
 <script>
 import Vue from 'vue'
+import { mapGetters } from 'vuex';
 
 export default {
     name: "EditTeam",
@@ -77,7 +78,11 @@ export default {
             let editTeamsInfo = this.$store.getters.getEditTeamsInfo;
             this.editPlayersDialog = editTeamsInfo.editingTeams;
             this.selectingTeam1 = editTeamsInfo.teamEditing == 1;
-        }
+        },
+        ...mapGetters([
+            'getTeam1Name',
+            'getTeam2Name',
+        ])
     },
     methods: {
         teamColor(playerName) {
