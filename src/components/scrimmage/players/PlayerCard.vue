@@ -15,6 +15,7 @@
 
 <script>
 import Vue from "vue";
+
 export default {
   name: "playerCard",
   props: {
@@ -39,7 +40,7 @@ export default {
       if (this.playerName == this.$store.getters.getCurrentEvent.player)
         this.isSelected = true;
       else this.isSelected = false;
-    }
+    },
   }
 };
 </script>
