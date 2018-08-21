@@ -21,10 +21,12 @@ const state = {
   Events: [],
   TeamInformation: {
     team1: {
+      teamName: 'Team 1',
       players: [],
       score: 0
     },
     team2: {
+      teamName: 'Team 2',
       players: [],
       score: 0
     },
@@ -298,6 +300,12 @@ const getters = {
   },
   getIsTimerRunning(state) {
     return isTimerRunning(state);
+  },
+  getTeam1Name(state) {
+    return state.TeamInformation.team1.teamName;
+  },
+  getTeam2Name(state) {
+    return state.TeamInformation.team2.teamName;
   },
   
 };

@@ -5,11 +5,11 @@
         <v-toolbar-items style="width:100%">
         <v-btn block flat :ripple="false" color="blue"
             @click="selectingTeam1=true"
-            v-bind:class="{editTeamDialogHoverTeam1:selectingTeam1}">TEAM ONE
+            v-bind:class="{editTeamDialogHoverTeam1:selectingTeam1}">{{getTeam1Name}}
         </v-btn>
         <v-btn block flat :ripple="false" color="red"
             @click="selectingTeam1=false"
-            v-bind:class="{editTeamDialogHoverTeam2:!selectingTeam1}">TEAM TWO
+            v-bind:class="{editTeamDialogHoverTeam2:!selectingTeam1}">{{getTeam2Name}}
         </v-btn>
         </v-toolbar-items>
     </v-toolbar>
@@ -40,6 +40,7 @@
 
 <script>
 import Vue from 'vue'
+import { mapGetters } from 'vuex';
 
 export default {
     name: "EditTeam",
@@ -77,7 +78,11 @@ export default {
             let editTeamsInfo = this.$store.getters.getEditTeamsInfo;
             this.editPlayersDialog = editTeamsInfo.editingTeams;
             this.selectingTeam1 = editTeamsInfo.teamEditing == 1;
-        }
+        },
+        ...mapGetters([
+            'getTeam1Name',
+            'getTeam2Name',
+        ])
     },
     methods: {
         teamColor(playerName) {

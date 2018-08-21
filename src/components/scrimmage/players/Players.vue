@@ -4,13 +4,13 @@
       <v-layout row wrap>
         <v-flex xs6 sm6 md6>
           <TeamView
-          :TeamName="team1"
+          :TeamName="getTeam1Name"
           TeamNumber=1
           />
         </v-flex>
         <v-flex xs6 sm6 md6>
           <TeamView
-          :TeamName="team2"
+          :TeamName="getTeam2Name"
           TeamNumber=2
           />
         </v-flex>
@@ -29,6 +29,12 @@ export default {
   components: {
     TeamView,
     PlayerCard,
+  },
+  computed: {
+    ...mapGetters([
+      'getTeam1Name',
+      'getTeam2Name',
+    ])
   },
   data() {
     return{
