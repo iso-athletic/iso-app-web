@@ -37,9 +37,9 @@ export default class AuthService {
     this.auth0.parseHash({hash: window.location.hash}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        window.opener.location.reload(true);
-        window.close();
-        e.preventDefault();
+//         window.opener.location.reload(true);
+//         window.close();
+//         e.preventDefault();
       } else if (err) {
         router.replace('home')
         console.log(err)
@@ -50,7 +50,7 @@ export default class AuthService {
 
   setSession (authResult) {
     this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
-      return localStorage.setItem('organization_id', user['https://iso-athletic:auth0:com/organization_id']);
+      localStorage.setItem('organization_id', user['https://iso-athletic:auth0:com/organization_id']);
     });
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify(
