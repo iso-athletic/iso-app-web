@@ -2,7 +2,6 @@ import auth0 from 'auth0-js'
 import { AUTH_CONFIG } from './auth0-variables'
 import EventEmitter from 'EventEmitter'
 import router from './../router'
-import AWS from 'aws-sdk'
 
 export default class AuthService {
 
@@ -22,7 +21,7 @@ export default class AuthService {
     redirectUri: window.location.protocol + '//' + window.location.host + '/' + 'callback',
     audience: `https://${AUTH_CONFIG.domain}/userinfo`,
     responseType: 'token id_token',
-    scope: 'openid',
+    scope: 'openid profile',
   })
 
   login () {
@@ -30,11 +29,12 @@ export default class AuthService {
       // nothing
     }, function(err, result){
       console.log(err, result);
+      
     });
   }
 
   handleAuthentication () {
-    this.auth0.parseHash((err, authResult) => {
+    this.auth0.parseHash({hash: window.location.hash}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         window.opener.location.reload(true);
@@ -49,6 +49,9 @@ export default class AuthService {
   }
 
   setSession (authResult) {
+    this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
+      localStorage.setItem('organization_id', user['https://iso-athletic:auth0:com/organization_id']);
+    });
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()

@@ -53,6 +53,13 @@ import Actions from "./actions/Actions";
 import Events from "./events/Events";
 import EditTeam from './players/EditTeam';
 import { mapGetters } from "vuex";
+import PlayersService from "./../../api/playersService";
+import Axios from "axios";
+
+const playersService = new PlayersService();
+var playersArray = [];
+var organizationId = localStorage.getItem("organization_id");
+
 export default {
   name: "scrimmage",
   components: {
@@ -81,6 +88,16 @@ export default {
       this.forgotTimer = isForgotten;
     },
   },
+  created() {
+    Axios.all([playersService.getOrganizationPlayers(organizationId)])
+      .then(Axios.spread(function (players) {
+        players.data.forEach(player => {
+          playersArray.push(player.name);
+        });
+      }));
+
+    this.$store.dispatch("updateOrganizationPlayers", playersArray);
+  },
   mounted() {
     setTimeout(() => {
       this.$store.dispatch("editTeams");
@@ -93,6 +110,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

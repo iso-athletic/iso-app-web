@@ -51,22 +51,7 @@ export default {
             team1Players: [],
             team2Players: [],
             checkboxesSelected: [],
-            playersAvailable: [
-                'Ryan Greer',
-                'Vic Law',
-                'Dererk Paron',
-                'Miller Kopp',
-                'Anthony Gaines',
-                'Ryan Taylor',
-                'Ryan Young',
-                'A.J. Turner',
-                'Pete Nance',
-                'Jordan Ash',
-                'Barret Benson',
-                'Tino Malnati',
-                'Charlie Hall',
-                'Aaron Falzon'
-            ],
+            playersAvailable: [],
         }
     },
     computed: {
@@ -103,6 +88,9 @@ export default {
             return team;
             this.$store.dispatch("addPlayersToTeam", {team1: this.team1Players, team2: this.team2Players});
         },
+  },
+  created() {
+      this.playersAvailable = this.$store.getters.getOrganizationPlayers;
   },
   watch: {
     editPlayersDialog (val) {
