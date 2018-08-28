@@ -37,9 +37,9 @@ export default class AuthService {
     this.auth0.parseHash({hash: window.location.hash}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-//         window.opener.location.reload(true);
-//         window.close();
-//         e.preventDefault();
+        window.opener.location.reload(true);
+        window.close();
+        e.preventDefault();
       } else if (err) {
         router.replace('home')
         console.log(err)
