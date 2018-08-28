@@ -50,7 +50,7 @@ export default class AuthService {
 
   setSession (authResult) {
     this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
-      localStorage.setItem('organization_id', user['https://iso-athletic:auth0:com/organization_id']);
+      return localStorage.setItem('organization_id', user['https://iso-athletic:auth0:com/organization_id']);
     });
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify(
