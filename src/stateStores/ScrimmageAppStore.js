@@ -18,6 +18,7 @@ const state = {
     currentTime: defaultTime,
     interval: null,
   },
+  OrganizationPlayers: [],
   Events: [],
   TeamInformation: {
     team1: {
@@ -191,6 +192,9 @@ const mutations = {
   },
   RESET_TIMER(state) {
     state.Time.currentTime = defaultTime
+  },
+  SET_ORGANIZATION_PLAYERS(state, players){
+    state.OrganizationPlayers = players;
   }
 };
 
@@ -221,6 +225,9 @@ const actions = {
   },
   removeEvent(context, eventID) {
     context.commit("REMOVE_EVENT", eventID);
+  },
+  updateOrganizationPlayers(context, players){
+    context.commit("SET_ORGANIZATION_PLAYERS", players);
   },
 
   /*******************************************************/
@@ -282,6 +289,9 @@ const getters = {
     } else {
       return state.TeamInformation.team2.players;
     }
+  },
+  getOrganizationPlayers(state){
+    return state.OrganizationPlayers;
   },
   getTimeLeft(state) {
     return state.Time.currentTime;

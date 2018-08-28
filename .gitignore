@@ -5,6 +5,8 @@ dist/
 npm-debug.log
 yarn-error.log
 words.js
+.vscode/
+.editorconfig
 
 # Editor directories and files
 .idea
