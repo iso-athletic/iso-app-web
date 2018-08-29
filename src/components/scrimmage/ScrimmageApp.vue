@@ -94,7 +94,7 @@ export default {
     Axios.all([playersService.getOrganizationPlayers(organizationId)])
       .then(Axios.spread(function (players) {
         players.data.forEach(player => {
-          playersArray.push(player.name);
+          playersArray.push({name: player.name, id: player.id});
         });
       }));
 

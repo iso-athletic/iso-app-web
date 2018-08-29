@@ -37,9 +37,9 @@ export default {
     ])
   },
   data() {
-    return{
-      team1:"Purple",
-      team2:"White",
+    return {
+      team1: this.$store.getters.getTeam1Name,
+      team2: this.$store.getters.getTeam2Name,
     }
   },   
 }

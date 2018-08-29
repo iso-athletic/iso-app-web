@@ -5,5 +5,4 @@ export default class PlayersService {
   getOrganizationPlayers(organizationId) {
     return Axios.get(`${baseUrl}organizations/${organizationId}/players`);
   }
-  
 }
