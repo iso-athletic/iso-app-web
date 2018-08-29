@@ -3,8 +3,7 @@ import Axios from "axios";
 
 export default class PlayersService {
   getOrganizationPlayers(organizationId) {
-    var temp = `${baseUrl}organizations/${organizationId}/players`;
-    return Axios.get(temp);
+    return Axios.get(`${baseUrl}organizations/${organizationId}/players`);
   }
   
 }
