@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { stat } from "fs";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
@@ -22,11 +23,13 @@ const state = {
   Events: [],
   TeamInformation: {
     team1: {
+      teamId: null,
       teamName: 'Team 1',
       players: [],
       score: 0
     },
     team2: {
+      teamId: null,
       teamName: 'Team 2',
       players: [],
       score: 0
@@ -39,6 +42,7 @@ const state = {
   Errors: {
     forgotTimer: false
   },
+  IsScrimmageMode: false
 };
 
 function isActionEntryFull() {
@@ -195,10 +199,26 @@ const mutations = {
   },
   SET_ORGANIZATION_PLAYERS(state, players){
     state.OrganizationPlayers = players;
+  },
+  SET_TEAM_ID(state, id, teamIdentifier){
+    if (teamIdentifier == 1) {
+      state.TeamInformation.team1.teamId = id;
+    } else {
+      state.TeamInformation.team2.teamId = id;
+    }
+  },
+  SET_IS_SCRIMMAGE_MODE(state, isScrimmageMode){
+    state.IsScrimmageMode = isScrimmageMode;
   }
 };
 
 const actions = {
+  updateTeamId(context, id, teamIdentifier){
+    context.commit("SET_TEAM_ID", id, teamIdentifier);
+  },
+  updateIsScrimmageMode(context, isScrimmageMode){
+    context.commit("SET_IS_SCRIMMAGE_MODE", isScrimmageMode);
+  },
   updatePlayer(context, player) {
     let entry = {
       type: "PLAYER",
@@ -267,6 +287,12 @@ const actions = {
 };
 
 const getters = {
+  getTeamId: (state) => (teamIdentifier) => {
+    if (teamIdentifier == 1){
+      return state.TeamInformation.team1.teamId;
+    }
+    return state.TeamInformation.team2.teamId;
+  },
   getIsLoggedIn(state) {
     return state.LoggedIn
   },
@@ -317,10 +343,14 @@ const getters = {
   getTeam2Name(state) {
     return state.TeamInformation.team2.teamName;
   },
+  isScrimmageMode(state){
+    return state.isScrimmageMode;
+  }
   
 };
 
 export default new Vuex.Store({
+  // plugins: [createPersistedState()],
   state,
   mutations,
   actions,

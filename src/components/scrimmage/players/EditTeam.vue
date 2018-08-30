@@ -19,7 +19,7 @@
         <v-flex xs12 sm4 md6 v-for="player in playersAvailable" v-bind:key="player.id" class="body-2">
             <v-checkbox
             :label="player.name"
-            :color="teamColor(player.name)"
+            :color="teamColor(player)"
             :value="player"
             v-model="checkboxesSelected"
             hide-details
@@ -69,9 +69,9 @@ export default {
     ...mapGetters(["getTeam1Name", "getTeam2Name"])
   },
   methods: {
-    teamColor(playerName) {
-      if (this.team1Players.includes(playerName)) return "blue";
-      if (this.team2Players.includes(playerName)) return "red";
+    teamColor(player) {
+      if (this.team1Players.includes(player)) return "blue";
+      if (this.team2Players.includes(player)) return "red";
       return this.selectingTeam1 ? "blue" : "red";
     },
     checkboxLogic(player) {
@@ -107,9 +107,17 @@ export default {
       teamTwoPlayers.forEach(player => {
         teamTwoIds.push(player.id);
       });
+
+      var drillId = localStorage.getItem("drill_id");
       
-      teamsService.createTeam(teamOneIds, "Purple");
-      teamsService.createTeam(teamTwoIds, "White");
+      teamsService.createTeam(teamOneIds, this.$store.getters.getTeam1Name, drillId)
+                    .then((response) => {
+                        this.$store.dispatch("updateTeamId", response.data.id, 1);               
+                    });
+      teamsService.createTeam(teamTwoIds, this.$store.getters.getTeam2Name, drillId)
+                    .then((response) => {
+                        this.$store.dispatch("updateTeamId", response.data.id, 2);               
+                    });;
        
       this.editPlayersDialog = false;
     }

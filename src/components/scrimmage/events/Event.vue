@@ -5,7 +5,7 @@
         <v-flex sm10 md10 lg10>
           <v-layout row wrap>
             <v-flex d-flex md12>
-              <h3>{{actionEntry.player}}</h3>
+              <h3>{{actionEntry.player.name}}</h3>
             </v-flex>
             <v-flex d-flex md12>
               <div>{{madeShot}}</div>

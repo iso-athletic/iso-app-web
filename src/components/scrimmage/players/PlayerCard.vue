@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     checkSelected() {
-      if (this.$store.getters.getCurrentEvent.player != null && this.player.name == this.$store.getters.getCurrentEvent.player)
+      if (this.$store.getters.getCurrentEvent.player != null && this.player.name == this.$store.getters.getCurrentEvent.player.name)
         this.isSelected = true;
       else this.isSelected = false;
     },

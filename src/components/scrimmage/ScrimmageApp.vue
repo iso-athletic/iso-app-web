@@ -102,8 +102,10 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$store.dispatch("editTeams");
-    }, 1500);
+      if (this.$store.getters.getTeamPlayers(1).length == 0) {
+        this.$store.dispatch("editTeams");
+      }
+    }, 1250);
   },
   updated() {
     /* to prevent overflow of events container we need a pixel height */

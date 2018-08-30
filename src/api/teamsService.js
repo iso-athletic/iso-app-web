@@ -2,7 +2,7 @@ const baseUrl = process.env.NODE_ENV == 'production' ? 'https://vdev-iso.herokua
 import Axios from "axios";
 
 export default class TeamsService {
-  createTeam(players, teamName){
+  createTeam(players, teamName, drillId){
     return Axios.post(`${baseUrl}teams`, {
       name: teamName,
       player1_id: players[0],
@@ -10,9 +10,7 @@ export default class TeamsService {
       player3_id: players[2],
       player4_id: players[3],
       player5_id: players[4],
-      drill_id: 1
-    }).then(function(response){
-      return response;
+      drill_id: drillId
     });
   }
 }
