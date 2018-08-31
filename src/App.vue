@@ -65,7 +65,7 @@
 import AuthService from "./auth/AuthService";
 import EventsService from "./api/eventsService";
 import DrillsService from "./api/drillsService";
-import router from './router';
+import router from "./router";
 
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
@@ -83,7 +83,7 @@ export default {
       auth,
       authenticated,
       loader: null,
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -93,18 +93,25 @@ export default {
       this.$store.dispatch("updateIsScrimmageMode", bool);
     },
     endPractice() {
-      this.loader = 'loading';
+      this.loader = "loading";
 
       var events = this.$store.getters.getEventList;
       var drillId = localStorage.getItem("drill_id");
       events.forEach(event => {
-        eventsService.createEvent(event.player.id, null, event.action, drillId, event.position, event.timeStamp);
+        eventsService.createEvent(
+          event.player.id,
+          event.teamId,
+          event.action,
+          drillId,
+          event.position,
+          event.timeStamp
+        );
       });
 
       drillsService.endDrill(drillId);
 
       this.resetIsScrimmageMode(false);
-      router.replace('home');
+      router.replace("home");
     }
   },
   computed: {
@@ -113,14 +120,14 @@ export default {
     }
   },
   watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
 
-        setTimeout(() => (this[l] = false), 3000)
+      setTimeout(() => (this[l] = false), 3000);
 
-        this.loader = null
-      }
+      this.loader = null;
+    }
   }
 };
 </script>
@@ -129,39 +136,39 @@ export default {
 @import "scss/global.scss";
 
 .custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-moz-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
   }
-  @-webkit-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-o-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
   }
-  @keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>
