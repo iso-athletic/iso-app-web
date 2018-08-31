@@ -22,8 +22,8 @@ export default {
   },
   methods: {
     selectPlayer() {
+      if (this.$store.getters.getIfForgotTimer) return;
       this.$store.dispatch("updatePlayer", this.playerName);
-      if (this.$store.getters.getIfForgotTimer) this.$root.$emit('forgot', true);
     },
     removePlayer() {
       this.$store.dispatch("removePlayerFromTeam", this.playerName);

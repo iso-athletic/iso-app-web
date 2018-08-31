@@ -32,12 +32,12 @@
         </v-layout>
       </v-flex>
     </v-layout>
-     <v-dialog v-if="forgotTimer" @close="forgotTimer = false" max-width="300">
-      <v-card>
-        <v-card-title>Please start the timer to add an event</v-card-title>
-        <v-btn @click="$emit('close')">OK</v-btn>
-      </v-card>
-    </v-dialog>
+ <!--     <v-dialog v-if="forgotTimer" v-model="forgotTimer" @close="forgotTimer = false" max-width="300">
+            <v-card>
+              <v-card-title>Please start the timer to add an event</v-card-title>
+              <v-btn @click="forgotTimer = false">OK</v-btn>
+            </v-card>
+          </v-dialog>   -->
     <EditTeam/>
   </div>
 </template>
@@ -73,7 +73,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-       "getEventList"
+       "getEventList",
+       "getIfForgotTimer"
     ]),
   },
   methods: {

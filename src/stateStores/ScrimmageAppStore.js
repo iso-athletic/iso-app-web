@@ -34,7 +34,7 @@ const state = {
     }
   },
   Errors: {
-    forgotTimer: false
+    forgotTimer: true
   },
 };
 
@@ -93,7 +93,6 @@ function updateTeamScore(team, score, method){
 
 const mutations = {
   SET_ACTION_ENTRY(state, entry) {
-    if (isTimerRunning(state)) {
       switch (entry.type) {
         case "ACTION":
           state.ActionEntry.action = entry.value;
@@ -143,10 +142,6 @@ const mutations = {
         state.Events.push({ ...state.ActionEntry, timeStamp: prettyTime(state.Time.currentTime) });
         resetActionEntry();
       }
-      state.Errors.forgotTimer = false;
-    } else {
-      state.Errors.forgotTimer = true;
-    }
   },
   REMOVE_EVENT(state, eventID) {
     let i = state.Events.map(function (e) { return e.id }).indexOf(eventID);
@@ -245,6 +240,7 @@ const actions = {
     state.Time.interval = setInterval(() => {
       context.commit("TICK_ONE_DECISECOND");
     }, 10);
+    state.Errors.forgotTimer = false;
   },
   stopTimer(context) {
     clearInterval(state.Time.interval);
