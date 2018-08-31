@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { stat } from "fs";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
@@ -9,6 +10,7 @@ var defaultTime = 20 * 6000
 const state = {
   LoggedIn: false,
   ActionEntry: {
+    teamId: null,
     player: null,
     action: null,
     position: null,
@@ -22,11 +24,13 @@ const state = {
   Events: [],
   TeamInformation: {
     team1: {
+      teamId: null,
       teamName: 'Team 1',
       players: [],
       score: 0
     },
     team2: {
+      teamId: null,
       teamName: 'Team 2',
       players: [],
       score: 0
@@ -39,13 +43,14 @@ const state = {
   Errors: {
     forgotTimer: false
   },
+  IsScrimmageMode: false
 };
 
 function isActionEntryFull() {
   return state.ActionEntry.player != null &&
     state.ActionEntry.action != null &&
     state.ActionEntry.position != null &&
-    state.Time != null;
+    state.Time != null && state.ActionEntry.teamId != null;
 }
 
 function isFTEntryFull() {
@@ -195,10 +200,32 @@ const mutations = {
   },
   SET_ORGANIZATION_PLAYERS(state, players){
     state.OrganizationPlayers = players;
+  },
+  SET_TEAM_ID(state, idAndIdentifier){
+    if (idAndIdentifier[1] == 1) {
+      state.TeamInformation.team1.teamId = idAndIdentifier[0];
+    } else {
+      state.TeamInformation.team2.teamId = idAndIdentifier[0];
+    }
+  },
+  SET_IS_SCRIMMAGE_MODE(state, isScrimmageMode){
+    state.IsScrimmageMode = isScrimmageMode;
+  },
+  SET_ACTIVE_TEAM(state, teamId){
+    state.ActionEntry.teamId = teamId;
   }
 };
 
 const actions = {
+  updateActiveTeam(context, id){
+    context.commit("SET_ACTIVE_TEAM", id);
+  },
+  updateTeamId(context, idAndIdentifier){
+    context.commit("SET_TEAM_ID", idAndIdentifier);
+  },
+  updateIsScrimmageMode(context, isScrimmageMode){
+    context.commit("SET_IS_SCRIMMAGE_MODE", isScrimmageMode);
+  },
   updatePlayer(context, player) {
     let entry = {
       type: "PLAYER",
@@ -267,6 +294,12 @@ const actions = {
 };
 
 const getters = {
+  getTeamId: (state) => (teamIdentifier) => {
+    if (teamIdentifier == 1){
+      return state.TeamInformation.team1.teamId;
+    }
+    return state.TeamInformation.team2.teamId;
+  },
   getIsLoggedIn(state) {
     return state.LoggedIn
   },
@@ -317,10 +350,14 @@ const getters = {
   getTeam2Name(state) {
     return state.TeamInformation.team2.teamName;
   },
+  isScrimmageMode(state){
+    return state.isScrimmageMode;
+  }
   
 };
 
 export default new Vuex.Store({
+  // plugins: [createPersistedState()],
   state,
   mutations,
   actions,

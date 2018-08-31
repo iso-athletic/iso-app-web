@@ -16,9 +16,9 @@
     <v-card class="patternBackground editTeamCheckbox">
     <v-container class="pb-2">
         <v-layout row wrap justify-center >
-        <v-flex xs12 sm4 md6 v-for="player in playersAvailable" v-bind:key="player" class="body-2">
+        <v-flex xs12 sm4 md6 v-for="player in playersAvailable" v-bind:key="player.id" class="body-2">
             <v-checkbox
-            :label="player"
+            :label="player.name"
             :color="teamColor(player)"
             :value="player"
             v-model="checkboxesSelected"
@@ -29,7 +29,7 @@
         </v-layout>
     </v-container>
     <v-layout justify-end>
-    <v-btn class="mb-3 mr-3 normalButton" @click="editPlayersDialog=false">DONE</v-btn>
+    <v-btn class="mb-3 mr-3 normalButton" @click="submit()">DONE</v-btn>
     </v-layout>
     </v-card>
     {{updateTeamsFromStore}}
@@ -39,96 +39,136 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { mapGetters } from 'vuex';
+import Vue from "vue";
+import { mapGetters } from "vuex";
+import TeamsService from "./../../../api/teamsService";
 
+const teamsService = new TeamsService();
 export default {
-    name: "EditTeam",
-    data() {
-        return {
-            editPlayersDialog: false,
-            selectingTeam1: true,
-            team1Players: [],
-            team2Players: [],
-            checkboxesSelected: [],
-            playersAvailable: [],
-        }
+  name: "EditTeam",
+  data() {
+    return {
+      editPlayersDialog: false,
+      selectingTeam1: true,
+      team1Players: [],
+      team2Players: [],
+      checkboxesSelected: [],
+      playersAvailable: []
+    };
+  },
+  computed: {
+    updateTeamsFromStore() {
+      this.team1Players = this.$store.getters.getTeamPlayers(1);
+      this.team2Players = this.$store.getters.getTeamPlayers(2);
     },
-    computed: {
-        updateTeamsFromStore() {
-            this.team1Players = this.$store.getters.getTeamPlayers(1);
-            this.team2Players = this.$store.getters.getTeamPlayers(2);
-        },
-        checkIfEditing() {
-            let editTeamsInfo = this.$store.getters.getEditTeamsInfo;
-            this.editPlayersDialog = editTeamsInfo.editingTeams;
-            this.selectingTeam1 = editTeamsInfo.teamEditing == 1;
-        },
-        ...mapGetters([
-            'getTeam1Name',
-            'getTeam2Name',
-        ])
+    checkIfEditing() {
+      let editTeamsInfo = this.$store.getters.getEditTeamsInfo;
+      this.editPlayersDialog = editTeamsInfo.editingTeams;
+      this.selectingTeam1 = editTeamsInfo.teamEditing == 1;
     },
-    methods: {
-        teamColor(playerName) {
-            if (this.team1Players.includes(playerName)) return "blue";
-            if (this.team2Players.includes(playerName)) return "red";
-                return this.selectingTeam1 ? "blue": "red";
+    ...mapGetters(["getTeam1Name", "getTeam2Name"])
+  },
+  methods: {
+    teamColor(player) {
+      if (this.team1Players.includes(player)) return "blue";
+      if (this.team2Players.includes(player)) return "red";
+      return this.selectingTeam1 ? "blue" : "red";
     },
-        checkboxLogic(playerName) {
-            let team = this.selectingTeam1 ? this.team1Players: this.team2Players;
-            let otherTeam = this.selectingTeam1 ? this.team2Players: this.team1Players;
-            if (otherTeam.includes(playerName)) otherTeam.splice(otherTeam.indexOf(playerName), 1);
-            else {
-                if (team.includes(playerName))
-                    team.splice(team.indexOf(playerName), 1)
-                else if (team.length < 5) team.push(playerName);
-                else this.checkboxesSelected.splice(this.checkboxesSelected.indexOf(playerName), 1);
-            }
-            return team;
-            this.$store.dispatch("addPlayersToTeam", {team1: this.team1Players, team2: this.team2Players});
-        },
+    checkboxLogic(player) {
+      let team = this.selectingTeam1 ? this.team1Players : this.team2Players;
+      let otherTeam = this.selectingTeam1
+        ? this.team2Players
+        : this.team1Players;
+      if (otherTeam.includes(player))
+        otherTeam.splice(otherTeam.indexOf(player), 1);
+      else {
+        if (team.includes(player)) team.splice(team.indexOf(player), 1);
+        else if (team.length < 5) team.push(player);
+        else
+          this.checkboxesSelected.splice(
+            this.checkboxesSelected.indexOf(player.name),
+            1
+          );
+      }
+      this.$store.dispatch("addPlayersToTeam", {
+        team1: this.team1Players,
+        team2: this.team2Players
+      });
+    },
+    submit() {
+      var teamOnePlayers = this.$store.getters.getTeamPlayers(1);
+      var teamOneIds = [];
+      teamOnePlayers.forEach(player => {
+        teamOneIds.push(player.id);
+      });
+
+      var teamTwoPlayers = this.$store.getters.getTeamPlayers(2);
+      var teamTwoIds = [];
+      teamTwoPlayers.forEach(player => {
+        teamTwoIds.push(player.id);
+      });
+
+      var drillId = localStorage.getItem("drill_id");
+      
+      teamsService.createTeam(teamOneIds, this.$store.getters.getTeam1Name, drillId)
+                    .then((response) => {
+                        this.$store.dispatch("updateTeamId", [response.data.id, 1]);               
+                    });
+      teamsService.createTeam(teamTwoIds, this.$store.getters.getTeam2Name, drillId)
+                    .then((response) => {
+                        this.$store.dispatch("updateTeamId", [response.data.id, 2]);               
+                    });;
+       
+      this.editPlayersDialog = false;
+    }
   },
   created() {
-      this.playersAvailable = this.$store.getters.getOrganizationPlayers;
+    this.playersAvailable = this.$store.getters.getOrganizationPlayers;
   },
   watch: {
-    editPlayersDialog (val) {
+    editPlayersDialog(val) {
       this.checkboxesSelected = this.team1Players.concat(this.team2Players);
       if (!val) {
-          this.$store.dispatch("stopEditingTeams");
+        this.$store.dispatch("stopEditingTeams");
       }
-    },
-  }, 
-}
+    }
+  }
+};
 </script>
 
 <style lang="scss">
-  .editTeamCheckbox {
-    .container {padding: 24px;}
-    .v-input {
-      margin-top: 0;
-    }
-    .input-group--selection-controls.input-group, .v-input--selection-controls {
-      padding: 17px 0;
-    }
-    .v-label {width: 100%;}
+.editTeamCheckbox {
+  .container {
+    padding: 24px;
   }
-  .editTeamToolbar {
-    .v-toolbar__items {
-      width: 100%;
-      border-bottom: 1px solid rgba(255,255,255,0.6);
-    }
-  }    
-  
-  .editTeamDialogHoverTeam1 {
-     &:before, .btn__content:before {
-      background-color: #4695EC !important;
-    }
+  .v-input {
+    margin-top: 0;
   }
-  .editTeamDialogHoverTeam2 {
-    &:before, .btn__content:before {
-      background-color: #E25141 !important;
-    }
+  .input-group--selection-controls.input-group,
+  .v-input--selection-controls {
+    padding: 17px 0;
   }
+  .v-label {
+    width: 100%;
+  }
+}
+.editTeamToolbar {
+  .v-toolbar__items {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  }
+}
+
+.editTeamDialogHoverTeam1 {
+  &:before,
+  .btn__content:before {
+    background-color: #4695ec !important;
+  }
+}
+.editTeamDialogHoverTeam2 {
+  &:before,
+  .btn__content:before {
+    background-color: #e25141 !important;
+  }
+}
 </style>

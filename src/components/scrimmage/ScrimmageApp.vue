@@ -57,7 +57,6 @@ import PlayersService from "./../../api/playersService";
 import Axios from "axios";
 
 const playersService = new PlayersService();
-var playersArray = [];
 var organizationId = localStorage.getItem("organization_id");
 
 export default {
@@ -89,10 +88,13 @@ export default {
     },
   },
   created() {
+    this.$store.dispatch("updateOrganizationPlayers", []);
+    var playersArray = [];
+
     Axios.all([playersService.getOrganizationPlayers(organizationId)])
       .then(Axios.spread(function (players) {
         players.data.forEach(player => {
-          playersArray.push(player.name);
+          playersArray.push({name: player.name, id: player.id});
         });
       }));
 
@@ -100,8 +102,10 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$store.dispatch("editTeams");
-    }, 1500);
+      if (this.$store.getters.getTeamPlayers(1).length == 0) {
+        this.$store.dispatch("editTeams");
+      }
+    }, 1250);
   },
   updated() {
     /* to prevent overflow of events container we need a pixel height */

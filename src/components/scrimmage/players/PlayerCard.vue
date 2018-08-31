@@ -5,7 +5,7 @@
          <v-btn class="scrimmageButton mx-0"
                   :ripple="false"
                   @click="selectPlayer" v-bind:class={scrimmageButtonSelected:isSelected}>
-                  {{playerName}}   
+                  {{player.name}}   
                   {{checkSelected}} 
           </v-btn>
       </v-flex>
@@ -19,15 +19,26 @@ import Vue from "vue";
 export default {
   name: "playerCard",
   props: {
-    playerName: String
+    player: Object
   },
   methods: {
     selectPlayer() {
-      this.$store.dispatch("updatePlayer", this.playerName);
+      this.$store.dispatch("updatePlayer", this.player);
+      this.$store.dispatch("updateActiveTeam", this.determinePlayersTeam(this.player))
       if (this.$store.getters.getIfForgotTimer) this.$root.$emit('forgot', true);
     },
+    determinePlayersTeam(activePlayer){
+      var teamOne = false;
+      this.$store.getters.getTeamPlayers(1).forEach(player => {
+        if (player.id == activePlayer.id){
+          teamOne = true;
+        }
+      });
+      var teamId = teamOne ? this.$store.getters.getTeamId(1) : this.$store.getters.getTeamId(2);
+      return teamId;
+    },
     removePlayer() {
-      this.$store.dispatch("removePlayerFromTeam", this.playerName);
+      this.$store.dispatch("removePlayerFromTeam", this.player);
     }
   },
   data() {
@@ -37,7 +48,7 @@ export default {
   },
   computed: {
     checkSelected() {
-      if (this.playerName == this.$store.getters.getCurrentEvent.player)
+      if (this.$store.getters.getCurrentEvent.player != null && this.player.name == this.$store.getters.getCurrentEvent.player.name)
         this.isSelected = true;
       else this.isSelected = false;
     },

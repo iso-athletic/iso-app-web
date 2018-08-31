@@ -13,8 +13,8 @@
     <PlayerCard
     v-for="player in teamPlayers"
     v-bind:data="player"
-    v-bind:key="player.playerName"
-    :playerName="player"
+    v-bind:key="player.id"
+    :player="player"
     />
   </div>
 </template>

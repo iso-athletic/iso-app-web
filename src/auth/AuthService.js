@@ -8,7 +8,9 @@ export default class AuthService {
   authenticated = this.isAuthenticated();
   authNotifier = new EventEmitter();
 
-  constructor () {
+  organizationId = null;
+
+  constructor() {
     this.login = this.login.bind(this);
     this.setSession = this.setSession.bind(this);
     this.logout = this.logout.bind(this);
@@ -21,25 +23,28 @@ export default class AuthService {
     redirectUri: window.location.protocol + '//' + window.location.host + '/' + 'callback',
     audience: `https://${AUTH_CONFIG.domain}/userinfo`,
     responseType: 'token id_token',
-    scope: 'openid profile',
+    scope: 'openid profile email',
   })
 
-  login () {
+  login() {
     this.auth0.popup.authorize({
-      // nothing
-    }, function(err, result){
+    }, function (err, result) {
       console.log(err, result);
-      
     });
   }
 
-  handleAuthentication () {
-    this.auth0.parseHash({hash: window.location.hash}, (err, authResult) => {
+  handleAuthentication() {
+    this.auth0.parseHash(window.location.hash, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
+          localStorage.setItem('organization_id', user['https://iso-athletic:auth0:com/organization_id']);
+        });
         this.setSession(authResult);
-        window.opener.location.reload(true);
-        window.close();
-        e.preventDefault();
+        setTimeout(function(){
+          window.opener.location.reload(true);
+          window.close();
+          e.preventDefault();
+        }, 2000);
       } else if (err) {
         router.replace('home')
         console.log(err)
@@ -48,10 +53,7 @@ export default class AuthService {
     })
   }
 
-  setSession (authResult) {
-    this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
-      localStorage.setItem('organization_id', user['https://iso-athletic:auth0:com/organization_id']);
-    });
+  setSession(authResult) {
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
@@ -62,18 +64,18 @@ export default class AuthService {
     this.authNotifier.emit('authChange', { authenticated: true })
   }
 
-  logout () {
+  logout() {
     // Clear access token and ID token from local storage
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
-    this.userProfile = null
+    this.userProfile = null;
     this.authNotifier.emit('authChange', false)
     // navigate to the home route
     router.replace('home')
   }
 
-  isAuthenticated () {
+  isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
