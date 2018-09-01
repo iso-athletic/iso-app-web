@@ -7,6 +7,16 @@ Vue.use(Vuex);
 
 var defaultTime = 20 * 6000
 
+// action entry
+
+// time
+
+// team information
+
+// errors
+
+// etc ????
+
 const state = {
   LoggedIn: false,
   ActionEntry: {
