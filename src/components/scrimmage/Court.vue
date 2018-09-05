@@ -46,11 +46,15 @@ export default {
         p.arc(19*unit, p.height/2, 12*unit, 12*unit, -p.HALF_PI, p.HALF_PI, p.CHORD);
       },
       p.mouseClicked = _ => {
-        if (this.$store.getters.getIfForgotTimer) return;
         const unit = p.height/55;
         const threePointCenter = {x: 4.3*unit, y: p.height/2};
         if (p.mouseX < p.width && p.mouseX > 0 &&
             p.mouseY < p.height && p.mouseY > 0) {
+          // checking for if forgot to start timer
+          if (this.$store.getters.getIfForgotTimer) {
+            this.$store.dispatch("updateDisplayForgotTimer", true);
+            return;
+          }
           let point = {
             x: p.mouseX,
             y: p.mouseY,

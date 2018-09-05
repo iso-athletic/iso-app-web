@@ -34,7 +34,8 @@ const state = {
     }
   },
   Errors: {
-    forgotTimer: true
+    forgotTimer: true,
+    displayForgotTimer: false
   },
 };
 
@@ -184,6 +185,9 @@ const mutations = {
   },
   RESET_TIMER(state) {
     state.Time.currentTime = defaultTime
+  },
+  UPDATE_FORGOT_TIMER(state, val) {
+    state.Errors.displayForgotTimer = val;
   }
 };
 
@@ -214,6 +218,9 @@ const actions = {
   },
   removeEvent(context, eventID) {
     context.commit("REMOVE_EVENT", eventID);
+  },
+  updateDisplayForgotTimer(context, val) {
+    context.commit("UPDATE_FORGOT_TIMER", val);
   },
 
   /*******************************************************/
@@ -250,6 +257,7 @@ const actions = {
     clearInterval(state.Time.interval);
     state.Time.interval = null;
     context.commit("RESET_TIMER");
+    state.Errors.forgotTimer = true;
   },
 };
 
@@ -262,6 +270,9 @@ const getters = {
   },
   getIfForgotTimer(state) {
     return state.Errors.forgotTimer;
+  },
+  getDisplayForgotTimer(state) {
+    return state.Errors.displayForgotTimer;
   },
   getEventList(state) {
     return [...state.Events];

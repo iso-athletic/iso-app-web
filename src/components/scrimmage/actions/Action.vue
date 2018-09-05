@@ -19,8 +19,8 @@ export default {
   },
   methods: {
     selectAction() {
-      if (this.$store.getters.getIfForgotTimer) return;
-      this.$store.dispatch("updateAction", this.actionName);
+      if (this.$store.getters.getIfForgotTimer) this.$store.dispatch("updateDisplayForgotTimer", true);
+      else this.$store.dispatch("updateAction", this.actionName);
     }
   },
   data() {

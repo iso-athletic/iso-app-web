@@ -32,12 +32,13 @@
         </v-layout>
       </v-flex>
     </v-layout>
- <!--     <v-dialog v-if="forgotTimer" v-model="forgotTimer" @close="forgotTimer = false" max-width="300">
-            <v-card>
-              <v-card-title>Please start the timer to add an event</v-card-title>
-              <v-btn @click="forgotTimer = false">OK</v-btn>
-            </v-card>
-          </v-dialog>   -->
+    <v-dialog v-model="forgotTimer" @close="closeDisplayForgotTimer" max-width="300">
+        <v-card>
+          <v-card-title>Please start the timer to add an event</v-card-title>
+          <v-btn @click="closeDisplayForgotTimer">OK</v-btn>
+        </v-card>
+    </v-dialog> 
+    {{updateForgotTimer}}
     <EditTeam/>
   </div>
 </template>
@@ -76,11 +77,14 @@ export default {
        "getEventList",
        "getIfForgotTimer"
     ]),
+    updateForgotTimer() {
+      this.forgotTimer = this.$store.getters.getDisplayForgotTimer;
+    }
   },
   methods: {
-    toggleForgotTimerDialog: function(isForgotten) {
-      this.forgotTimer = isForgotten;
-    },
+    closeDisplayForgotTimer() {
+      this.$store.dispatch("updateDisplayForgotTimer", false);
+    }
   },
   mounted() {
     setTimeout(() => {
@@ -91,7 +95,14 @@ export default {
     /* to prevent overflow of events container we need a pixel height */
     let eventsHeight = document.getElementById('events').offsetHeight;
     document.getElementById('events').style.height = eventsHeight + "px";
-  }
+  },
+  watch: {
+    forgotTimer (val) {
+      if (!val) {
+          this.$store.dispatch("updateDisplayForgotTimer", false);
+      }
+    },
+  },
 };
 </script>
 
