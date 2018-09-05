@@ -2,7 +2,7 @@
   <v-app dark>
     <v-toolbar v-if="!$store.state.IsScrimmageMode">
       <v-toolbar-title v-if="authenticated">Iso Athletic + 
-        <img alt="Logo" id="logo" height="20px" />
+        <img alt="Logo" id="logo" height="20px" :src="this.loadLogo()"/>
       </v-toolbar-title>
       <v-toolbar-title v-if="!authenticated">Iso Athletic</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -127,9 +127,6 @@ export default {
           logo.src = logoString;
         });
     }
-  },
-  mounted() {
-    this.loadLogo();
   },
   computed: {
     isScrimmageMode: function() {
