@@ -19,10 +19,10 @@
                @click="login()">
                Sign Up
         </v-btn>
-        <v-btn flat :to="{ path: '/settings', params: {} }"
+        <!-- <v-btn flat :to="{ path: '/settings', params: {} }"
                      v-if="authenticated">
                      Settings
-        </v-btn>
+        </v-btn> -->
         <v-btn flat
                v-if="authenticated"
                @click="logout()">
@@ -108,10 +108,10 @@ export default {
         );
       });
 
-      drillsService.endDrill(drillId);
-
-      this.resetIsScrimmageMode(false);
-      router.replace("home");
+      drillsService.endDrill(drillId).then(() => {
+        this.resetIsScrimmageMode(false);
+        router.replace("home");
+      });
     }
   },
   computed: {
