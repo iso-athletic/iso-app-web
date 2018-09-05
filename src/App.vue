@@ -1,7 +1,10 @@
 <template>
   <v-app dark>
     <v-toolbar v-if="!$store.state.IsScrimmageMode">
-      <v-toolbar-title>Iso Athletic</v-toolbar-title>
+      <v-toolbar-title v-if="authenticated">Iso Athletic + 
+        <img alt="Logo" id="logo" height="20px" />
+      </v-toolbar-title>
+      <v-toolbar-title v-if="!authenticated">Iso Athletic</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-and-down">
         <v-btn :to="'/'"
@@ -19,10 +22,10 @@
                @click="login()">
                Sign Up
         </v-btn>
-        <v-btn flat :to="{ path: '/settings', params: {} }"
+        <!-- <v-btn flat :to="{ path: '/settings', params: {} }"
                      v-if="authenticated">
                      Settings
-        </v-btn>
+        </v-btn> -->
         <v-btn flat
                v-if="authenticated"
                @click="logout()">
@@ -65,6 +68,7 @@
 import AuthService from "./auth/AuthService";
 import EventsService from "./api/eventsService";
 import DrillsService from "./api/drillsService";
+import OrganizationsService from "./api/organizationsService";
 import router from "./router";
 
 const auth = new AuthService();
@@ -72,6 +76,7 @@ const { login, logout, authenticated, authNotifier } = auth;
 
 const eventsService = new EventsService();
 const drillsService = new DrillsService();
+const organizationsService = new OrganizationsService();
 
 export default {
   name: "app",
@@ -108,11 +113,23 @@ export default {
         );
       });
 
-      drillsService.endDrill(drillId);
-
-      this.resetIsScrimmageMode(false);
-      router.replace("home");
+      drillsService.endDrill(drillId).then(() => {
+        this.resetIsScrimmageMode(false);
+        router.replace("home");
+      });
+    },
+    loadLogo(){
+      var logoString = "";
+      organizationsService.getOrganizationInfo(localStorage.getItem("organization_id"))
+        .then((response) => {
+          logoString = response.data.logo;
+          var logo = document.getElementById("logo");
+          logo.src = logoString;
+        });
     }
+  },
+  mounted() {
+    this.loadLogo();
   },
   computed: {
     isScrimmageMode: function() {
