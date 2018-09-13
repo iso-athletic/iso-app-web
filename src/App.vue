@@ -97,31 +97,40 @@ export default {
     resetIsScrimmageMode(bool) {
       this.$store.dispatch("updateIsScrimmageMode", bool);
     },
+    makeAsyncCreateEventCall(params, callback) {
+      return new Promise(function(fulfill, reject) {
+        params.events.forEach(event => {
+          eventsService.createEvent(
+            event.player.id,
+            event.teamId,
+            event.action,
+            params.drillId,
+            event.position,
+            event.timeStamp
+          );
+        });
+
+        fulfill("Ok");
+        reject("Error");
+      });
+    },
     endPractice() {
       this.loader = "loading";
 
       var events = this.$store.getters.getEventList;
       var drillId = localStorage.getItem("drill_id");
-      events.forEach(event => {
-        eventsService.createEvent(
-          event.player.id,
-          event.teamId,
-          event.action,
-          drillId,
-          event.position,
-          event.timeStamp
-        );
-      });
-
-      drillsService.endDrill(drillId).then(() => {
-        this.resetIsScrimmageMode(false);
-        router.replace("home");
+      this.makeAsyncCreateEventCall({"events": events, "drillId": drillId}).then(() => {
+        drillsService.endDrill(drillId).then(() => {
+          this.resetIsScrimmageMode(false);
+          router.replace("home");
+        });
       });
     },
-    loadLogo(){
+    loadLogo() {
       var logoString = "";
-      organizationsService.getOrganizationInfo(localStorage.getItem("organization_id"))
-        .then((response) => {
+      organizationsService
+        .getOrganizationInfo(localStorage.getItem("organization_id"))
+        .then(response => {
           logoString = response.data.logo;
           var logo = document.getElementById("logo");
           logo.src = logoString;
