@@ -24,6 +24,7 @@
     "pg": "^7.4.1",
     "pg-format": "^1.0.4",
     "request": "^2.85.0",
+    "resolve-url-loader": "^3.0.0",
     "v-calendar": "^0.9.7",
     "vue": "^2.5.11",
     "vue-router": "^3.0.1",
@@ -37,6 +38,8 @@
     "not ie <= 8"
   ],
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.3.1",
+    "@mdi/font": "^2.7.94",
     "autoprefixer": "^9.1.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -49,6 +52,7 @@
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
     "json-loader": "^0.5.7",
+    "material-design-icons-iconfont": "^3.0.3",
     "node-sass": "^4.9.3",
     "postcss": "^7.0.2",
     "postcss-loader": "^3.0.0",

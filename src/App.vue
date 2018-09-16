@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-toolbar v-if="!$store.state.IsScrimmageMode">
+    <v-toolbar dense v-if="!$store.state.IsScrimmageMode">
       <v-toolbar-title v-if="authenticated">Iso Athletic + 
         <img alt="Logo" id="logo" height="20px" :src="this.loadLogo()"/>
       </v-toolbar-title>
@@ -17,22 +17,32 @@
                @click="login()">
                Log In
         </v-btn>
-        <v-btn flat
-               v-if="!authenticated"
-               @click="login()">
-               Sign Up
-        </v-btn>
-        <!-- <v-btn flat :to="{ path: '/settings', params: {} }"
-                     v-if="authenticated">
-                     Settings
-        </v-btn> -->
-        <v-btn flat
-               v-if="authenticated"
-               @click="logout()">
-               Log Out
-        </v-btn>
+        <v-container class="py-1" fill-height>
+        <v-menu :nudge-width="100">
+        <v-toolbar-title slot="activator">
+          <span>
+            <v-avatar size="36px" v-if="authenticated" color="indigo">
+              <v-icon dark>account_circle</v-icon>
+            </v-avatar>
+          </span>
+        </v-toolbar-title>
+        
+          <v-list>
+          <v-list-tile :to="{ path: '/settings', params: {} }">
+            <v-list-tile-title
+              >Settings
+              </v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-title
+              @click="logout()">Log Out</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+        </v-container>
       </v-toolbar-items>
     </v-toolbar>
+
     <v-toolbar dense color="blue" v-if="$store.state.IsScrimmageMode">
        <v-btn icon class="hidden-xs-only"
               :to="'/'"
@@ -119,12 +129,14 @@ export default {
 
       var events = this.$store.getters.getEventList;
       var drillId = localStorage.getItem("drill_id");
-      this.makeAsyncCreateEventCall({"events": events, "drillId": drillId}).then(() => {
-        drillsService.endDrill(drillId).then(() => {
-          this.resetIsScrimmageMode(false);
-          router.replace("home");
-        });
-      });
+      this.makeAsyncCreateEventCall({ events: events, drillId: drillId }).then(
+        () => {
+          drillsService.endDrill(drillId).then(() => {
+            this.resetIsScrimmageMode(false);
+            router.replace("home");
+          });
+        }
+      );
     },
     loadLogo() {
       var logoString = "";
