@@ -5,4 +5,8 @@ export default class OrganizationsService {
   getOrganizationInfo(organizationId){
     return Axios.get(`${baseUrl}organizations/${organizationId}`);
   }
+
+  getSessionsForOrganization(organizationId){
+    return Axios.get(`${baseUrl}organizations/${organizationId}/sessions`);
+  }
 }
