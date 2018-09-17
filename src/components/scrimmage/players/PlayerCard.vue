@@ -23,9 +23,11 @@ export default {
   },
   methods: {
     selectPlayer() {
-      this.$store.dispatch("updatePlayer", this.player);
-      this.$store.dispatch("updateActiveTeam", this.determinePlayersTeam(this.player))
-      if (this.$store.getters.getIfForgotTimer) this.$root.$emit('forgot', true);
+      if (this.$store.getters.getIfForgotTimer) this.$store.dispatch("updateDisplayForgotTimer", true);
+      else {
+        this.$store.dispatch("updatePlayer", this.player);
+        this.$store.dispatch("updateActiveTeam", this.determinePlayersTeam(this.player))
+      }
     },
     determinePlayersTeam(activePlayer){
       var teamOne = false;
