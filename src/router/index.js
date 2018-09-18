@@ -59,7 +59,7 @@ const router = new Router({
       path: '/scrimmage',
       name: 'Scrimmage',
       component: ScrimmageApp,
-      meta: { requiresAuth: false }
+      meta: { requiresAuth: true }
     },
     {
       path: '/events',
