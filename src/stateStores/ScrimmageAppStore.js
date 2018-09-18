@@ -126,9 +126,13 @@ const mutations = {
           y: 366
         }
         if (state.ActionEntry.action == 'Made FT') {
-          state.ActionEntry.position.shotValue = 1
+          state.ActionEntry.position.shotValue = 1;
         } else {
-          state.ActionEntry.position.shotValue = 0
+          state.ActionEntry.position.shotValue = 0;
+        }
+
+        if (state.ActionEntry.action == 'Made FT' && state.ActionEntry.action == 'Missed FT'){
+          state.ActionEntry.position.shotWeight = 1;
         }
 
         if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){
@@ -142,7 +146,11 @@ const mutations = {
 
       if (isActionEntryFull()) {
         if(state.ActionEntry.action != "Made Shot") {
-          state.ActionEntry.position.shotValue = 0
+          state.ActionEntry.position.shotValue = 0;
+        }
+
+        if(state.ActionEntry.action != "Missed Shot" && state.ActionEntry.action != "Made Shot"){
+          state.ActionEntry.position.shotWeight = 0;
         }
 
         if (state.TeamInformation.team1.players.includes(state.ActionEntry.player)){

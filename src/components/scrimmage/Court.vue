@@ -63,10 +63,12 @@ export default {
           }
           p.dots.push(point);
           let shotValue = 2;
+          let shotWeight = 2;
           if (Math.hypot(threePointCenter.x - p.mouseX, threePointCenter.y - p.mouseY) > 41.5*unit/2) {
             shotValue = 3;
+            shotWeight = 3;
           }
-          this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY, shotValue: shotValue});
+          this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY, shotValue: shotValue, shotWeight: shotWeight});
         }
       },
       p.draw = _ => {
