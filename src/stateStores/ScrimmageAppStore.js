@@ -41,7 +41,10 @@ const state = {
     }
   },
   Errors: {
-    forgotTimer: false
+    forgotTimer: {
+      timerStarted: false,
+      displayForgotTimer: false
+    }
   },
   IsScrimmageMode: false
 };
@@ -101,7 +104,6 @@ function updateTeamScore(team, score, method){
 
 const mutations = {
   SET_ACTION_ENTRY(state, entry) {
-    if (isTimerRunning(state)) {
       switch (entry.type) {
         case "ACTION":
           state.ActionEntry.action = entry.value;
@@ -151,10 +153,6 @@ const mutations = {
         state.Events.push({ ...state.ActionEntry, timeStamp: prettyTime(state.Time.currentTime) });
         resetActionEntry();
       }
-      state.Errors.forgotTimer = false;
-    } else {
-      state.Errors.forgotTimer = true;
-    }
   },
   REMOVE_EVENT(state, eventID) {
     let i = state.Events.map(function (e) { return e.id }).indexOf(eventID);
@@ -197,6 +195,9 @@ const mutations = {
   },
   RESET_TIMER(state) {
     state.Time.currentTime = defaultTime
+  },
+  UPDATE_FORGOT_TIMER(state, val) {
+    state.Errors.forgotTimer.displayForgotTimer = val;
   },
   SET_ORGANIZATION_PLAYERS(state, players){
     state.OrganizationPlayers = players;
@@ -253,6 +254,9 @@ const actions = {
   removeEvent(context, eventID) {
     context.commit("REMOVE_EVENT", eventID);
   },
+  updateDisplayForgotTimer(context, val) {
+    context.commit("UPDATE_FORGOT_TIMER", val);
+  },
   updateOrganizationPlayers(context, players){
     context.commit("SET_ORGANIZATION_PLAYERS", players);
   },
@@ -281,6 +285,7 @@ const actions = {
     state.Time.interval = setInterval(() => {
       context.commit("TICK_ONE_DECISECOND");
     }, 10);
+    state.Errors.forgotTimer.timerStarted = true;
   },
   stopTimer(context) {
     clearInterval(state.Time.interval);
@@ -290,6 +295,7 @@ const actions = {
     clearInterval(state.Time.interval);
     state.Time.interval = null;
     context.commit("RESET_TIMER");
+    state.Errors.forgotTimer.timerStarted = false;
   },
 };
 
@@ -307,7 +313,10 @@ const getters = {
     return state.ActionEntry;
   },
   getIfForgotTimer(state) {
-    return state.Errors.forgotTimer;
+    return !state.Errors.forgotTimer.timerStarted;
+  },
+  getDisplayForgotTimer(state) {
+    return state.Errors.forgotTimer.displayForgotTimer;
   },
   getEventList(state) {
     return [...state.Events];
