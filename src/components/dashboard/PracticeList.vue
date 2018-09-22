@@ -14,11 +14,9 @@
         class="elevation-1 scrimmageBorder"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.player }}</td>
-            <td class="text-xs-center">{{ props.item.action }}</td>
-            <td class="text-xs-center">{{ "x: "+ Math.round(props.item.position.x) + "&emsp;" + 
-              "y: "+Math.round(props.item.position.y)}}</td>
-            <td class="text-xs-center">{{ props.item.timeStamp }}</td>
+            <td class="text-xs-center">{{ props.item.date }}</td>
+            <td class="text-xs-center">{{ props.item.time }}</td>
+            <td class="text-xs-center">{{ props.item.length }}</td>
           </template>
 
           <template slot="no-data">
@@ -39,18 +37,22 @@
 
 <script>
 import DrillsService from "./../../api/drillsService";
+import OrganizationsService from "./../../api/organizationsService";
+import moment from "moment";
 
 const drillsService = new DrillsService();
+const organizationsService = new OrganizationsService();
 export default {
   name: "practicelist",
   data() {
     return {
       headers: [
         { text: "Date", align: "center", value: "date" },
+        { text: "Time", align: "center", value: "time", sortable: false},
         {
-          text: "Number of Drills",
+          text: "Length of Drill",
           align: "center",
-          value: "numberOfDrills",
+          value: "lengthOfDrill",
           sortable: false
         },
       ],
@@ -62,7 +64,28 @@ export default {
       this.$store.dispatch("updateIsScrimmageMode", true);
       var organization_id = localStorage.getItem("organization_id");
       drillsService.createSession(organization_id);
+    },
+    calculateLengthOfDrill(startTime, endTime) {
+      var startTimeAsMoment = moment(startTime);
+      var endTimeAsMoment = moment(endTime);
+      var duration = moment.duration(endTimeAsMoment.diff(startTimeAsMoment));
+      // var hoursDuration = duration.hours();
+      var minutesDuration = duration.minutes();
+      // hoursDuration.toString() + 'hrs' + ' '
+      return  + minutesDuration.toString() + ' mins';
     }
+  },
+  mounted() {
+    var organization_id = localStorage.getItem("organization_id");
+    organizationsService.getSessionsForOrganization(organization_id).then((response) => {
+      response.data.forEach(session => {
+        var formattedMoment = moment(session.created_at).format('dddd, MMMM Do YYYY  h:mm:ss a').split('  ');
+        var formattedDate = formattedMoment[0];
+        var formattedTime = formattedMoment[1];
+        var lengthOfDrill = this.calculateLengthOfDrill(session.start_time, session.end_time);
+        this.organizationsSessions.push({'date': formattedDate, 'time': formattedTime, 'length': lengthOfDrill});
+      });
+    });
   }
 };
 </script>
