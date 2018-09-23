@@ -14,7 +14,8 @@
         class="elevation-1 scrimmageBorder"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.date }}</td>
+            <td class="text-xs-center">{{ props.item.dayOfWeek }}</td>
+            <td class="text-xs-center">{{ props.item.date | epochToHuman }}</td>
             <td class="text-xs-center">{{ props.item.time }}</td>
             <td class="text-xs-center">{{ props.item.length }}</td>
           </template>
@@ -47,17 +48,28 @@ export default {
   data() {
     return {
       headers: [
+        {
+          text: "Day of Week",
+          align: "center",
+          value: "dayOfWeek",
+          sortable: false
+        },
         { text: "Date", align: "center", value: "date" },
-        { text: "Time", align: "center", value: "time", sortable: false},
+        { text: "Time", align: "center", value: "time", sortable: false },
         {
           text: "Length of Drill",
           align: "center",
           value: "lengthOfDrill",
           sortable: false
-        },
+        }
       ],
       organizationsSessions: []
     };
+  },
+  filters: {
+    epochToHuman: function(t) {
+      return moment.unix(t).format("MMMM Do YYYY");
+    }
   },
   methods: {
     newSessionAndDrill() {
@@ -72,20 +84,33 @@ export default {
       // var hoursDuration = duration.hours();
       var minutesDuration = duration.minutes();
       // hoursDuration.toString() + 'hrs' + ' '
-      return  + minutesDuration.toString() + ' mins';
+      return minutesDuration.toString() + " mins";
     }
   },
   mounted() {
     var organization_id = localStorage.getItem("organization_id");
-    organizationsService.getSessionsForOrganization(organization_id).then((response) => {
-      response.data.forEach(session => {
-        var formattedMoment = moment(session.created_at).format('dddd, MMMM Do YYYY  h:mm:ss a').split('  ');
-        var formattedDate = formattedMoment[0];
-        var formattedTime = formattedMoment[1];
-        var lengthOfDrill = this.calculateLengthOfDrill(session.start_time, session.end_time);
-        this.organizationsSessions.push({'date': formattedDate, 'time': formattedTime, 'length': lengthOfDrill});
+    organizationsService
+      .getSessionsForOrganization(organization_id)
+      .then(response => {
+        response.data.forEach(session => {
+          var formattedMoment = moment(session.created_at)
+            .format("dddd, MMMM Do YYYY, h:mm:ss a")
+            .split(",");
+          var formattedDayOfWeek = formattedMoment[0];
+          var formattedDate = moment(session.created_at).unix();
+          var formattedTime = formattedMoment[2];
+          var lengthOfDrill = this.calculateLengthOfDrill(
+            session.start_time,
+            session.end_time
+          );
+          this.organizationsSessions.push({
+            dayOfWeek: formattedDayOfWeek,
+            date: formattedDate,
+            time: formattedTime,
+            length: lengthOfDrill
+          });
+        });
       });
-    });
   }
 };
 </script>
