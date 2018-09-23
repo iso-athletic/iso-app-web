@@ -1,67 +1,50 @@
 <template>
-  <v-app dark>
-    <v-toolbar v-if="!$store.state.IsScrimmageMode">
-      <v-toolbar-title v-if="authenticated">Iso Athletic + 
-        <img alt="Logo" id="logo" height="20px" :src="this.loadLogo()"/>
+<v-app dark>
+  <v-toolbar v-if="!$store.state.IsScrimmageMode">
+    <v-toolbar-title v-if="authenticated">Iso Athletic +
+      <img alt="Logo" ref="logo" id="logo" height="20px" :src="this.organizationLogo"/>
       </v-toolbar-title>
       <v-toolbar-title v-if="!authenticated">Iso Athletic</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-and-down">
-        <v-btn :to="'/'"
-                      v-if="authenticated"
-                      flat>
-                      Dashboard
+        <v-btn :to="'/'" v-if="authenticated" flat>
+          Dashboard
         </v-btn>
-        <v-btn flat
-               v-if="!authenticated"
-               @click="login()">
-               Log In
+        <v-btn flat v-if="!authenticated" @click="login()">
+          Log In
         </v-btn>
-        <v-btn flat
-               v-if="!authenticated"
-               @click="login()">
-               Sign Up
+        <v-btn flat v-if="!authenticated" @click="login()">
+          Sign Up
         </v-btn>
         <!-- <v-btn flat :to="{ path: '/settings', params: {} }"
                      v-if="authenticated">
                      Settings
         </v-btn> -->
-        <v-btn flat
-               v-if="authenticated"
-               @click="logout()">
-               Log Out
+        <v-btn flat v-if="authenticated" @click="logout()">
+          Log Out
         </v-btn>
       </v-toolbar-items>
-    </v-toolbar>
-    <v-toolbar dense color="blue" v-if="$store.state.IsScrimmageMode">
-       <v-btn icon class="hidden-xs-only"
-              :to="'/'"
-              @click="resetIsScrimmageMode(false)">
-              <v-icon>arrow_back</v-icon>
-            </v-btn>
-      <v-toolbar-title>Scrimmage Mode</v-toolbar-title>
-      <v-spacer></v-spacer>
-        <v-btn
-          :loading="loading"
-          :disabled="loading"
-          color="success"
-          @click="endPractice" 
-        >
-          <span slot="loader" class="custom-loader">
+  </v-toolbar>
+  <v-toolbar dense color="blue" v-if="$store.state.IsScrimmageMode">
+    <v-btn icon class="hidden-xs-only" :to="'/'" @click="resetIsScrimmageMode(false)">
+      <v-icon>arrow_back</v-icon>
+    </v-btn>
+    <v-toolbar-title>Scrimmage Mode</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn :loading="loading" :disabled="loading" color="success" @click="endPractice">
+      <span slot="loader" class="custom-loader">
             <v-icon light>cached</v-icon>
           </span>
-          Finish Practice
-        </v-btn>
-    </v-toolbar>
-    <v-content>
+      Finish Practice
+    </v-btn>
+  </v-toolbar>
+  <v-content>
     <v-container fluid class="overall-container">
-      <router-view
-            :auth="auth"
-            :authenticated="authenticated">
+      <router-view :auth="auth" :authenticated="authenticated">
       </router-view>
     </v-container>
-    </v-content>
-  </v-app>
+  </v-content>
+</v-app>
 </template>
 
 <script>
@@ -72,7 +55,12 @@ import OrganizationsService from "./api/organizationsService";
 import router from "./router";
 
 const auth = new AuthService();
-const { login, logout, authenticated, authNotifier } = auth;
+const {
+  login,
+  logout,
+  authenticated,
+  authNotifier
+} = auth;
 
 const eventsService = new EventsService();
 const drillsService = new DrillsService();
@@ -88,7 +76,8 @@ export default {
       auth,
       authenticated,
       loader: null,
-      loading: false
+      loading: false,
+      organizationLogo: null
     };
   },
   methods: {
@@ -119,7 +108,10 @@ export default {
 
       var events = this.$store.getters.getEventList;
       var drillId = localStorage.getItem("drill_id");
-      this.makeAsyncCreateEventCall({"events": events, "drillId": drillId}).then(() => {
+      this.makeAsyncCreateEventCall({
+        "events": events,
+        "drillId": drillId
+      }).then(() => {
         drillsService.endDrill(drillId).then(() => {
           this.resetIsScrimmageMode(false);
           router.replace("home");
@@ -128,13 +120,18 @@ export default {
     },
     loadLogo() {
       var logoString = "";
-      organizationsService
-        .getOrganizationInfo(localStorage.getItem("organization_id"))
-        .then(response => {
-          logoString = response.data.logo;
-          var logo = document.getElementById("logo");
-          logo.src = logoString;
-        });
+      var localStorageLogo = localStorage.getItem("organization_logo");
+      if (localStorageLogo) {
+        this.organizationLogo = localStorageLogo;
+      } else {
+        organizationsService
+          .getOrganizationInfo(localStorage.getItem("organization_id"))
+          .then(response => {
+            logoString = response.data.logo;
+            this.organizationLogo = logoString;
+            localStorage.setItem("organization_logo", logoString);
+          });
+      }
     }
   },
   computed: {
@@ -151,6 +148,9 @@ export default {
 
       this.loader = null;
     }
+  },
+  mounted() {
+    this.loadLogo();
   }
 };
 </script>
@@ -159,39 +159,39 @@ export default {
 @import "scss/global.scss";
 
 .custom-loader {
-  animation: loader 1s infinite;
-  display: flex;
+    animation: loader 1s infinite;
+    display: flex;
 }
 @-moz-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 @-webkit-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 @-o-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 @keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 </style>
