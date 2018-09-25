@@ -14,10 +14,12 @@
         class="elevation-1 scrimmageBorder"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.dayOfWeek }}</td>
-            <td class="text-xs-center">{{ props.item.date | epochToHuman }}</td>
-            <td class="text-xs-center">{{ props.item.time }}</td>
-            <td class="text-xs-center">{{ props.item.length }}</td>
+            <tr>
+              <td class="text-xs-center">{{ props.item.dayOfWeek }}</td>
+              <td class="text-xs-center">{{ props.item.date | epochToHuman }}</td>
+              <td class="text-xs-center">{{ props.item.time }}</td>
+              <td class="text-xs-center">{{ props.item.length }}</td>
+            </tr>
           </template>
 
           <template slot="no-data">
