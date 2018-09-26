@@ -2,7 +2,7 @@ const baseUrl = process.env.NODE_ENV == 'production' ? 'https://vdev-iso.herokua
 import Axios from "axios";
 
 export default class StatsService {
-  getStatsForDrills(drillId){
-    return Axios.get(`${baseUrl}drills/${drillId}/stats`);
+  getStatsForDrills(organizationId, fromDate, toDate){
+    return Axios.get(`${baseUrl}organizations/${organizationId}/stats/${fromDate}-${toDate}`);
   }
 }

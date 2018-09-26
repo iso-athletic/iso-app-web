@@ -2,9 +2,13 @@
   <div class="mb-10 noBackground">
     <v-layout row wrap>
       <v-flex xs4 sm4 md4>
-         <h4>
-          <v-btn :to="{ path: '/scrimmage', params: {} }" @click="newSessionAndDrill" color="primary">+ New Scrimmage</v-btn>
-        </h4>
+          <v-btn 
+            :to="{ path: '/scrimmage', params: {} }" 
+            @click="newSessionAndDrill" 
+            color="primary"
+            class="mx-2 my-2">
+            + New Scrimmage
+          </v-btn>
       </v-flex>
       <v-flex xs12 sm6 md4 offset-sm4>
         <v-menu
@@ -25,13 +29,13 @@
           multiple
           chips
           small-chips
-          label="Select date(s)"
+          label="Select date or date range"
           prepend-icon="event"
         ></v-combobox>
         <v-date-picker v-model="dates" multiple no-title scrollable>
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="$refs.menu.save(dates)">OK</v-btn>
+          <v-btn flat color="primary" @click="$refs.menu.save(dates); submit()">OK</v-btn>
         </v-date-picker>
       </v-menu>
       </v-flex>
@@ -44,10 +48,32 @@
         >
           <template slot="items" slot-scope="props">
             <tr>
-              <td class="text-xs-center">{{ props.item.playerName }}</td>
+              <td class="text-xs-center">{{ props.item.player_name }}</td>
               <td class="text-xs-center">{{ props.item.fg }}</td>
               <td class="text-xs-center">{{ props.item.fga }}</td>
               <td class="text-xs-center">{{ props.item.fgp }}</td>
+              <td class="text-xs-center">{{ props.item.twop }}</td>
+              <td class="text-xs-center">{{ props.item.twopa }}</td>
+              <td class="text-xs-center">{{ props.item.twopp }}</td>
+              <td class="text-xs-center">{{ props.item.threep }}</td>
+              <td class="text-xs-center">{{ props.item.threepa }}</td>
+              <td class="text-xs-center">{{ props.item.threepp }}</td>
+              <!-- <td class="text-xs-center">{{ props.item.threepar }}</td> -->
+              <td class="text-xs-center">{{ props.item.pts }}</td>
+              <td class="text-xs-center">{{ props.item.tsp }}</td>
+              <td class="text-xs-center">{{ props.item.efgp }}</td>
+              <td class="text-xs-center">{{ props.item.ft }}</td>
+              <td class="text-xs-center">{{ props.item.fta }}</td>
+              <td class="text-xs-center">{{ props.item.ftp }}</td>
+              <td class="text-xs-center">{{ props.item.ftr }}</td>
+              <td class="text-xs-center">{{ props.item.oreb }}</td>
+              <td class="text-xs-center">{{ props.item.dreb }}</td>
+              <td class="text-xs-center">{{ props.item.reb }}</td>
+              <td class="text-xs-center">{{ props.item.ast }}</td>
+              <td class="text-xs-center">{{ props.item.stl }}</td>
+              <td class="text-xs-center">{{ props.item.blk }}</td>
+              <td class="text-xs-center">{{ props.item.tov }}</td>
+              <td class="text-xs-center">{{ props.item.pf }}</td>
             </tr>
           </template>
 
@@ -69,15 +95,22 @@
 
 <script>
 import StatsService from "./../../api/statsService";
+import DrillsService from "./../../api/drillsService";
+import DateRange from 'vuetify-daterange-picker';
+import 'vuetify-daterange-picker/dist/vuetify-daterange-picker.css';
+import moment from "moment";
+
 const statsService = new StatsService();
+const drillsService = new DrillsService();
 
 var organizationId = localStorage.getItem("organization_id");
 
 export default {
   name: "tearsheet",
+  components: { DateRange },
   data() {
     return {
-      dates: [],
+      dates: [moment().format('YYYY-MM-DD')],
       menu: false,
       headers: [
         {
@@ -165,6 +198,46 @@ export default {
           text: "FTR",
           align: "center",
           value: "ftr"
+        },
+        {
+          text: "OREB",
+          align: "center",
+          value: "oreb"
+        },
+        {
+          text: "DREB",
+          align: "center",
+          value: "dreb"
+        },
+        {
+          text: "REB",
+          align: "center",
+          value: "reb"
+        },
+        {
+          text: "AST",
+          align: "center",
+          value: "ast"
+        },
+        {
+          text: "STL",
+          align: "center",
+          value: "stl"
+        },
+        {
+          text: "BLK",
+          align: "center",
+          value: "blk"
+        },
+        {
+          text: "TOV",
+          align: "center",
+          value: "tov"
+        },
+        {
+          text: "PF",
+          align: "center",
+          value: "pf"
         }
       ],
       playerStats: []
@@ -176,8 +249,21 @@ export default {
       this.$store.dispatch("updateIsScrimmageMode", true);
       var organization_id = localStorage.getItem("organization_id");
       drillsService.createSession(organization_id);
+    },
+    submit() {
+      var fromDateInEpoch = moment(this.dates[0]).unix();
+      this.getStatsBasedOnDates(fromDateInEpoch);
+    },
+    getStatsBasedOnDates(fromDateInEpoch){
+      var toDateInEpoch = this.dates[1] ? moment(this.dates[1]).unix() : fromDateInEpoch; 
+      statsService.getStatsForDrills(organizationId, fromDateInEpoch, toDateInEpoch).then((res) => {
+        this.playerStats = res.data;
+      });
     }
   },
-  mounted() {}
+  mounted() {
+    var fromDateInEpoch = moment(this.dates[0]).unix();
+    this.getStatsBasedOnDates(fromDateInEpoch);
+  }
 };
 </script>
