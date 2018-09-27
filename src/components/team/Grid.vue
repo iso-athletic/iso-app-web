@@ -7,21 +7,21 @@
               <h5 class="date">{{date}}</h5>
             </div>
             <tr>
-              <th v-for="key in columns"
+              <!-- <th v-for="key in columns"
                 @click="sortBy(key)"
                 :class="{ active: sortKey == key }">
                 {{ key | capitalize }}
                 <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
                 </span>
-              </th>
+              </th> -->
             </tr>
           </thead>
           <tbody>
-            <tr v-for="entry in filteredData">
+            <!-- <tr v-for="entry in filteredData">
               <td v-for="key in columns">
-                {{entry[key]}}
-              </td>
-            </tr>
+                {{entry[key]}} -->
+              <!-- </td>
+            </tr> -->
           </tbody>
         </table>
     </div>

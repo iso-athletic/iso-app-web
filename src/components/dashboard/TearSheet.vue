@@ -48,32 +48,32 @@
         >
           <template slot="items" slot-scope="props">
             <tr>
-              <td class="text-xs-center">{{ props.item.player_name }}</td>
-              <td class="text-xs-center">{{ props.item.fg }}</td>
-              <td class="text-xs-center">{{ props.item.fga }}</td>
-              <td class="text-xs-center">{{ props.item.fgp }}</td>
-              <td class="text-xs-center">{{ props.item.twop }}</td>
-              <td class="text-xs-center">{{ props.item.twopa }}</td>
-              <td class="text-xs-center">{{ props.item.twopp }}</td>
-              <td class="text-xs-center">{{ props.item.threep }}</td>
-              <td class="text-xs-center">{{ props.item.threepa }}</td>
-              <td class="text-xs-center">{{ props.item.threepp }}</td>
-              <!-- <td class="text-xs-center">{{ props.item.threepar }}</td> -->
-              <td class="text-xs-center">{{ props.item.pts }}</td>
-              <td class="text-xs-center">{{ props.item.tsp }}</td>
-              <td class="text-xs-center">{{ props.item.efgp }}</td>
-              <td class="text-xs-center">{{ props.item.ft }}</td>
-              <td class="text-xs-center">{{ props.item.fta }}</td>
-              <td class="text-xs-center">{{ props.item.ftp }}</td>
-              <td class="text-xs-center">{{ props.item.ftr }}</td>
-              <td class="text-xs-center">{{ props.item.oreb }}</td>
-              <td class="text-xs-center">{{ props.item.dreb }}</td>
-              <td class="text-xs-center">{{ props.item.reb }}</td>
-              <td class="text-xs-center">{{ props.item.ast }}</td>
-              <td class="text-xs-center">{{ props.item.stl }}</td>
-              <td class="text-xs-center">{{ props.item.blk }}</td>
-              <td class="text-xs-center">{{ props.item.tov }}</td>
-              <td class="text-xs-center">{{ props.item.pf }}</td>
+              <td class="text-xs-center">{{ props.item.player_name | removeNulls }}</td>
+              <td class="text-xs-center">{{ props.item.fg | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.fga | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.fgp | roundDown | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.twop | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.twopa | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.twopp | roundDown | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.threep | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.threepa | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.threepp | roundDown | removeNulls }}</td>
+              <td class="text-xs-center">{{ props.item.threepar | removeNulls }}</td>
+              <td class="text-xs-center">{{ props.item.pts | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.tsp | roundDown | removeNulls }}</td>
+              <td class="text-xs-center">{{ props.item.efgp | roundDown | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.ft | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.fta | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.ftp | roundDown | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.ftr | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.oreb | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.dreb | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.reb | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.ast | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.stl | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.blk | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.tov | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.pf | removeNulls}}</td>
             </tr>
           </template>
 
@@ -81,7 +81,7 @@
             <v-layout>
               <v-flex md12>
                 <div class="text-xs-center">
-                  No scrimmages logged yet
+                  No scrimmages logged yet for current date selection
                 </div>
               </v-flex>
             </v-layout>
@@ -96,8 +96,6 @@
 <script>
 import StatsService from "./../../api/statsService";
 import DrillsService from "./../../api/drillsService";
-import DateRange from 'vuetify-daterange-picker';
-import 'vuetify-daterange-picker/dist/vuetify-daterange-picker.css';
 import moment from "moment";
 
 const statsService = new StatsService();
@@ -107,7 +105,6 @@ var organizationId = localStorage.getItem("organization_id");
 
 export default {
   name: "tearsheet",
-  components: { DateRange },
   data() {
     return {
       dates: [moment().format('YYYY-MM-DD')],
@@ -180,6 +177,11 @@ export default {
           value: "tsp"
         },
         {
+          text: "EFG %",
+          align: "center",
+          value: "efgp"
+        },
+        {
           text: "FT",
           align: "center",
           value: "ft"
@@ -243,7 +245,14 @@ export default {
       playerStats: []
     };
   },
-  filters: {},
+  filters: {
+    removeNulls: function(s) {
+      return s ? s : '-';
+    },
+    roundDown: function(s) {
+      return s ? parseFloat(s).toFixed(2) : s;
+    }
+  },
   methods: {
     newSessionAndDrill() {
       this.$store.dispatch("updateIsScrimmageMode", true);
