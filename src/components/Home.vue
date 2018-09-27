@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 v-if="authenticated">
-        <PracticeList></PracticeList>
+        <TearSheet></TearSheet>
     </h4>
     <h4 v-if="!authenticated">
       You are not logged in! Please <a @click="auth.login()">Log In</a> or Sign Up to continue.
@@ -12,13 +12,15 @@
 <script>
 import DrillsService from './../api/drillsService';
 import PracticeList from './dashboard/PracticeList';
+import TearSheet from './dashboard/TearSheet';
 
 const drillsService = new DrillsService;
 export default {
   name: "home",
   props: ["auth", "authenticated"],
   components: {
-    PracticeList
+    // PracticeList
+    TearSheet
   },
   methods: {
     newSessionAndDrill() {
