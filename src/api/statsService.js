@@ -5,4 +5,8 @@ export default class StatsService {
   getStatsForDrills(organizationId, fromDate, toDate){
     return Axios.get(`${baseUrl}organizations/${organizationId}/stats/${fromDate}-${toDate}`);
   }
+
+  updateStatsTable(){
+    return Axios.put(`${baseUrl}stats`, {});
+  }  
 }

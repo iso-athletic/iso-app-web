@@ -260,19 +260,21 @@ export default {
       drillsService.createSession(organization_id);
     },
     submit() {
-      var fromDateInEpoch = moment(this.dates[0]).unix();
+      var fromDateInEpoch = moment(this.dates[0]).startOf('day').unix();
       this.getStatsBasedOnDates(fromDateInEpoch);
     },
     getStatsBasedOnDates(fromDateInEpoch){
-      var toDateInEpoch = this.dates[1] ? moment(this.dates[1]).unix() : fromDateInEpoch; 
+      var toDateInEpoch = this.dates[1] ? moment(this.dates[1]).endOf('day').unix() : moment(fromDateInEpoch).add(1, 'd'); 
       statsService.getStatsForDrills(organizationId, fromDateInEpoch, toDateInEpoch).then((res) => {
         this.playerStats = res.data;
       });
     }
   },
   mounted() {
-    var fromDateInEpoch = moment(this.dates[0]).unix();
-    this.getStatsBasedOnDates(fromDateInEpoch);
+    statsService.updateStatsTable().then((res) => {
+      var fromDateInEpoch = moment(this.dates[0]).unix();
+      this.getStatsBasedOnDates(fromDateInEpoch);
+    });
   }
 };
 </script>
