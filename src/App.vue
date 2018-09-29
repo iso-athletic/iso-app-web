@@ -52,7 +52,9 @@ import AuthService from "./auth/AuthService";
 import EventsService from "./api/eventsService";
 import DrillsService from "./api/drillsService";
 import OrganizationsService from "./api/organizationsService";
+import StatsService from "./api/statsService";
 import router from "./router";
+import moment from "moment";
 
 const auth = new AuthService();
 const {
@@ -65,6 +67,9 @@ const {
 const eventsService = new EventsService();
 const drillsService = new DrillsService();
 const organizationsService = new OrganizationsService();
+const statsService = new StatsService();
+
+const organizationId = localStorage.getItem("organization_id");
 
 export default {
   name: "app",
@@ -113,8 +118,11 @@ export default {
         "drillId": drillId
       }).then(() => {
         drillsService.endDrill(drillId).then(() => {
-          this.resetIsScrimmageMode(false);
-          router.replace("home");
+          statsService.updateStatsTable(organizationId, moment().format('YYYY-MM-DD')).then(() => {
+            this.loader = null;
+            this.resetIsScrimmageMode(false);
+            router.replace("home");
+          })
         });
       });
     },
@@ -144,9 +152,9 @@ export default {
       const l = this.loader;
       this[l] = !this[l];
 
-      setTimeout(() => (this[l] = false), 3000);
+      // setTimeout(() => (this[l] = false), 3000);
 
-      this.loader = null;
+      // this.loader = null;
     }
   },
   mounted() {
