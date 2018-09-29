@@ -271,10 +271,8 @@ export default {
     }
   },
   mounted() {
-    statsService.updateStatsTable().then((res) => {
-      var fromDateInEpoch = moment(this.dates[0]).unix();
-      this.getStatsBasedOnDates(fromDateInEpoch);
-    });
+    var fromDateInEpoch = moment(this.dates[0]).unix();
+    this.getStatsBasedOnDates(fromDateInEpoch);
   }
 };
 </script>

@@ -6,7 +6,9 @@ export default class StatsService {
     return Axios.get(`${baseUrl}organizations/${organizationId}/stats/${fromDate}-${toDate}`);
   }
 
-  updateStatsTable(){
-    return Axios.put(`${baseUrl}stats`, {});
+  updateStatsTable(organizationId, targetDate){
+    return Axios.put(`${baseUrl}organizations/${organizationId}/stats`, {
+      date: targetDate
+    });
   }  
 }
