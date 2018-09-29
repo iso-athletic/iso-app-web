@@ -222,7 +222,7 @@ const mutations = {
   },
   SET_ACTIVE_TEAM(state, teamId){
     state.ActionEntry.teamId = teamId;
-  }
+  },
 };
 
 const actions = {
@@ -370,7 +370,6 @@ const getters = {
   isScrimmageMode(state){
     return state.isScrimmageMode;
   }
-  
 };
 
 export default new Vuex.Store({

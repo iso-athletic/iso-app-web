@@ -82,7 +82,8 @@ export default {
       authenticated,
       loader: null,
       loading: false,
-      organizationLogo: null
+      organizationLogo: null,
+      initialState: {}
     };
   },
   methods: {
@@ -110,6 +111,7 @@ export default {
     },
     endPractice() {
       this.loader = "loading";
+      this.loading = true;
 
       var events = this.$store.getters.getEventList;
       var drillId = localStorage.getItem("drill_id");
@@ -120,6 +122,8 @@ export default {
         drillsService.endDrill(drillId).then(() => {
           statsService.updateStatsTable(organizationId, moment().format('YYYY-MM-DD')).then(() => {
             this.loader = null;
+            this.loading = false;
+            this.$store.replaceState(this.initialState);
             this.resetIsScrimmageMode(false);
             router.replace("home");
           })
@@ -147,18 +151,9 @@ export default {
       return this.$store.getters.isScrimmageMode;
     }
   },
-  watch: {
-    loader() {
-      const l = this.loader;
-      this[l] = !this[l];
-
-      // setTimeout(() => (this[l] = false), 3000);
-
-      // this.loader = null;
-    }
-  },
   mounted() {
     this.loadLogo();
+    this.initialState = JSON.parse(JSON.stringify(this.$store.state));
   }
 };
 </script>
