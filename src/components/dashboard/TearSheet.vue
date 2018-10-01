@@ -49,30 +49,30 @@
           <template slot="items" slot-scope="props">
             <tr>
               <td class="text-xs-center">{{ props.item.player_name | removeNulls }}</td>
-              <td class="text-xs-center">{{ props.item.fg | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.fga | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.fgp | roundDown | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.twop | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.twopa | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.twopp | roundDown | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.threep | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.threepa | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.threepp | roundDown | removeNulls }}</td>
-              <td class="text-xs-center">{{ props.item.threepar | removeNulls }}</td>
               <td class="text-xs-center">{{ props.item.pts | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.fg | removeNulls}}</td>
+              <!-- <td class="text-xs-center">{{ props.item.fga | removeNulls}}</td> -->
+              <td class="text-xs-center">{{ props.item.fgp | roundDown | removeNulls}}</td>
+              <!-- <td class="text-xs-center">{{ props.item.twop | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.twopa | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.twopp | roundDown | removeNulls}}</td> -->
+              <!-- <td class="text-xs-center">{{ props.item.threep | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.threepa | removeNulls}}</td> -->
+              <td class="text-xs-center">{{ props.item.threepp | roundDown | removeNulls }}</td>
+              <!-- <td class="text-xs-center">{{ props.item.threepar | removeNulls }}</td> -->
+              <td class="text-xs-center">{{ props.item.ftp | roundDown | removeNulls}}</td>
               <td class="text-xs-center">{{ props.item.tsp | roundDown | removeNulls }}</td>
               <td class="text-xs-center">{{ props.item.efgp | roundDown | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.ft | removeNulls}}</td>
+              <!-- <td class="text-xs-center">{{ props.item.ft | removeNulls}}</td>
               <td class="text-xs-center">{{ props.item.fta | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.ftp | roundDown | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.ftr | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.ftr | removeNulls}}</td> -->
               <td class="text-xs-center">{{ props.item.oreb | removeNulls}}</td>
               <td class="text-xs-center">{{ props.item.dreb | removeNulls}}</td>
               <td class="text-xs-center">{{ props.item.reb | removeNulls}}</td>
               <td class="text-xs-center">{{ props.item.ast | removeNulls}}</td>
+              <td class="text-xs-center">{{ props.item.tov | removeNulls}}</td>
               <td class="text-xs-center">{{ props.item.stl | removeNulls}}</td>
               <td class="text-xs-center">{{ props.item.blk | removeNulls}}</td>
-              <td class="text-xs-center">{{ props.item.tov | removeNulls}}</td>
               <td class="text-xs-center">{{ props.item.pf | removeNulls}}</td>
             </tr>
           </template>
@@ -117,59 +117,64 @@ export default {
           sortable: false
         },
         {
+          text: "PTS",
+          align: "center",
+          value: "pts"
+        },
+        {
           text: "FG",
           align: "center",
           value: "fg"
         },
-        {
-          text: "FGA",
-          align: "center",
-          value: "fga"
-        },
+        // {
+        //   text: "FGA",
+        //   align: "center",
+        //   value: "fga"
+        // },
         {
           text: "FG %",
           align: "center",
           value: "fgp"
         },
-        {
-          text: "2P",
-          align: "center",
-          value: "twop"
-        },
-        {
-          text: "2PA",
-          align: "center",
-          value: "twopa"
-        },
-        {
-          text: "2 %",
-          align: "center",
-          value: "twopp"
-        },
-        {
-          text: "3P",
-          align: "center",
-          value: "threep"
-        },
-        {
-          text: "3PA",
-          align: "center",
-          value: "threepa"
-        },
+        // {
+        //   text: "2P",
+        //   align: "center",
+        //   value: "twop"
+        // },
+        // {
+        //   text: "2PA",
+        //   align: "center",
+        //   value: "twopa"
+        // },
+        // {
+        //   text: "2 %",
+        //   align: "center",
+        //   value: "twopp"
+        // },
+        // {
+        //   text: "3P",
+        //   align: "center",
+        //   value: "threep"
+        // },
+        // {
+        //   text: "3PA",
+        //   align: "center",
+        //   value: "threepa"
+        // },
         {
           text: "3 %",
           align: "center",
           value: "threepp"
         },
+        // {
+        //   text: "3 PAR",
+        //   align: "center",
+        //   value: "threepar"
+        // },
         {
-          text: "3 PAR",
+          text: "FT %",
           align: "center",
-          value: "threepar"
-        },
-        {
-          text: "PTS",
-          align: "center",
-          value: "pts"
+          value: "ftp"
         },
         {
           text: "TS %",
@@ -181,26 +186,22 @@ export default {
           align: "center",
           value: "efgp"
         },
-        {
-          text: "FT",
-          align: "center",
-          value: "ft"
-        },
-        {
-          text: "FTA",
-          align: "center",
-          value: "fta"
-        },
-        {
-          text: "FT %",
-          align: "center",
-          value: "ftp"
-        },
-        {
-          text: "FTR",
-          align: "center",
-          value: "ftr"
-        },
+        // {
+        //   text: "FT",
+        //   align: "center",
+        //   value: "ft"
+        // },
+        // {
+        //   text: "FTA",
+        //   align: "center",
+        //   value: "fta"
+        // },
+        
+        // {
+        //   text: "FTR",
+        //   align: "center",
+        //   value: "ftr"
+        // },
         {
           text: "OREB",
           align: "center",
@@ -217,6 +218,11 @@ export default {
           value: "reb"
         },
         {
+          text: "TOV",
+          align: "center",
+          value: "tov"
+        },
+        {
           text: "AST",
           align: "center",
           value: "ast"
@@ -230,11 +236,6 @@ export default {
           text: "BLK",
           align: "center",
           value: "blk"
-        },
-        {
-          text: "TOV",
-          align: "center",
-          value: "tov"
         },
         {
           text: "PF",
