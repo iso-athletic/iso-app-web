@@ -49,7 +49,7 @@
               </v-btn>
             <v-card>
               <v-card-text>
-                <v-daterange :options="dateRangeOptions" @input="onDateRangeChange" />
+                <v-daterange :options="dateRangeOptions" no-presets @input="onDateRangeChange" />
                 <v-btn @click="dateMenu=false; submit()">Ok</v-btn>
               </v-card-text>
             </v-card>
