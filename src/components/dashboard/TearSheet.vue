@@ -1,17 +1,19 @@
 <template>
   <div class="mb-10 noBackground">
     <v-layout row wrap>
-      <v-flex xs4 sm4 md4>
+      <v-flex xs12 sm12 md12>
+
           <v-btn 
             :to="{ path: '/scrimmage', params: {} }" 
             @click="newSessionAndDrill" 
             color="primary"
-            class="mx-2 my-2">
-            + New Scrimmage
+            class="mx-3 my-3">
+            <v-icon left>add</v-icon>
+             New Scrimmage
           </v-btn>
       </v-flex>
-      <v-flex xs12 sm6 md4 offset-sm4>
-        <v-menu
+      <v-flex xs12 sm12 md12>
+        <!-- <v-menu
         ref="menu"
         :close-on-content-click="false"
         v-model="menu"
@@ -37,14 +39,40 @@
           <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
           <v-btn flat color="primary" @click="$refs.menu.save(dates); submit()">OK</v-btn>
         </v-date-picker>
-      </v-menu>
+      </v-menu> -->
+      <v-layout row wrap>
+        <v-flex xs5 md3 lg3>
+          <v-menu full-width offset-y :close-on-content-click="false" v-model="dateMenu" bottom class="mx-2">
+            <v-btn color="primary" outline slot="activator">
+              {{ range[0] }} &mdash; {{ range[1] }}
+              <v-icon right>calendar_today</v-icon>
+              </v-btn>
+            <v-card>
+              <v-card-text>
+                <v-daterange :options="dateRangeOptions" @input="onDateRangeChange" />
+                <v-btn @click="dateMenu=false; submit()">Ok</v-btn>
+              </v-card-text>
+            </v-card>
+          </v-menu>
+        </v-flex>
+        <v-flex xs4 md4 lg4 offset-xs2 offset-md5 offset-lg5
+        class="text-xs-right">
+          <v-btn
+            color="green"
+            class="white--text"
+          >
+            Export to CSV (coming soon)
+            <v-icon right dark>save_alt</v-icon>
+          </v-btn>
+        </v-flex>
+      </v-layout>
       </v-flex>
-      <v-flex lg12 md12 sm12 class="mx-2 my-2">
+      <v-flex lg12 md12 sm12>
         <v-data-table
         :headers="headers"
         :items="this.playerStats" 
         hide-actions
-        class="elevation-1 scrimmageBorder"
+        class="elevation-1 scrimmageBorder ml-3 my-3"
         >
           <template slot="items" slot-scope="props">
             <tr>
@@ -80,7 +108,7 @@
           <template slot="no-data">
             <v-layout>
               <v-flex md12>
-                <div class="text-xs-center">
+                <div class="text-xs-left">
                   No scrimmages logged yet for current date selection
                 </div>
               </v-flex>
@@ -107,8 +135,12 @@ export default {
   name: "tearsheet",
   data() {
     return {
-      dates: [moment().format('YYYY-MM-DD')],
-      menu: false,
+      range: [moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')],
+      dateRangeOptions: {
+        startDate: moment().format('YYYY-MM-DD'),
+        endDate: moment().format('YYYY-MM-DD'),
+        format: 'MM/DD/YYYY'
+      },
       headers: [
         {
           text: "Name",
@@ -196,7 +228,7 @@ export default {
         //   align: "center",
         //   value: "fta"
         // },
-        
+
         // {
         //   text: "FTR",
         //   align: "center",
@@ -243,36 +275,48 @@ export default {
           value: "pf"
         }
       ],
-      playerStats: []
+      playerStats: [],
+      dateMenu: false,
     };
   },
   filters: {
     removeNulls: function(s) {
-      return s ? s : '-';
+      return s ? s : "-";
     },
     roundDown: function(s) {
       return s ? parseFloat(s).toFixed(2) : s;
     }
   },
   methods: {
+    onDateRangeChange(range) {
+      this.range = range;
+    },
     newSessionAndDrill() {
       this.$store.dispatch("updateIsScrimmageMode", true);
       var organization_id = localStorage.getItem("organization_id");
       drillsService.createSession(organization_id);
     },
     submit() {
-      var fromDateInEpoch = moment(this.dates[0]).startOf('day').unix();
+      var fromDateInEpoch = moment(this.range[0])
+        .startOf("day")
+        .unix();
       this.getStatsBasedOnDates(fromDateInEpoch);
     },
-    getStatsBasedOnDates(fromDateInEpoch){
-      var toDateInEpoch = this.dates[1] ? moment(this.dates[1]).endOf('day').unix() : moment(fromDateInEpoch).add(1, 'd'); 
-      statsService.getStatsForDrills(organizationId, fromDateInEpoch, toDateInEpoch).then((res) => {
-        this.playerStats = res.data;
-      });
+    getStatsBasedOnDates(fromDateInEpoch) {
+      var toDateInEpoch = this.range[1]
+        ? moment(this.range[1])
+            .endOf("day")
+            .unix()
+        : moment(fromDateInEpoch).add(1, "d");
+      statsService
+        .getStatsForDrills(organizationId, fromDateInEpoch, toDateInEpoch)
+        .then(res => {
+          this.playerStats = res.data;
+        });
     }
   },
   mounted() {
-    var fromDateInEpoch = moment(this.dates[0]).unix();
+    var fromDateInEpoch = moment(this.range[0]).unix();
     this.getStatsBasedOnDates(fromDateInEpoch);
   }
 };

@@ -6,8 +6,11 @@ import router from './router'
 import store from './stateStores/ScrimmageAppStore'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+import VDateRange from "vuetify-daterange-picker";
+import "vuetify-daterange-picker/dist/vuetify-daterange-picker.css";
 
 Vue.use(Vuetify);
+Vue.use(VDateRange);
 
 Vue.config.productionTip = false
 
