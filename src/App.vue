@@ -31,12 +31,12 @@
     </v-btn>
     <v-toolbar-title>Scrimmage Mode</v-toolbar-title>
     <v-spacer></v-spacer>
-    <!-- <v-btn :loading="loading" :disabled="loading" color="success" @click="endPractice">
+    <v-btn :loading="loading" :disabled="loading" color="success" @click="endPractice">
       <span slot="loader" class="custom-loader">
             <v-icon light>cached</v-icon>
           </span>
       Finish Practice
-    </v-btn> -->
+    </v-btn>
   </v-toolbar>
   <v-content>
     <v-container fluid class="overall-container">

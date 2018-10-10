@@ -1,6 +1,6 @@
 <template>
     <div class="actions">
-      <h3>{{ msg }}</h3>
+      <h3>Your Actions</h3>
       <div class="action">
         <action v-for="item in items" :key="item.id" :title="item.title" :isActive="item.isActive"></action>
       </div>
@@ -15,7 +15,6 @@ export default {
   name: 'actionsselect',
   data () {
     return {
-      msg: 'Select Your Actions',
       items: [
         { title: '2 PT Make', isActive: 1},
         { title: '3 PT Make', isActive: 1},
@@ -25,11 +24,11 @@ export default {
         { title: 'FT', isActive: 1},
         { title: 'Assist', isActive: 1},
         { title: 'Turnover', isActive: 1},
-        { title: 'Off Rebound', isActive: 0},
-        { title: 'Def Rebound', isActive: 0},
-        { title: 'Steal', isActive: 0},
-        { title: 'Block', isActive: 0},
-        { title: 'Foul', isActive: 0},
+        { title: 'Off Rebound', isActive: 1},
+        { title: 'Def Rebound', isActive: 1},
+        { title: 'Steal', isActive: 1},
+        { title: 'Block', isActive: 1},
+        { title: 'Foul', isActive: 1},
       ]
     }
   },

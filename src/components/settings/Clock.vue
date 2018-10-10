@@ -1,9 +1,9 @@
 <template>
   <div class="clock">
-    <h3> Select the running time for each game </h3>
-    <input type="number" value="20"> (In minutes)</input>
+    <h3> Default scrimmage time </h3>
+    <input class="specific-input" type="number" value="20" /> (In minutes) 
     <br />
-    <button class="btn btn-secondary save">Save</button>
+    <v-btn dark round>Save</v-btn>
   </div>
 </template>
 
@@ -32,5 +32,9 @@ export default {
 
 input {
   margin-bottom: 10px;
+}
+
+.specific-input {
+  outline: 1px solid white
 }
 </style>

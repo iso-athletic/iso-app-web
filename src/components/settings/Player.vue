@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="btn player-button" @click="toggleActive()" v-bind:class="{active: isActive}">{{ name }}</button>
+    <button class="player-button">{{ name }} #{{ jersey_num }}</button>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
       this.isActive = !this.isActive;
     }
   },
-  props: ['name', 'isActive'],
+  props: ['name', 'jersey_num'],
 }
 </script>
 
@@ -26,6 +26,6 @@ export default {
 .player-button {
   color: white;
   margin: 10px;
-  width: 125px
+  width: 135px
 }
 </style>

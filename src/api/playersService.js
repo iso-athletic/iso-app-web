@@ -5,4 +5,12 @@ export default class PlayersService {
   getOrganizationPlayers(organizationId) {
     return Axios.get(`${baseUrl}organizations/${organizationId}/players`);
   }
+
+  addPlayer(playerName, playerJerseyNum, organizationId){
+    return Axios.post(`${baseUrl}organizations/${organizationId}/players`, {
+      name: playerName,
+      jersey_number: playerJerseyNum
+    });
+  }
+
 }

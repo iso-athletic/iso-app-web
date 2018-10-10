@@ -18,21 +18,20 @@
           Clock
         </v-btn>
       </v-flex>
-    </v-layout>
-    <v-layout justify-center>
-      <v-flex xs10 md6>
-        <div v-if="type_of_setting_enum===0">
-          <PlayersSelect/>
-        </div>
-        <div v-if="type_of_setting_enum===1">
-          <ActionsSelect/>
-        </div>
-        <div v-if="type_of_setting_enum===2">
-          <Clock/>
-        </div>
-        <!-- <div v-else>
-          E
-        </div> -->
+      <v-flex xs6 md6>
+        <v-layout justify-center>
+          <v-flex xs12 md12>
+            <div v-if="type_of_setting_enum===0">
+              <PlayersSelect/>
+            </div>
+            <div v-if="type_of_setting_enum===1">
+              <ActionsSelect/>
+            </div>
+            <div v-if="type_of_setting_enum===2">
+              <Clock/>
+            </div>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
@@ -41,8 +40,8 @@
 
 <script>
 import ActionsSelect from './ActionsSelect';
-import PlayersSelect from './playersselect';
-import Clock from './clock';
+import PlayersSelect from './PlayersSelect';
+import Clock from './Clock';
 
 export default {
   name: "settings", //  name of the component
