@@ -2,7 +2,7 @@
   <div class="players">
     <h3>Your Players</h3>
     <div class="player">
-      <player v-for="player in players" :key="player.id" :name="player.name" :jersey_num="player.jersey_number"></player>
+      <Player v-for="player in players" :key="player.id" :name="player.name" :jersey_num="player.jersey_number"></Player>
     </div>
     <v-divider></v-divider>
     <p v-if="errors.length">
@@ -19,7 +19,7 @@
 
 <script>
 import PlayersService from '../.././api/playersService';
-import Player from './player';
+import Player from './Player';
 
 const playersService = new PlayersService();
 const organizationId = localStorage.getItem("organization_id");
