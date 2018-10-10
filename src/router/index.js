@@ -37,18 +37,24 @@ const router = new Router({
       component: Settings,
       meta: { requiresAuth: true }
     },
-    {
-      path: '/settings/actions',
-      name: 'ActionsSelect',
-      component: ActionsSelect,
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/settings/clock',
-      name: 'Clock',
-      component: Clock,
-      meta: { requiresAuth: true }
-    },
+    // {
+    //   path: '/settings/actions',
+    //   name: 'ActionsSelect',
+    //   component: ActionsSelect,
+    //   meta: { requiresAuth: true }
+    // },
+    // {
+    //   path: '/settings/clock',
+    //   name: 'Clock',
+    //   component: Clock,
+    //   meta: { requiresAuth: true }
+    // },
+    // {
+    //   path: '/settings/players',
+    //   name: 'Players',
+    //   component: Player,
+    //   meta: { requiresAuth: true }
+    // },
     {
       path: '/team',
       name: 'Team',

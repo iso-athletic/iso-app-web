@@ -4,7 +4,7 @@
       <div class="action">
         <action v-for="item in items" :key="item.id" :title="item.title" :isActive="item.isActive"></action>
       </div>
-      <button class="btn btn-secondary">Save</button>
+      <v-btn dark round>Save</v-btn>
     </div>
 </template>
 
@@ -12,7 +12,7 @@
 import Action from './Action.vue';
 
 export default {
-  name: 'app',
+  name: 'actionsselect',
   data () {
     return {
       msg: 'Select Your Actions',
@@ -45,8 +45,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: white;
 }
 
 h1, h2 {

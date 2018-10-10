@@ -22,12 +22,11 @@ export default {
 
 <style>
 .active {
-  background-color: green
+  background-color: grey;
 }
-
 .action-button {
+  color: white;
   margin: 10px;
   width: 125px
 }
-
 </style>

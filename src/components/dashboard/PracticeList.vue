@@ -9,7 +9,7 @@
       <v-flex lg12 md12 sm12 class="mx-2 my-2">
         <v-data-table
         :headers="headers"
-        :items="this.organizationsSessions" 
+        :items="this.organizationsSessions"
         hide-actions
         class="elevation-1 scrimmageBorder"
         >
@@ -31,7 +31,7 @@
               </v-flex>
             </v-layout>
           </template>
-      
+
         </v-data-table>
       </v-flex>
     </v-layout>
