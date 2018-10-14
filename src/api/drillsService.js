@@ -9,18 +9,18 @@ export default class DrillsService {
     this.endSession = this.endSession.bind(this);
   }
 
-  createSession(organizationId){
+  createSession(organizationId, name){
     return Axios.post(`${baseUrl}sessions`, {
       start_time: moment().format('YYYY-MM-DD HH:mm:ss Z'),
       organization_id: organizationId
     }).then((response) => {
-      this.createDrill(response.data.id);
+      this.createDrill(response.data.id, name);
     });
   }
 
-  createDrill(sessionId){
+  createDrill(sessionId, name){
     return Axios.post(`${baseUrl}sessions/${sessionId}/drills`, {
-      type: 'scrimmage',
+      type: name,
       start_time: moment().format('YYYY-MM-DD HH:mm:ss Z')
     }).then((response) => {
       localStorage.setItem("drill_id", response.data.id);

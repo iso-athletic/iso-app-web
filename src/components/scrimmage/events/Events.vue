@@ -6,11 +6,11 @@
           <v-flex class="mt-1">
             <h2>Event log</h2>
           </v-flex>
-          <v-flex xs2>
+          <!-- <v-flex xs2>
             <v-btn class="ma-0" color="blue" flat icon :to="{path: '/events', params: {}}">
               <v-icon medium>exit_to_app</v-icon>
             </v-btn>
-        </v-flex>
+          </v-flex> -->
         </v-layout>
 
         <Event v-for="(eventItem, i) in occurredEvents.slice().reverse()"

@@ -49,7 +49,7 @@ $light-grey: #D1D1D1;
 .fullWidth {
   width: 100%;
 }
-.translucentBackground, .v-datatable {
+.translucentBackground {
   background: rgba(255, 255, 255, 0.1) !important;
 }
 .bottomScrimmageBorder {
@@ -118,6 +118,10 @@ $light-grey: #D1D1D1;
 
 .large-text {
   font-size: 2.25em;
+}
+
+.med-text {
+  font-size: 1.75em;
 }
 
 .full-height {

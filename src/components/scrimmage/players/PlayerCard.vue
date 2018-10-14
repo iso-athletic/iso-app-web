@@ -1,7 +1,19 @@
 <template>
-  <div>
-    <v-layout class="my-2" row>
-      <v-flex class="pl-4" sm11>
+<div>
+  <div v-if="!$store.state.IsCompetitiveDrill">
+      <v-flex sm4 md4 lg4>
+         <v-btn 
+                class="normalButton mx-0 px-1"
+                  :ripple="false"
+                  @click="selectPlayer" v-bind:class={scrimmageButtonSelected:isSelected}>
+                  {{player.name}}   
+                  {{checkSelected}} 
+          </v-btn>
+      </v-flex>
+    </div>
+    <div v-if="$store.state.IsCompetitiveDrill" >
+      <v-layout class="my-2" row>
+        <v-flex class="pl-4" sm11>
          <v-btn class="scrimmageButton mx-0"
                   :ripple="false"
                   @click="selectPlayer" v-bind:class={scrimmageButtonSelected:isSelected}>
@@ -10,6 +22,7 @@
           </v-btn>
       </v-flex>
     </v-layout>
+    </div>
   </div>
 </template>
 
@@ -25,8 +38,14 @@ export default {
     selectPlayer() {
       if (this.$store.getters.getIfForgotTimer) this.$store.dispatch("updateDisplayForgotTimer", true);
       else {
-        this.$store.dispatch("updatePlayer", this.player);
-        this.$store.dispatch("updateActiveTeam", this.determinePlayersTeam(this.player))
+        if (this.$store.state.IsCompetitiveDrill){
+          this.$store.dispatch("updatePlayer", this.player);
+          this.$store.dispatch("updateActiveTeam", this.determinePlayersTeam(this.player))
+        }
+        else {
+          this.$store.dispatch("updatePlayer", this.player);
+          this.$store.dispatch("updateActiveTeam", this.$store.getters.getTeamId(2));
+        }
       }
     },
     determinePlayersTeam(activePlayer){
