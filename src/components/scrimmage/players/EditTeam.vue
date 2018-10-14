@@ -96,6 +96,8 @@ export default {
       });
     },
     submit() {
+      var drillId = localStorage.getItem("drill_id");
+      
       var teamOnePlayers = this.$store.getters.getTeamPlayers(1);
       var teamOneIds = [];
       teamOnePlayers.forEach(player => {
@@ -108,8 +110,6 @@ export default {
         teamTwoIds.push(player.id);
       });
 
-      var drillId = localStorage.getItem("drill_id");
-      
       teamsService.createTeam(teamOneIds, this.$store.getters.getTeam1Name, drillId)
                     .then((response) => {
                         this.$store.dispatch("updateTeamId", [response.data.id, 1]);               

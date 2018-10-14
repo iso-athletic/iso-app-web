@@ -1,45 +1,26 @@
 <template>
   <div class="mb-10 noBackground">
     <v-layout row wrap>
-      <v-flex xs12 sm12 md12>
-
+      <v-flex xs3 sm3 md3>
           <v-btn 
             :to="{ path: '/scrimmage', params: {} }" 
-            @click="newSessionAndDrill" 
+            @click="newSessionAndPractice" 
             color="primary"
             class="mx-3 my-3">
             <v-icon left>add</v-icon>
              New Scrimmage
           </v-btn>
       </v-flex>
+      <v-flex xs3 sm3 md3>
+        <v-btn 
+            @click="newDrillDialog=true" 
+            color="primary"
+            class="mx-3 my-3">
+            <v-icon left>add</v-icon>
+             New Drill
+          </v-btn>
+      </v-flex>
       <v-flex xs12 sm12 md12>
-        <!-- <v-menu
-        ref="menu"
-        :close-on-content-click="false"
-        v-model="menu"
-        :nudge-right="40"
-        :return-value.sync="dates"
-        lazy
-        transition="scale-transition"
-        offset-y
-        full-width
-        min-width="290px"
-      >
-        <v-combobox
-          slot="activator"
-          v-model="dates"
-          multiple
-          chips
-          small-chips
-          label="Select date or date range"
-          prepend-icon="event"
-        ></v-combobox>
-        <v-date-picker v-model="dates" multiple no-title scrollable>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="$refs.menu.save(dates); submit()">OK</v-btn>
-        </v-date-picker>
-      </v-menu> -->
       <v-layout row wrap>
         <v-flex xs5 md3 lg3>
           <v-menu full-width offset-y :close-on-content-click="false" v-model="dateMenu" bottom class="mx-2">
@@ -118,6 +99,36 @@
         </v-data-table>
       </v-flex>
     </v-layout>
+    <v-dialog v-model="newDrillDialog" max-width="600">
+    <v-card class="patternBackground editTeamCheckbox">
+    <v-container class="pb-2">
+        <v-layout row wrap>
+          <v-flex xs12 md12 lg12 class="text-xs-center">
+            <div class="med-text">
+              
+            </div>
+          </v-flex>
+          <v-divider></v-divider>
+          <v-flex xs12 md12 lg12 class="text-xs-center">
+             <v-text-field placeholder="Enter a name for your new drill" box v-model="newDrillName"></v-text-field>
+          </v-flex>
+          <v-flex xs12 md12 lg12 class="text-xs-center">
+            <v-checkbox
+              :label="`Competitive`"
+              v-model="isCompetitiveDrill"
+            ></v-checkbox>
+          </v-flex>
+        </v-layout>
+    </v-container>
+    <v-layout justify-end>
+      <v-btn class="mb-3 mr-3 normalButton" 
+            :to="{ path: '/scrimmage', params: {} }"  
+            @click="newSessionAndDrill(); newDrillDialog=false">
+            Go
+      </v-btn>
+    </v-layout>
+    </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -135,11 +146,29 @@ export default {
   name: "tearsheet",
   data() {
     return {
-      range: [moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')],
+      isCompetitiveDrill: true,
+      newDrillName: "",
+      newDrillDialog: false,
+      range: [
+        moment()
+          .local()
+          .startOf("day")
+          .format("YYYY-MM-DD"),
+        moment()
+          .local()
+          .endOf("day")
+          .format("YYYY-MM-DD")
+      ],
       dateRangeOptions: {
-        startDate: moment().format('YYYY-MM-DD'),
-        endDate: moment().format('YYYY-MM-DD'),
-        format: 'MM/DD/YYYY'
+        startDate: moment()
+          .local()
+          .startOf("day")
+          .format("YYYY-MM-DD"),
+        endDate: moment()
+          .local()
+          .endOf("day")
+          .format("YYYY-MM-DD"),
+        format: "MM/DD/YYYY"
       },
       headers: [
         {
@@ -250,14 +279,14 @@ export default {
           value: "reb"
         },
         {
-          text: "TOV",
-          align: "center",
-          value: "tov"
-        },
-        {
           text: "AST",
           align: "center",
           value: "ast"
+        },
+        {
+          text: "TOV",
+          align: "center",
+          value: "tov"
         },
         {
           text: "STL",
@@ -276,7 +305,7 @@ export default {
         }
       ],
       playerStats: [],
-      dateMenu: false,
+      dateMenu: false
     };
   },
   filters: {
@@ -291,23 +320,27 @@ export default {
     onDateRangeChange(range) {
       this.range = range;
     },
-    newSessionAndDrill() {
-      this.$store.dispatch("updateIsScrimmageMode", true);
+    newSessionAndPractice() {
       var organization_id = localStorage.getItem("organization_id");
-      drillsService.createSession(organization_id);
+      drillsService.createSession(organization_id, "scrimmage");
+      this.$store.dispatch("updatePracticeName", 'Scrimmage');
+      this.$store.dispatch("updateIsScrimmageMode", true);
+    },
+    newSessionAndDrill() {
+      var organization_id = localStorage.getItem("organization_id");
+      drillsService.createSession(organization_id, this.newDrillName);
+      this.$store.dispatch("updateIsCompetitiveDrill", this.isCompetitiveDrill);
+      this.$store.dispatch("updatePracticeName", this.newDrillName);
+      this.$store.dispatch("updateIsScrimmageMode", true);
     },
     submit() {
-      var fromDateInEpoch = moment(this.range[0])
-        .startOf("day")
-        .unix();
+      var fromDateInEpoch = moment(this.range[0]).unix();
       this.getStatsBasedOnDates(fromDateInEpoch);
     },
     getStatsBasedOnDates(fromDateInEpoch) {
-      var toDateInEpoch = this.range[1]
-        ? moment(this.range[1])
-            .endOf("day")
-            .unix()
-        : moment(fromDateInEpoch).add(1, "d");
+      var toDateInEpoch = moment(this.range[1])
+        .endOf("day")
+        .unix();
       statsService
         .getStatsForDrills(organizationId, fromDateInEpoch, toDateInEpoch)
         .then(res => {

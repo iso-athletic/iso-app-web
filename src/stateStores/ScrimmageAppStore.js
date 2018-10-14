@@ -46,7 +46,9 @@ const state = {
       displayForgotTimer: false
     }
   },
-  IsScrimmageMode: false
+  IsScrimmageMode: false,
+  PracticeName: 'Scrimmage',
+  IsCompetitiveDrill: true
 };
 
 function isActionEntryFull() {
@@ -223,9 +225,21 @@ const mutations = {
   SET_ACTIVE_TEAM(state, teamId){
     state.ActionEntry.teamId = teamId;
   },
+  SET_PRACTICE_NAME(state, name){
+    state.PracticeName = name;
+  },
+  SET_COMPETITIVE_DRILL(state, bool){
+    state.IsCompetitiveDrill = bool;
+  }
 };
 
 const actions = {
+  updateIsCompetitiveDrill(context, bool){
+    context.commit("SET_COMPETITIVE_DRILL", bool);
+  },
+  updatePracticeName(context, name){
+    context.commit("SET_PRACTICE_NAME", name);
+  },
   updateActiveTeam(context, id){
     context.commit("SET_ACTIVE_TEAM", id);
   },

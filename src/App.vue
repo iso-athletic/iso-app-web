@@ -29,13 +29,13 @@
     <v-btn icon class="hidden-xs-only" :to="'/'" @click="resetIsScrimmageMode(false)">
       <v-icon>arrow_back</v-icon>
     </v-btn>
-    <v-toolbar-title>Scrimmage Mode</v-toolbar-title>
+    <v-toolbar-title>{{$store.state.PracticeName}}</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn :loading="loading" :disabled="loading" color="success" @click="endPractice">
       <span slot="loader" class="custom-loader">
             <v-icon light>cached</v-icon>
           </span>
-      Finish Practice
+      Finish {{$store.state.PracticeName}}
     </v-btn>
   </v-toolbar>
   <v-content>
@@ -53,6 +53,7 @@ import EventsService from "./api/eventsService";
 import DrillsService from "./api/drillsService";
 import OrganizationsService from "./api/organizationsService";
 import StatsService from "./api/statsService";
+import PlayersService from "./api/playersService";
 import router from "./router";
 import moment from "moment";
 
@@ -68,6 +69,7 @@ const eventsService = new EventsService();
 const drillsService = new DrillsService();
 const organizationsService = new OrganizationsService();
 const statsService = new StatsService();
+const playersService = new PlayersService;
 
 const organizationId = localStorage.getItem("organization_id");
 

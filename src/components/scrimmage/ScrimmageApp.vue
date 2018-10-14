@@ -55,9 +55,11 @@ import Events from "./events/Events";
 import EditTeam from './players/EditTeam';
 import { mapGetters } from "vuex";
 import PlayersService from "./../../api/playersService";
+import TeamsService from "./../../api/teamsService";
 import Axios from "axios";
 
 const playersService = new PlayersService();
+const teamsService = new TeamsService();
 var organizationId = localStorage.getItem("organization_id");
 
 export default {
@@ -107,20 +109,40 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      if (this.$store.getters.getTeamPlayers(1).length == 0) {
+      if ((this.$store.getters.getTeamPlayers(1).length == 0)
+        && this.$store.state.IsCompetitiveDrill == true) {
         this.$store.dispatch("editTeams");
       }
     }, 1250);
+
+    if (!this.$store.state.IsCompetitiveDrill){
+        var allPlayersIds = [];
+        var playersAvailable = this.$store.getters.getOrganizationPlayers;
+
+        playersAvailable.forEach(player => {
+          allPlayersIds.push(player.id);
+        });
+
+        var drillId = localStorage.getItem("drill_id");
+
+        teamsService.createTeam(allPlayersIds, 'Drill Team', drillId)
+          .then((res) => {
+            this.$store.dispatch("updateTeamId", [res.data.id, 2]);
+          })
+        return;
+    }
   },
   updated() {
-    /* to prevent overflow of events container we need a pixel height */
-    let eventsHeight = document.getElementById('events').offsetHeight;
-    document.getElementById('events').style.height = eventsHeight + "px";
+    if (document.getElementById('events')){
+      /* to prevent overflow of events container we need a pixel height */
+      let eventsHeight = document.getElementById('events').offsetHeight;
+      document.getElementById('events').style.height = eventsHeight + "px";
+    }
   },
   watch: {
     forgotTimer (val) {
       if (!val) {
-          this.$store.dispatch("updateDisplayForgotTimer", false);
+        this.$store.dispatch("updateDisplayForgotTimer", false);
       }
     },
   },
