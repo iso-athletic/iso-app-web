@@ -33,18 +33,26 @@ export default class AuthService {
     });
   }
 
+  getUserInfo(authResult) {
+    return new Promise((fulfill, reject) => {
+      this.auth0.client.userInfo(authResult.accessToken, (err, user) => {
+        fulfill(user);
+        reject(err)
+      });
+    });
+  }
+
   handleAuthentication() {
     this.auth0.parseHash(window.location.hash, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
+        this.getUserInfo(authResult).then((user) => {
+          console.log(user);
           localStorage.setItem('organization_id', user['https://iso-athletic:auth0:com/organization_id']);
-        });
-        this.setSession(authResult);
-        setTimeout(function(){
+          this.setSession(authResult);
           window.opener.location.reload(true);
           window.close();
           e.preventDefault();
-        }, 2000);
+        });
       } else if (err) {
         router.replace('home')
         console.log(err)
