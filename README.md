@@ -78,4 +78,4 @@ Increment the score by pressing the corresponding +1, +2, or +3 button according
 Use the features the way they are designed to be use. The completed application will have a much better UI and therefore should be easier to navigate, but this current version has all the necessary functionality. Once finished, take screenshots of the event log so that we can compare the data afterwards. 
 
 ### SonarQube Link
-https://sonarcloud.io/dashboard?id=iso-athletic_iso-app-web
+https://sonarcloud.io/dashboard?id=iso-athletic_iso-app-server
