@@ -17,7 +17,7 @@
          <v-btn class="scrimmageButton mx-0"
                   :ripple="false"
                   @click="selectPlayer" v-bind:class={scrimmageButtonSelected:isSelected}>
-                  {{player.name}}   
+                  {{player.name}}
                   {{checkSelected}} 
           </v-btn>
       </v-flex>

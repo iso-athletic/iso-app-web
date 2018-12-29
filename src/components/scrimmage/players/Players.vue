@@ -69,7 +69,7 @@ export default {
     playersService.getOrganizationPlayers(organizationId)
       .then((players) => {
         players.data.forEach(player => {
-          playersArray.push({name: player.name, id: player.id});
+          playersArray.push({name: player.name, id: player.id, number: player.jersey_number});
         });
       });
 
