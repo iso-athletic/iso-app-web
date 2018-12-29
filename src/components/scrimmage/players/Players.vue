@@ -64,16 +64,7 @@ export default {
     }
   },
   mounted(){
-    var playersArray = [];
-
-    playersService.getOrganizationPlayers(organizationId)
-      .then((players) => {
-        players.data.forEach(player => {
-          playersArray.push({name: player.name, id: player.id, number: player.jersey_number});
-        });
-      });
-
-    this.teamPlayers = playersArray; 
+    this.teamPlayers = this.$store.getters.getOrganizationPlayers;
   }
 }
 

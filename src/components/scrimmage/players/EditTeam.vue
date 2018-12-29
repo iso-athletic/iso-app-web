@@ -124,7 +124,6 @@ export default {
   },
   created() {
     this.playersAvailable = this.$store.getters.getOrganizationPlayers;
-    console.log(this.playersAvailable);
   },
   watch: {
     editPlayersDialog(val) {
