@@ -56,7 +56,6 @@ export default class AuthService {
       } else if (err) {
         router.replace('home')
         console.log(err)
-        alert(`Error: ${err.error}. Check the console for further details.`)
       }
     })
   }
