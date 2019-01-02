@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import TeamView from './TeamView'
 import PlayerCard from './PlayerCard'
 import {mapGetters} from 'vuex'

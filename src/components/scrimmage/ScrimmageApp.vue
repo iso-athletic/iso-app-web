@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import moment from "moment";
 import Timer from "./Timer";
 import Court from "./Court";

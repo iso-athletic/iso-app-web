@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { mapGetters } from "vuex";
 import TeamsService from "./../../../api/teamsService";
 
@@ -117,7 +116,7 @@ export default {
       teamsService.createTeam(teamTwoIds, this.$store.getters.getTeam2Name, drillId)
                     .then((response) => {
                         this.$store.dispatch("updateTeamId", [response.data.id, 2]);               
-                    });;
+                    });
        
       this.editPlayersDialog = false;
     }

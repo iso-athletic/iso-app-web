@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import Score from "./Score.vue";
 import {mapGetters} from 'vuex'
 export default {

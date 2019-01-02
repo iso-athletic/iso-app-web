@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 export default {
   name: 'court',
   data() {
@@ -23,7 +22,7 @@ export default {
         let parentHeight = document.getElementById('scrimmageAppContainer').offsetHeight;
         let canvas = p.createCanvas(parentWidth-4, parentHeight-offsetHeights-24);
         canvas.parent(this.$refs.canvas);
-      },
+      }
       p.drawCourt = _ => {
         /**** TODO ****
          * draw additional details (backboard/hoop, lane line ticks, etc)
@@ -44,7 +43,7 @@ export default {
         p.rect(0, p.height/2 - 6*unit, 19*unit, 12*unit);
         /**** drawing top of the key  ****/
         p.arc(19*unit, p.height/2, 12*unit, 12*unit, -p.HALF_PI, p.HALF_PI, p.CHORD);
-      },
+      }
       p.mouseClicked = _ => {
         const unit = p.height/55;
         const threePointCenter = {x: 4.3*unit, y: p.height/2};
@@ -70,7 +69,7 @@ export default {
           }
           this.$store.dispatch('updatePosition', {x: p.mouseX, y: p.mouseY, shotValue: shotValue, shotWeight: shotWeight});
         }
-      },
+      }
       p.draw = _ => {
         p.clear();
         p.drawCourt();

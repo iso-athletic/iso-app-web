@@ -9,7 +9,8 @@ $light-grey: #D1D1D1;
   }
 }
 
-@media print{@page {size: landscape}; nav {display:none;}}
+// was useful when we were printing the EventsSummary page, but not anymore
+/* @media print{@page {size: landscape} nav {display:none}} */
 
 * {
     -webkit-print-color-adjust: exact;
@@ -57,10 +58,6 @@ $light-grey: #D1D1D1;
 }
 .iceBlueBackgroundButton {
   background: $blue !important;
-}
-.scrimmageButtonSelected {
-  background: $blue !important;
-  transition: background 0s;
 }
   
 /* undoing the animation effect that v-btn uses which looked bad */
