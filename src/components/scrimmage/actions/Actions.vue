@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import Action from './Action'
 
 export default {

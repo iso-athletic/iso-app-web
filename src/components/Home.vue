@@ -11,7 +11,6 @@
 
 <script>
 import DrillsService from './../api/drillsService';
-import PracticeList from './dashboard/PracticeList';
 import TearSheet from './dashboard/TearSheet';
 
 const drillsService = new DrillsService;

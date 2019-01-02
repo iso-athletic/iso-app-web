@@ -23,7 +23,6 @@
  * allow user to change the timer directly instead of input vals
  * alert sound when timer done?
  */
-import Vue from 'vue'
 import {mapActions, mapGetters} from 'vuex'
 
 export default {

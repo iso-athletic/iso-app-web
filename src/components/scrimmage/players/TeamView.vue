@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import PlayerCard from "./PlayerCard";
 
 export default {

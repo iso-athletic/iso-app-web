@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
   name: 'event',
   data() {
