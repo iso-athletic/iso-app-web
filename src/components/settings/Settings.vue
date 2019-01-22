@@ -42,6 +42,7 @@
 import ActionsSelect from './ActionsSelect';
 import PlayersSelect from './PlayersSelect';
 import Clock from './Clock';
+import {mapActions} from 'vuex';
 
 export default {
   name: "settings", //  name of the component

@@ -5,7 +5,7 @@ import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
-var defaultTime = 20 * 6000
+ var defaultTime = 0;
 
 const state = {
   LoggedIn: false,
@@ -17,7 +17,7 @@ const state = {
     id: 0,
   },
   Time: {
-    currentTime: defaultTime,
+    currentTime: 0,
     interval: null,
   },
   OrganizationPlayers: [],
@@ -204,7 +204,7 @@ const mutations = {
     if (state.Time.currentTime > 0) state.Time.currentTime--;
   },
   RESET_TIMER(state) {
-    state.Time.currentTime = defaultTime
+    state.Time.currentTime = defaultTime;
   },
   UPDATE_FORGOT_TIMER(state, val) {
     state.Errors.forgotTimer.displayForgotTimer = val;
@@ -316,9 +316,14 @@ const actions = {
   resetTimer(context) {
     clearInterval(state.Time.interval);
     state.Time.interval = null;
+    console.log(defaultTime);
     context.commit("RESET_TIMER");
     state.Errors.forgotTimer.timerStarted = false;
   },
+  updateTimer(context, default_time) {
+    state.Time.currentTime = default_time;
+    defaultTime = default_time;
+  }
 };
 
 const getters = {

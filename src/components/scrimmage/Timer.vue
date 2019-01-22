@@ -32,7 +32,8 @@ export default {
     ...mapActions([
       'startTimer',
       'stopTimer',
-      'resetTimer'
+      'resetTimer',
+      'updateTimer'
     ])
   },
   computed: {

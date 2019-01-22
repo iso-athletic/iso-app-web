@@ -9,4 +9,10 @@ export default class OrganizationsService {
   getSessionsForOrganization(organizationId){
     return Axios.get(`${baseUrl}organizations/${organizationId}/sessions`);
   }
+
+  updateDefaultTime(organizationId, new_default_time) {
+    return Axios.put(`${baseUrl}organizations/${organizationId}`, {
+      default_time: new_default_time
+    });
+  }
 }

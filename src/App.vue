@@ -85,6 +85,7 @@ export default {
       loader: null,
       loading: false,
       organizationLogo: null,
+      defaultTime: null,
       initialState: {}
     };
   },
@@ -127,6 +128,7 @@ export default {
             this.loading = false;
             this.$store.replaceState(this.initialState);
             this.resetIsScrimmageMode(false);
+            this.$store.dispatch("resetTimer");
             router.replace("home");
           })
         });
@@ -146,6 +148,13 @@ export default {
             localStorage.setItem("organization_logo", logoString);
           });
       }
+    },
+    loadTime() {
+      organizationsService
+        .getOrganizationInfo(localStorage.getItem("organization_id"))
+        .then(response => {
+          this.$store.dispatch("updateTimer", response.data.default_time);
+        })
     }
   },
   computed: {
@@ -155,6 +164,7 @@ export default {
   },
   mounted() {
     this.loadLogo();
+    this.loadTime();
     this.initialState = JSON.parse(JSON.stringify(this.$store.state));
   }
 };
