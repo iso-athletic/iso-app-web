@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-xl my-4>
+  <v-container fluid grid-list-xl my-5 py-4>
   <v-layout row>
     <v-flex d-flex xs12>
       <v-card class="elevation-3" color="grey lighten-3">
