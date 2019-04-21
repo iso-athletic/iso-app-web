@@ -1,25 +1,7 @@
 <template>
   <div class="mb-10 noBackground">
     <v-layout row wrap>
-      <v-flex xs3 sm3 md3>
-          <v-btn 
-            :to="{ path: '/scrimmage', params: {} }" 
-            @click="newSessionAndPractice" 
-            color="primary"
-            class="mx-3 my-3">
-            <v-icon left>add</v-icon>
-             New Scrimmage
-          </v-btn>
-      </v-flex>
-      <v-flex xs3 sm3 md3>
-        <v-btn 
-            @click="newDrillDialog=true" 
-            color="primary"
-            class="mx-3 my-3">
-            <v-icon left>add</v-icon>
-             New Drill
-          </v-btn>
-      </v-flex>
+
       <v-flex xs12 sm12 md12>
       <v-layout row wrap>
         <v-flex xs5 md3 lg3>

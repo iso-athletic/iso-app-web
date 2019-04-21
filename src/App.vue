@@ -1,30 +1,9 @@
 <template>
-<v-app dark>
-  <v-toolbar v-if="!$store.state.IsScrimmageMode">
-    <v-toolbar-title v-if="authenticated">Iso Athletic +
-      <img alt="Logo" ref="logo" id="logo" height="20px" :src="this.organizationLogo"/>
-      </v-toolbar-title>
-      <v-toolbar-title v-if="!authenticated">Iso Athletic</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-xs-and-down">
-        <v-btn :to="'/'" v-if="authenticated" flat>
-          Dashboard
-        </v-btn>
-        <v-btn flat v-if="!authenticated" @click="login()">
-          Log In
-        </v-btn>
-        <v-btn flat v-if="!authenticated" @click="login()">
-          Sign Up
-        </v-btn>
-        <v-btn flat :to="{ path: '/settings', params: {} }"
-                     v-if="authenticated">
-                     Settings
-        </v-btn>
-        <v-btn flat v-if="authenticated" @click="logout()">
-          Log Out
-        </v-btn>
-      </v-toolbar-items>
-  </v-toolbar>
+<v-app>
+  <NavigationDrawer></NavigationDrawer>
+  <Toolbar></Toolbar>
+  
+  
   <v-toolbar dense color="blue" v-if="$store.state.IsScrimmageMode">
     <v-btn icon class="hidden-xs-only" :to="'/'" @click="resetIsScrimmageMode(false)">
       <v-icon>arrow_back</v-icon>
@@ -39,10 +18,9 @@
     </v-btn>
   </v-toolbar>
   <v-content>
-    <v-container fluid class="overall-container">
+    <Cards></Cards>
       <router-view :auth="auth" :authenticated="authenticated">
       </router-view>
-    </v-container>
   </v-content>
 </v-app>
 </template>
@@ -56,6 +34,9 @@ import StatsService from "./api/statsService";
 import PlayersService from "./api/playersService";
 import router from "./router";
 import moment from "moment";
+import NavigationDrawer from "./components/dashboard/NavigationDrawer";
+import Toolbar from './components/dashboard/Toolbar';
+import Cards from './components/dashboard/Cards';
 
 const auth = new AuthService();
 const {
@@ -75,6 +56,11 @@ const organizationId = localStorage.getItem("organization_id");
 
 export default {
   name: "app",
+  components: {
+    NavigationDrawer,
+    Toolbar,
+    Cards
+  },
   data() {
     authNotifier.on("authChange", authState => {
       this.authenticated = authState.authenticated;
