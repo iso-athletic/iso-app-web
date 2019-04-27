@@ -11,4 +11,8 @@ export default class EventsService {
       timestamp: timestamp
     });
   }
+
+  getAllShots(organization_id, date_from, date_to){
+    return Axios.get(`${baseUrl}events/...`,{});
+  }
 }

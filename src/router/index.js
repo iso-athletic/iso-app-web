@@ -6,6 +6,7 @@ import Settings from '../components/settings/Settings'
 import Team from '../components/team/Team'
 import ScrimmageApp from '../components/scrimmage/ScrimmageApp'
 import EventsSummary from '../components/scrimmage/events/EventsSummary'
+import ShotChartBase from '../components/dashboard/shot-chart/ShotChartBase'
 
 Vue.use(Router)
 
@@ -51,6 +52,12 @@ const router = new Router({
       path: '/events',
       name: 'EventsSummary',
       component: EventsSummary,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/shotchart',
+      name: 'ShotChart',
+      component: ShotChartBase,
       meta: { requiresAuth: true }
     }
   ]

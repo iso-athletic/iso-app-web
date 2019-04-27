@@ -20,6 +20,14 @@
              New Drill
           </v-btn>
       </v-flex>
+      <v-flex xs3 sm3 md3>
+        <v-btn 
+            :to="{ path: '/shotchart', params: {}}"
+            color="red"
+            class="mx-3 my-3">
+             Ethan Shot Chart
+          </v-btn>
+      </v-flex>
       <v-flex xs12 sm12 md12>
       <v-layout row wrap>
         <v-flex xs5 md3 lg3>
