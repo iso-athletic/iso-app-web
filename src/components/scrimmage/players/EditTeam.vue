@@ -96,7 +96,7 @@ export default {
     },
     submit() {
       var drillId = localStorage.getItem("drill_id");
-      
+
       var teamOnePlayers = this.$store.getters.getTeamPlayers(1);
       var teamOneIds = [];
       teamOnePlayers.forEach(player => {
@@ -111,13 +111,13 @@ export default {
 
       teamsService.createTeam(teamOneIds, this.$store.getters.getTeam1Name, drillId)
                     .then((response) => {
-                        this.$store.dispatch("updateTeamId", [response.data.id, 1]);               
+                        this.$store.dispatch("updateTeamId", [response.data.id, 1]);
                     });
       teamsService.createTeam(teamTwoIds, this.$store.getters.getTeam2Name, drillId)
                     .then((response) => {
-                        this.$store.dispatch("updateTeamId", [response.data.id, 2]);               
+                        this.$store.dispatch("updateTeamId", [response.data.id, 2]);
                     });
-       
+
       this.editPlayersDialog = false;
     }
   },

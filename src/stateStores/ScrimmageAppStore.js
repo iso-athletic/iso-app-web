@@ -48,7 +48,8 @@ const state = {
   },
   IsScrimmageMode: false,
   PracticeName: 'Scrimmage',
-  IsCompetitiveDrill: true
+  IsCompetitiveDrill: true,
+  shots: []
 };
 
 function isActionEntryFull() {
@@ -388,6 +389,9 @@ const getters = {
   },
   isScrimmageMode(state){
     return state.isScrimmageMode;
+  },
+  getShots(state){
+    return state.shots;
   }
 };
 

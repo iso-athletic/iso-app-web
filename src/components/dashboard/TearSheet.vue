@@ -2,9 +2,9 @@
   <div class="mb-10 noBackground">
     <v-layout row wrap>
       <v-flex xs3 sm3 md3>
-          <v-btn 
-            :to="{ path: '/scrimmage', params: {} }" 
-            @click="newSessionAndPractice" 
+          <v-btn
+            :to="{ path: '/scrimmage', params: {} }"
+            @click="newSessionAndPractice"
             color="primary"
             class="mx-3 my-3">
             <v-icon left>add</v-icon>
@@ -12,8 +12,8 @@
           </v-btn>
       </v-flex>
       <v-flex xs3 sm3 md3>
-        <v-btn 
-            @click="newDrillDialog=true" 
+        <v-btn
+            @click="newDrillDialog=true"
             color="primary"
             class="mx-3 my-3">
             <v-icon left>add</v-icon>
@@ -21,11 +21,11 @@
           </v-btn>
       </v-flex>
       <v-flex xs3 sm3 md3>
-        <v-btn 
+        <v-btn
             :to="{ path: '/shotchart', params: {}}"
-            color="red"
+            color="blue"
             class="mx-3 my-3">
-             Ethan Shot Chart
+             Ethan  Chart
           </v-btn>
       </v-flex>
       <v-flex xs12 sm12 md12>
@@ -60,7 +60,7 @@
       <v-flex lg12 md12 sm12>
         <v-data-table
         :headers="headers"
-        :items="this.playerStats" 
+        :items="this.playerStats"
         hide-actions
         class="elevation-1 scrimmageBorder ml-3 my-3"
         >
@@ -104,7 +104,7 @@
               </v-flex>
             </v-layout>
           </template>
-      
+
         </v-data-table>
       </v-flex>
     </v-layout>
@@ -114,7 +114,7 @@
         <v-layout row wrap>
           <v-flex xs12 md12 lg12 class="text-xs-center">
             <div class="med-text">
-              
+
             </div>
           </v-flex>
           <v-divider></v-divider>
@@ -130,8 +130,8 @@
         </v-layout>
     </v-container>
     <v-layout justify-end>
-      <v-btn class="mb-3 mr-3 normalButton" 
-            :to="{ path: '/scrimmage', params: {} }"  
+      <v-btn class="mb-3 mr-3 normalButton"
+            :to="{ path: '/scrimmage', params: {} }"
             @click="newSessionAndDrill(); newDrillDialog=false">
             Go
       </v-btn>
