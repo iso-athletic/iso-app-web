@@ -71,7 +71,12 @@ export default {
 
       eventsService.getAllShots(organizationId, start, end)
                     .then((response) => {
-                        this.stuff = response.data;
+                        if (response.data.length > 0){
+                          this.stuff = response.data;
+                        }
+                        else {
+                          this.stuff = ["No Shots Available"];
+                        }
                         // this.$store.dispatch("getShots", [response.data, 1]);
                     });
 
