@@ -13,10 +13,6 @@ export default class EventsService {
   }
 
   getAllShots(organizationId, dateFrom, dateTo){
-    return Axios.get(`${baseUrl}organizations/${organizationId}/events/${dateFrom}-${dateTo}/shots`,{
-      organization_id: organizationId,
-      date_from: dateFrom,
-      date_to: dateTo
-    })
+    return Axios.get(`${baseUrl}organizations/${organizationId}/events/${dateFrom}-${dateTo}/shots`, {})
   }
 }
