@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="mb-10 noBackground">
 
   <v-flex xs5 md3 lg3>
@@ -17,19 +18,17 @@
   </v-flex>
   <v-btn class="mb-3 mr-3 normalButton" @click="getShots()">get shots</v-btn>
 
-    <ul>
-      <li v-for="s in stuff"
-          v-bind:data="s"
-          v-bind:key="s">
-          {{s}}
-      </li>
-    </ul>
+  </div>
+    <CourtChart
+    :shots="shotCoords"
+     />
   </div>
 </template>
 
 <script>
 import EventsService from "./../../../api/eventsService";
 import moment from "moment";
+import CourtChart from "./CourtChart"
 
 const eventsService = new EventsService();
 
@@ -37,9 +36,13 @@ let organizationId = localStorage.getItem("organization_id");
 
 export default {
   name: "shotchartbase",
+  components: {
+    CourtChart,
+  },
   data() {
     return {
-      stuff: [],
+      fullShotData: [],
+      shotCoords: [],
       dateMenu: false,
       range: [
         moment()
@@ -72,10 +75,13 @@ export default {
       eventsService.getAllShots(organizationId, start, end)
                     .then((response) => {
                         if (response.data.length > 0){
-                          this.stuff = response.data;
+                          this.fullShotData = response.data;
+                          response.data.forEach((shot) => {
+                            this.shotCoords.push([shot.player_id, shot.location])
+                          })
                         }
                         else {
-                          this.stuff = ["No Shots Available"];
+                          this.fullShotData = ["No Shots Available"];
                         }
                         // this.$store.dispatch("getShots", [response.data, 1]);
                     });
