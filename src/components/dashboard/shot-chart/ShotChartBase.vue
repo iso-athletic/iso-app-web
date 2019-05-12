@@ -76,6 +76,7 @@ export default {
                     .then((response) => {
                         if (response.data.length > 0){
                           this.fullShotData = response.data;
+                          this.shotCoords = [];
                           response.data.forEach((shot) => {
                             this.shotCoords.push([shot.player_id, shot.location])
                           })
