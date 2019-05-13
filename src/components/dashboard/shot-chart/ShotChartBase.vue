@@ -1,5 +1,4 @@
 <template>
-  <div>
   <div class="mb-10 noBackground">
 
   <v-flex xs5 md3 lg3>
@@ -17,11 +16,9 @@
     </v-menu>
   </v-flex>
   <v-btn class="mb-3 mr-3 normalButton" @click="getShots()">get shots</v-btn>
-
-  </div>
-    <CourtChart
-    :shots="shotCoords"
-     />
+  <CourtChart
+  :shots="shotCoords"
+   />
   </div>
 </template>
 
