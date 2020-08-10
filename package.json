@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "EventEmitter": "^1.0.0",
-    "auth0-js": "^9.4.2",
+    "auth0-js": "^9.13.2",
     "aws-sdk": "^2.233.1",
     "axios": "^0.18.0",
     "babel-preset-stage-0": "^6.24.1",
