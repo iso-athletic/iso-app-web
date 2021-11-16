@@ -14,7 +14,7 @@
   "dependencies": {
     "EventEmitter": "^1.0.0",
     "auth0-js": "^9.13.2",
-    "aws-sdk": "^2.233.1",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.21.1",
     "babel-preset-stage-0": "^6.24.1",
     "express": "^4.16.3",
